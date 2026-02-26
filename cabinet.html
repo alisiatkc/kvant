@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет | Педагогический технопарк</title>
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <!-- Feather icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f7fb;
+      color: #1b1f2b;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Шапка */
+    .header {
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      background: white;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo a {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #1b1f2b;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #2b3b6b;
+      font-weight: 500;
+    }
+
+    /* Карточка входа */
+    .login-section {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 0;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 48px;
+      padding: 56px 48px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
+    }
+
+    .login-card h2 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .login-sub {
+      color: #3f4a6b;
+      font-weight: 300;
+      margin-bottom: 32px;
+    }
+
+    .track-selector {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .track-btn {
+      flex: 1;
+      padding: 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      background: white;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1b1f2b;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .track-btn.active {
+      background: #2b3b6b;
+      color: white;
+      border-color: #2b3b6b;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #3f4a6b;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #f9fcff;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #2b3b6b;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 16px;
+      background: #1b1f2b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 16px;
+    }
+
+    .login-btn:hover {
+      background: #2b3b6b;
+    }
+
+    .social-login {
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .social-login p {
+      color: #7c8aa5;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .social-login p::before,
+    .social-login p::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 30%;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .social-login p::before { left: 0; }
+    .social-login p::after { right: 0; }
+
+    .social-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .social-btn {
+      padding: 12px 24px;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      background: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #1b1f2b;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .social-btn:hover {
+      background: #f0f4fe;
+    }
+
+    .social-btn i {
+      width: 20px;
+      height: 20px;
+      color: #2b3b6b;
+    }
+
+    /* Команда (после входа) */
+    .team-section {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .team-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .team-header h3 {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+
+    .create-team-btn {
+      padding: 12px 24px;
+      background: #2b3b6b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 32px;
+      padding: 28px;
+      border: 1px solid #eef2f9;
+    }
+
+    .project-card h4 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 12px;
+      margin: 16px 0;
+      color: #5b6b8f;
+      font-size: 0.9rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2b3b6b;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Трекер задач */
+    .tracker-section {
+      background: white;
+      border-radius: 48px;
+      padding: 40px;
+      margin: 40px 0;
+    }
+
+    .kanban-header {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .kanban-col {
+      flex: 1;
+      background: #f9fbfe;
+      border-radius: 24px;
+      padding: 20px;
+    }
+
+    .kanban-col h4 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      color: #2b3b6b;
+    }
+
+    .task-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #eef2f9;
+    }
+
+    /* Чаты */
+    .chats-panel {
+      background: white;
+      border-radius: 48px;
+      padding: 40px;
+      margin: 40px 0;
+    }
+
+    .chat-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .chat-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: #f9fbfe;
+      border-radius: 40px;
+      text-decoration: none;
+      color: #1b1f2b;
+      font-weight: 500;
+    }
+
+    .footer {
+      padding: 48px 0;
+      text-align: center;
+      color: #6e7c9e;
+      border-top: 1px solid rgba(0,0,0,0.03);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo">
+        <a href="index.html">Педагогический технопарк</a>
+      </div>
+      <a href="index.html" class="back-link">
+        <i data-feather="arrow-left"></i>
+        <span>На главную</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Страница входа / личный кабинет -->
+    <section class="login-section">
+      <div class="container">
+        <!-- Карточка входа (показывается сначала) -->
+        <div class="login-card" id="loginCard">
+          <h2>Вход в кабинет</h2>
+          <div class="login-sub">Выберите формат практики и войдите через ВК</div>
+          
+          <div class="track-selector">
+            <button class="track-btn active" id="trackA1">А1 · Семестр</button>
+            <button class="track-btn" id="trackA2">А2 · Интенсив</button>
+          </div>
+
+          <div class="form-group">
+            <label>Имя и фамилия</label>
+            <input type="text" placeholder="Иванов Иван" id="studentName">
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="student@example.com" id="studentEmail">
+          </div>
+
+          <button class="login-btn" id="enterCabinetBtn">Войти в кабинет</button>
+
+          <div class="social-login">
+            <p>или</p>
+            <div class="social-buttons">
+              <a href="#" class="social-btn">
+                <i data-feather="message-circle"></i>
+                <span>ВКонтакте</span>
+              </a>
+              <a href="#" class="social-btn">
+                <i data-feather="mail"></i>
+                <span>Почта</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Контент личного кабинета (появляется после входа) -->
+        <div id="cabinetContent" style="display: none;">
+          <!-- Приветствие -->
+          <div style="background: white; border-radius: 48px; padding: 40px; margin-bottom: 32px;">
+            <h2 style="font-size: 2.2rem; margin-bottom: 8px;">Здравствуйте, <span id="userNameDisplay">Иван</span>!</h2>
+            <p style="color: #3f4a6b;">Формат практики: <span id="userTrackDisplay">А1 · Семестр</span></p>
+          </div>
+
+          <!-- Команда и проекты -->
+          <div class="team-section" id="teamSection">
+            <div class="team-header">
+              <h3>Моя команда</h3>
+              <button class="create-team-btn" id="createTeamBtn">+ Создать команду</button>
+            </div>
+
+            <div class="team-grid" id="projectsGrid">
+              <!-- Карточки проектов будут добавляться сюда -->
+            </div>
+          </div>
+
+          <!-- Трекер задач (канбан) -->
+          <div class="tracker-section">
+            <h3 style="font-size: 1.8rem; margin-bottom: 24px;">Трекер проектов</h3>
+            <div class="kanban-header">
+              <div class="kanban-col">
+                <h4><i data-feather="circle" style="width: 16px;"></i> Запланировано</h4>
+                <div class="task-card">Собрать макет</div>
+                <div class="task-card">Написать инструкцию</div>
+              </div>
+              <div class="kanban-col">
+                <h4><i data-feather="clock" style="width: 16px;"></i> В работе</h4>
+                <div class="task-card">Подготовить материалы</div>
+              </div>
+              <div class="kanban-col">
+                <h4><i data-feather="check-circle" style="width: 16px;"></i> Готово</h4>
+                <div class="task-card">Выбрать продукт</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Чаты и связь с куратором -->
+          <div class="chats-panel">
+            <h3 style="font-size: 1.8rem; margin-bottom: 16px;">Общение</h3>
+            <div class="chat-links">
+              <a href="#" class="chat-link">
+                <i data-feather="message-circle"></i>
+                <span>Чат семестра (ВК)</span>
+              </a>
+              <a href="#" class="chat-link">
+                <i data-feather="message-square"></i>
+                <span>Связь с куратором</span>
+              </a>
+              <a href="#" class="chat-link">
+                <i data-feather="bell"></i>
+                <span>Напоминания</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Публичные страницы проектов -->
+          <div style="background: #eef2f9; border-radius: 60px; padding: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+            <div>
+              <h4 style="font-size: 1.5rem; font-weight: 500;">Публичные страницы проектов</h4>
+              <p style="color: #384362;">Посмотрите, что делают другие команды</p>
+            </div>
+            <a href="#" class="button" style="background:#2b3b6b; color:white; padding:12px 32px; border-radius:40px; text-decoration:none;">Смотреть проекты →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Ткаченко Алиса Олеговна · магистерская работа
+    </div>
+  </footer>
+
+  <script>
+    feather.replace();
+
+    // Элементы
+    const loginCard = document.getElementById('loginCard');
+    const cabinetContent = document.getElementById('cabinetContent');
+    const trackA1 = document.getElementById('trackA1');
+    const trackA2 = document.getElementById('trackA2');
+    const studentName = document.getElementById('studentName');
+    const studentEmail = document.getElementById('studentEmail');
+    const enterBtn = document.getElementById('enterCabinetBtn');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    const userTrackDisplay = document.getElementById('userTrackDisplay');
+    const teamSection = document.getElementById('teamSection');
+    const projectsGrid = document.getElementById('projectsGrid');
+    const createTeamBtn = document.getElementById('createTeamBtn');
+
+    let selectedTrack = 'А1 · Семестр';
+
+    // Переключение треков
+    trackA1.addEventListener('click', () => {
+      trackA1.classList.add('active');
+      trackA2.classList.remove('active');
+      selectedTrack = 'А1 · Семестр';
+    });
+
+    trackA2.addEventListener('click', () => {
+      trackA2.classList.add('active');
+      trackA1.classList.remove('active');
+      selectedTrack = 'А2 · Интенсив';
+    });
+
+    // Вход в кабинет
+    enterBtn.addEventListener('click', () => {
+      const name = studentName.value.trim() || 'Студент';
+      
+      // Показываем кабинет, скрываем карточку входа
+      loginCard.style.display = 'none';
+      cabinetContent.style.display = 'block';
+      teamSection.style.display = 'block';
+      
+      // Заполняем данные
+      userNameDisplay.textContent = name;
+      userTrackDisplay.textContent = selectedTrack;
+      
+      // Создаём пример проекта
+      addProjectCard('Коробочный продукт "Дидактическая игра"', 'В работе', '#');
+    });
+
+    // Создание команды
+    createTeamBtn.addEventListener('click', () => {
+      const teamName = prompt('Введите название команды:');
+      if (teamName) {
+        addProjectCard(`Проект команды "${teamName}"`, 'Новый', '#');
+      }
+    });
+
+    function addProjectCard(title, status, link) {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.innerHTML = `
+        <h4>${title}</h4>
+        <div class="project-meta">
+          <span>Статус: ${status}</span>
+        </div>
+        <a href="${link}" class="project-link">
+          <span>Публичная страница</span>
+          <i data-feather="external-link" style="width: 16px;"></i>
+        </a>
+      `;
+      projectsGrid.appendChild(card);
+      feather.replace();
+    }
+
+    // Добавляем один пример при загрузке
+    window.addEventListener('load', () => {
+      // Не добавляем сразу, только после входа
+    });
+  </script>
+</body>
+</html>
