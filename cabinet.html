@@ -4,144 +4,87 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Личный кабинет | Педагогический технопарк</title>
-  <!-- Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <!-- Feather icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* Базовые стили как на главной + дополнительные */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Inter", sans-serif;
       background: #f5f7fb;
       color: #1b1f2b;
-      line-height: 1.5;
     }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    
     /* Шапка */
     .header {
-      padding: 24px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      padding: 20px 0;
       background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
     }
-
     .header-content {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-
     .logo a {
       font-size: 1.5rem;
       font-weight: 600;
       text-decoration: none;
       color: #1b1f2b;
     }
-
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #4a5578;
+      font-weight: 500;
+    }
     .back-link {
       display: flex;
       align-items: center;
       gap: 8px;
       text-decoration: none;
       color: #2b3b6b;
-      font-weight: 500;
     }
 
     /* Карточка входа */
-    .login-section {
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 0;
-    }
-
     .login-card {
       background: white;
       border-radius: 48px;
       padding: 56px 48px;
       max-width: 480px;
-      width: 100%;
-      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
+      margin: 60px auto;
     }
-
-    .login-card h2 {
-      font-size: 2.2rem;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .login-sub {
-      color: #3f4a6b;
-      font-weight: 300;
-      margin-bottom: 32px;
-    }
-
+    .login-card h2 { font-size: 2.2rem; margin-bottom: 12px; }
     .track-selector {
       display: flex;
       gap: 12px;
-      margin-bottom: 32px;
+      margin: 32px 0;
     }
-
     .track-btn {
       flex: 1;
       padding: 14px;
       border: 1px solid #e2e8f0;
       border-radius: 40px;
       background: white;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 500;
-      color: #1b1f2b;
       cursor: pointer;
-      transition: all 0.2s;
     }
-
     .track-btn.active {
       background: #2b3b6b;
       color: white;
-      border-color: #2b3b6b;
     }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      color: #3f4a6b;
-    }
-
+    .form-group { margin-bottom: 20px; }
     .form-group input {
       width: 100%;
       padding: 14px 20px;
       border: 1px solid #e2e8f0;
       border-radius: 40px;
-      font-family: inherit;
-      font-size: 1rem;
-      background: #f9fcff;
     }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: #2b3b6b;
-    }
-
     .login-btn {
       width: 100%;
       padding: 16px;
@@ -149,737 +92,383 @@
       color: white;
       border: none;
       border-radius: 40px;
-      font-size: 1rem;
-      font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 16px;
     }
 
-    .login-btn:hover {
-      background: #2b3b6b;
-    }
-
-    .social-login {
-      margin-top: 32px;
-      text-align: center;
-    }
-
-    .social-login p {
-      color: #7c8aa5;
-      font-size: 0.9rem;
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .social-login p::before,
-    .social-login p::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 30%;
-      height: 1px;
-      background: #e2e8f0;
-    }
-
-    .social-login p::before { left: 0; }
-    .social-login p::after { right: 0; }
-
-    .social-buttons {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-    }
-
-    .social-btn {
-      padding: 12px 24px;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
+    /* Команда и проект */
+    .team-section {
       background: white;
+      border-radius: 48px;
+      padding: 40px;
+      margin: 40px 0;
+    }
+    .team-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .team-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .form-field {
+      margin-bottom: 16px;
+    }
+    .form-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #3f4a6b;
+    }
+    .form-field input, .form-field textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      font-family: inherit;
+    }
+    .form-field textarea { min-height: 80px; }
+    .authors-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .author-tag {
+      background: #eef2f9;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
       gap: 8px;
-      text-decoration: none;
-      color: #1b1f2b;
-      font-weight: 500;
-      transition: background 0.2s;
     }
-
-    .social-btn:hover {
-      background: #f0f4fe;
-    }
-
-    .social-btn i {
-      width: 20px;
-      height: 20px;
-      color: #2b3b6b;
-    }
-
-    /* Команда (после входа) */
-    .team-section {
-      display: none;
-      margin-top: 40px;
-    }
-
-    .team-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-    }
-
-    .team-header h3 {
-      font-size: 1.8rem;
-      font-weight: 500;
-    }
-
-    .create-team-btn {
-      padding: 12px 24px;
-      background: #2b3b6b;
-      color: white;
-      border: none;
+    .add-author-btn {
+      background: none;
+      border: 1px dashed #9aa9c0;
       border-radius: 40px;
-      font-weight: 500;
+      padding: 6px 16px;
       cursor: pointer;
     }
 
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-      margin: 32px 0;
-    }
-
-    .project-card {
-      background: white;
-      border-radius: 32px;
-      padding: 28px;
-      border: 1px solid #eef2f9;
-    }
-
-    .project-card h4 {
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .project-meta {
-      display: flex;
-      gap: 12px;
-      margin: 16px 0;
-      color: #5b6b8f;
-      font-size: 0.9rem;
-    }
-
-    .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #2b3b6b;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    /* Трекер задач */
+    /* Трекер (как был) */
     .tracker-section {
       background: white;
       border-radius: 48px;
       padding: 40px;
       margin: 40px 0;
     }
-
-    .tracker-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
-    }
-
-    .add-task-btn {
-      padding: 12px 28px;
-      background: #2b3b6b;
-      color: white;
-      border: none;
-      border-radius: 40px;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
     .kanban-board {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
-
     .kanban-col {
       background: #f9fbfe;
       border-radius: 32px;
-      padding: 24px 16px;
-      min-height: 400px;
-    }
-
-    .kanban-col h4 {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px;
-      padding: 0 8px;
-      color: #2b3b6b;
-      font-size: 1.1rem;
-    }
-
-    .task-list {
+      padding: 24px;
       min-height: 300px;
     }
-
     .task-card {
       background: white;
       border-radius: 20px;
-      padding: 20px;
+      padding: 16px;
       margin-bottom: 12px;
       border: 1px solid #eef2f9;
-      cursor: grab;
-      transition: box-shadow 0.2s, transform 0.1s;
-      position: relative;
     }
 
-    .task-card:active {
-      cursor: grabbing;
-      box-shadow: 0 10px 20px -8px rgba(0,0,0,0.2);
-    }
-
-    .task-card.dragging {
-      opacity: 0.5;
-      transform: scale(0.98);
-    }
-
-    .task-title {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      padding-right: 24px;
-    }
-
-    .task-desc {
-      font-size: 0.9rem;
-      color: #5b6b8f;
-      margin-bottom: 12px;
-    }
-
-    .task-files {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 12px 0;
-    }
-
-    .file-tag {
-      background: #eef2f9;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .task-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-top: 12px;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-    }
-
-    .task-card:hover .task-actions {
-      opacity: 1;
-    }
-
-    .task-edit, .task-delete {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      color: #8b9bb5;
-    }
-
-    .task-edit:hover, .task-delete:hover {
-      color: #2b3b6b;
-    }
-
-    /* Модальное окно для задачи */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 18, 28, 0.7);
-      backdrop-filter: blur(6px);
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: white;
-      max-width: 500px;
-      width: 90%;
-      border-radius: 48px;
-      padding: 40px;
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 20px; right: 24px;
-      background: none;
-      border: none;
-      font-size: 2rem;
-      cursor: pointer;
-      color: #7c7f93;
-    }
-
-    .modal h3 {
-      font-size: 1.8rem;
-      margin-bottom: 24px;
-    }
-
-    .modal input, .modal textarea {
-      width: 100%;
-      padding: 14px 20px;
-      border: 1px solid #e2e8f0;
-      border-radius: 30px;
-      font-family: inherit;
-      margin-bottom: 20px;
-    }
-
-    .modal textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .file-attach {
-      border: 2px dashed #e2e8f0;
-      border-radius: 30px;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 20px;
-      cursor: pointer;
-    }
-
-    .save-task-btn {
-      width: 100%;
-      padding: 16px;
-      background: #2b3b6b;
-      color: white;
-      border: none;
-      border-radius: 40px;
-      font-weight: 500;
-      cursor: pointer;
-    }
-
-    /* Чаты */
-    .chats-panel {
+    /* Рабочие файлы */
+    .files-section {
       background: white;
       border-radius: 48px;
       padding: 40px;
       margin: 40px 0;
     }
-
-    .chat-links {
-      display: flex;
+    .files-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 16px;
-      flex-wrap: wrap;
       margin-top: 24px;
     }
-
-    .chat-link {
-      display: flex;
+    .file-card {
+      background: #f9fbfe;
+      border-radius: 24px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #eef2f9;
+      cursor: pointer;
+    }
+    .file-card i {
+      width: 32px;
+      height: 32px;
+      color: #2b3b6b;
+      margin-bottom: 12px;
+    }
+    .upload-btn {
+      background: #2b3b6b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 12px 24px;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px;
-      background: #f9fbfe;
+    }
+
+    /* Публикация */
+    .publish-section {
+      background: #eef2f9;
+      border-radius: 60px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 40px 0;
+    }
+    .publish-btn {
+      background: #2b3b6b;
+      color: white;
+      border: none;
       border-radius: 40px;
-      text-decoration: none;
-      color: #1b1f2b;
-      font-weight: 500;
+      padding: 12px 32px;
+      cursor: pointer;
     }
 
     .footer {
       padding: 48px 0;
       text-align: center;
       color: #6e7c9e;
-      border-top: 1px solid rgba(0,0,0,0.03);
     }
   </style>
 </head>
 <body>
   <header class="header">
     <div class="container header-content">
-      <div class="logo">
-        <a href="index.html">Педагогический технопарк</a>
+      <div class="logo"><a href="index.html">Педагогический технопарк</a></div>
+      <div class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="cabinet.html" style="color:#2b3b6b;">Личный кабинет</a>
+        <a href="catalog.html">Проекты</a>
       </div>
-      <a href="index.html" class="back-link">
-        <i data-feather="arrow-left"></i>
-        <span>На главную</span>
-      </a>
+      <a href="index.html" class="back-link"><i data-feather="arrow-left"></i>На главную</a>
     </div>
   </header>
 
   <main>
-    <section class="login-section">
-      <div class="container">
-        <!-- Карточка входа -->
-        <div class="login-card" id="loginCard">
-          <h2>Вход в кабинет</h2>
-          <div class="login-sub">Выберите формат практики</div>
-          
-          <div class="track-selector">
-            <button class="track-btn active" id="trackA1">А1 · Семестр</button>
-            <button class="track-btn" id="trackA2">А2 · Интенсив</button>
-          </div>
+    <div class="container">
+      <!-- Карточка входа -->
+      <div class="login-card" id="loginCard">
+        <h2>Вход в кабинет</h2>
+        <div class="track-selector">
+          <button class="track-btn active" id="trackA1">А1 · Семестр</button>
+          <button class="track-btn" id="trackA2">А2 · Интенсив</button>
+        </div>
+        <div class="form-group">
+          <label>Имя и фамилия капитана</label>
+          <input type="text" placeholder="Иванов Иван" id="captainName">
+        </div>
+        <div class="form-group">
+          <label>Название команды</label>
+          <input type="text" placeholder="Команда №1" id="teamName">
+        </div>
+        <button class="login-btn" id="enterCabinetBtn">Войти в кабинет</button>
+      </div>
 
-          <div class="form-group">
-            <label>Имя и фамилия</label>
-            <input type="text" placeholder="Иванов Иван" id="studentName">
-          </div>
-
-          <button class="login-btn" id="enterCabinetBtn">Войти в кабинет</button>
+      <!-- Личный кабинет (скрыт до входа) -->
+      <div id="cabinetContent" style="display: none;">
+        <!-- Приветствие -->
+        <div style="background: white; border-radius: 48px; padding: 40px; margin: 40px 0;">
+          <h2 style="font-size: 2.2rem;">Здравствуйте, <span id="userNameDisplay">Капитан</span>!</h2>
+          <p>Команда: <span id="teamNameDisplay">Команда №1</span> · Формат: <span id="userTrackDisplay">А1</span></p>
         </div>
 
-        <!-- Личный кабинет -->
-        <div id="cabinetContent" style="display: none;">
-          <!-- Приветствие -->
-          <div style="background: white; border-radius: 48px; padding: 40px; margin-bottom: 32px;">
-            <h2 style="font-size: 2.2rem; margin-bottom: 8px;">Здравствуйте, <span id="userNameDisplay">Студент</span>!</h2>
-            <p style="color: #3f4a6b;">Формат практики: <span id="userTrackDisplay">А1 · Семестр</span></p>
+        <!-- Моя команда и проект -->
+        <div class="team-section">
+          <div class="team-header">
+            <h3>Моя команда и проект</h3>
+            <button class="add-author-btn" id="addAuthorBtn">+ Добавить участника</button>
           </div>
-
-          <!-- Команда и проекты -->
-          <div class="team-section" id="teamSection">
-            <div class="team-header">
-              <h3>Моя команда</h3>
-              <button class="create-team-btn" id="createTeamBtn">+ Создать команду</button>
+          
+          <div class="team-form">
+            <div class="form-field">
+              <label>Название проекта</label>
+              <input type="text" id="projectName" placeholder="Например: Дидактическая игра">
             </div>
-            <div class="team-grid" id="projectsGrid"></div>
-          </div>
-
-          <!-- Трекер задач (перетаскивание + редактирование) -->
-          <div class="tracker-section">
-            <div class="tracker-header">
-              <h3 style="font-size: 1.8rem;">Трекер проектов</h3>
-              <button class="add-task-btn" id="addTaskBtn">
-                <i data-feather="plus"></i> Добавить задачу
-              </button>
+            <div class="form-field">
+              <label>Описание продукта</label>
+              <textarea id="projectDesc" placeholder="Краткое описание"></textarea>
             </div>
-            
-            <div class="kanban-board" id="kanbanBoard">
-              <div class="kanban-col" data-status="planned">
-                <h4><i data-feather="circle"></i> Запланировано</h4>
-                <div class="task-list" id="plannedList"></div>
-              </div>
-              <div class="kanban-col" data-status="inprogress">
-                <h4><i data-feather="clock"></i> В работе</h4>
-                <div class="task-list" id="inprogressList"></div>
-              </div>
-              <div class="kanban-col" data-status="done">
-                <h4><i data-feather="check-circle"></i> Готово</h4>
-                <div class="task-list" id="doneList"></div>
+            <div class="form-field">
+              <label>Блок проекта / Время</label>
+              <input type="text" id="projectBlock" placeholder="Например: 1-й семестр, 2026">
+            </div>
+            <div class="form-field">
+              <label>Авторы</label>
+              <div class="authors-list" id="authorsList">
+                <span class="author-tag"><i data-feather="user" style="width:14px;"></i> Иванов Иван (капитан)</span>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Чаты -->
-          <div class="chats-panel">
-            <h3 style="font-size: 1.8rem; margin-bottom: 16px;">Общение</h3>
-            <div class="chat-links">
-              <a href="#" class="chat-link"><i data-feather="message-circle"></i> Чат семестра</a>
-              <a href="#" class="chat-link"><i data-feather="message-square"></i> Связь с куратором</a>
+        <!-- Трекер проектов (как был) -->
+        <div class="tracker-section">
+          <h3 style="font-size: 1.8rem; margin-bottom: 24px;">Трекер проектов</h3>
+          <div class="kanban-board">
+            <div class="kanban-col">
+              <h4><i data-feather="circle"></i> Запланировано</h4>
+              <div class="task-card">Собрать материалы</div>
+              <div class="task-card">Написать инструкцию</div>
             </div>
+            <div class="kanban-col">
+              <h4><i data-feather="clock"></i> В работе</h4>
+              <div class="task-card">Подготовить макет</div>
+            </div>
+            <div class="kanban-col">
+              <h4><i data-feather="check-circle"></i> Готово</h4>
+              <div class="task-card">Выбрать тему</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Рабочие файлы (новый блок) -->
+        <div class="files-section">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 1.8rem;">Рабочие файлы</h3>
+            <button class="upload-btn" id="uploadFileBtn">
+              <i data-feather="upload"></i> Загрузить файл
+            </button>
+          </div>
+          <div class="files-grid" id="filesGrid">
+            <!-- Файлы будут добавляться сюда -->
+          </div>
+        </div>
+
+        <!-- Публикация в каталог -->
+        <div class="publish-section">
+          <div>
+            <h4 style="font-size: 1.5rem;">Опубликовать проект в каталог</h4>
+            <p style="color: #4a5578;">После публикации проект появится в общем каталоге</p>
+          </div>
+          <button class="publish-btn" id="publishBtn">Опубликовать</button>
+        </div>
+
+        <!-- Ссылка на каталог -->
+        <div style="background: #eef2f9; border-radius: 60px; padding: 40px; margin: 40px 0;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <h4 style="font-size: 1.5rem;">Готовые проекты студентов</h4>
+              <p>Посмотрите работы других команд</p>
+            </div>
+            <a href="catalog.html" class="button" style="background:#2b3b6b; color:white; padding:12px 32px; border-radius:40px; text-decoration:none;">Перейти в каталог →</a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="footer">
     <div class="container">Ткаченко Алиса Олеговна · магистерская работа</div>
   </footer>
 
-  <!-- Модальное окно для задачи -->
-  <div class="modal" id="taskModal">
-    <div class="modal-content">
-      <button class="modal-close" id="modalClose">&times;</button>
-      <h3 id="modalTitle">Новая задача</h3>
-      <input type="text" id="taskNameInput" placeholder="Название задачи">
-      <textarea id="taskDescInput" placeholder="Описание задачи"></textarea>
-      <div class="file-attach" id="fileAttachBtn">
-        <i data-feather="paperclip"></i> Прикрепить файлы
-      </div>
-      <div id="fileList" style="margin-bottom: 20px;"></div>
-      <button class="save-task-btn" id="saveTaskBtn">Сохранить</button>
-    </div>
-  </div>
-
   <script>
     feather.replace();
 
-    // Данные
-    let selectedTrack = 'А1 · Семестр';
-    let tasks = [];
-    let currentTaskId = null;
-    let draggedTask = null;
-
-    // Элементы
+    // Вход
     const loginCard = document.getElementById('loginCard');
     const cabinetContent = document.getElementById('cabinetContent');
     const trackA1 = document.getElementById('trackA1');
     const trackA2 = document.getElementById('trackA2');
-    const studentName = document.getElementById('studentName');
+    const captainName = document.getElementById('captainName');
+    const teamName = document.getElementById('teamName');
     const enterBtn = document.getElementById('enterCabinetBtn');
     const userNameDisplay = document.getElementById('userNameDisplay');
+    const teamNameDisplay = document.getElementById('teamNameDisplay');
     const userTrackDisplay = document.getElementById('userTrackDisplay');
-    const teamSection = document.getElementById('teamSection');
-    const addTaskBtn = document.getElementById('addTaskBtn');
-    const taskModal = document.getElementById('taskModal');
-    const modalClose = document.getElementById('modalClose');
-    const modalTitle = document.getElementById('modalTitle');
-    const taskNameInput = document.getElementById('taskNameInput');
-    const taskDescInput = document.getElementById('taskDescInput');
-    const fileList = document.getElementById('fileList');
-    const saveTaskBtn = document.getElementById('saveTaskBtn');
-    const fileAttachBtn = document.getElementById('fileAttachBtn');
 
-    let attachedFiles = [];
+    let selectedTrack = 'А1';
 
-    // Переключение треков
     trackA1.addEventListener('click', () => {
       trackA1.classList.add('active');
       trackA2.classList.remove('active');
-      selectedTrack = 'А1 · Семестр';
+      selectedTrack = 'А1';
     });
 
     trackA2.addEventListener('click', () => {
       trackA2.classList.add('active');
       trackA1.classList.remove('active');
-      selectedTrack = 'А2 · Интенсив';
+      selectedTrack = 'А2';
     });
 
-    // Вход
     enterBtn.addEventListener('click', () => {
-      const name = studentName.value.trim() || 'Студент';
+      const captain = captainName.value.trim() || 'Капитан';
+      const team = teamName.value.trim() || 'Команда';
       loginCard.style.display = 'none';
       cabinetContent.style.display = 'block';
-      teamSection.style.display = 'block';
-      userNameDisplay.textContent = name;
+      userNameDisplay.textContent = captain;
+      teamNameDisplay.textContent = team;
       userTrackDisplay.textContent = selectedTrack;
-      
-      // Загружаем тестовые задачи
-      loadSampleTasks();
     });
 
-    // Пример задач
-    function loadSampleTasks() {
-      tasks = [
-        { id: '1', title: 'Выбрать продукт', desc: 'Определиться с темой', files: [], status: 'planned' },
-        { id: '2', title: 'Собрать макет', desc: 'Использовать лазерную резку', files: ['макет.dxf'], status: 'inprogress' },
-        { id: '3', title: 'Написать инструкцию', desc: 'Описать сборку', files: [], status: 'done' }
-      ];
-      renderTasks();
-    }
+    // Добавление авторов
+    const addAuthorBtn = document.getElementById('addAuthorBtn');
+    const authorsList = document.getElementById('authorsList');
+    let authorCount = 1;
 
-    // Рендер задач
-    function renderTasks() {
-      const plannedList = document.getElementById('plannedList');
-      const inprogressList = document.getElementById('inprogressList');
-      const doneList = document.getElementById('doneList');
-      
-      plannedList.innerHTML = '';
-      inprogressList.innerHTML = '';
-      doneList.innerHTML = '';
-
-      tasks.forEach(task => {
-        const taskEl = createTaskElement(task);
-        if (task.status === 'planned') plannedList.appendChild(taskEl);
-        else if (task.status === 'inprogress') inprogressList.appendChild(taskEl);
-        else if (task.status === 'done') doneList.appendChild(taskEl);
-      });
-
+    addAuthorBtn.addEventListener('click', () => {
+      authorCount++;
+      const newAuthor = document.createElement('span');
+      newAuthor.className = 'author-tag';
+      newAuthor.innerHTML = `<i data-feather="user" style="width:14px;"></i> Участник ${authorCount}`;
+      authorsList.appendChild(newAuthor);
       feather.replace();
-    }
+    });
 
-    // Создание элемента задачи
-    function createTaskElement(task) {
-      const div = document.createElement('div');
-      div.className = 'task-card';
-      div.draggable = true;
-      div.dataset.id = task.id;
+    // Рабочие файлы
+    const filesGrid = document.getElementById('filesGrid');
+    const uploadFileBtn = document.getElementById('uploadFileBtn');
+    let fileCount = 3;
 
-      let filesHtml = '';
-      if (task.files && task.files.length) {
-        filesHtml = '<div class="task-files">' + 
-          task.files.map(f => `<span class="file-tag"><i data-feather="paperclip" style="width:12px;"></i> ${f}</span>`).join('') +
-        '</div>';
-      }
+    // Пример файлов
+    const sampleFiles = [
+      { name: 'Макет.dxf', icon: 'file' },
+      { name: 'Инструкция.pdf', icon: 'file-text' },
+      { name: 'Код программы.ino', icon: 'code' }
+    ];
 
-      div.innerHTML = `
-        <div class="task-title">${task.title}</div>
-        <div class="task-desc">${task.desc}</div>
-        ${filesHtml}
-        <div class="task-actions">
-          <button class="task-edit" onclick="editTask('${task.id}')"><i data-feather="edit-2"></i></button>
-          <button class="task-delete" onclick="deleteTask('${task.id}')"><i data-feather="trash-2"></i></button>
-        </div>
+    sampleFiles.forEach(file => {
+      const fileCard = document.createElement('div');
+      fileCard.className = 'file-card';
+      fileCard.innerHTML = `
+        <i data-feather="${file.icon}"></i>
+        <span>${file.name}</span>
       `;
-
-      // Drag & drop
-      div.addEventListener('dragstart', (e) => {
-        draggedTask = task.id;
-        div.classList.add('dragging');
-      });
-
-      div.addEventListener('dragend', (e) => {
-        div.classList.remove('dragging');
-        draggedTask = null;
-      });
-
-      return div;
-    }
-
-    // Drag & drop между колонками
-    document.querySelectorAll('.task-list').forEach(list => {
-      list.addEventListener('dragover', (e) => {
-        e.preventDefault();
-      });
-
-      list.addEventListener('drop', (e) => {
-        e.preventDefault();
-        if (!draggedTask) return;
-
-        const newStatus = list.closest('.kanban-col').dataset.status;
-        const task = tasks.find(t => t.id === draggedTask);
-        if (task) {
-          task.status = newStatus;
-          renderTasks();
-        }
-      });
+      fileCard.onclick = () => alert(`Скачивание ${file.name} (демо)`);
+      filesGrid.appendChild(fileCard);
     });
 
-    // Добавление задачи
-    addTaskBtn.addEventListener('click', () => {
-      currentTaskId = null;
-      modalTitle.textContent = 'Новая задача';
-      taskNameInput.value = '';
-      taskDescInput.value = '';
-      attachedFiles = [];
-      fileList.innerHTML = '';
-      taskModal.classList.add('active');
-    });
-
-    // Редактирование задачи
-    window.editTask = (id) => {
-      const task = tasks.find(t => t.id === id);
-      if (task) {
-        currentTaskId = id;
-        modalTitle.textContent = 'Редактировать задачу';
-        taskNameInput.value = task.title;
-        taskDescInput.value = task.desc;
-        attachedFiles = task.files || [];
-        updateFileList();
-        taskModal.classList.add('active');
-      }
-    };
-
-    // Удаление задачи
-    window.deleteTask = (id) => {
-      if (confirm('Удалить задачу?')) {
-        tasks = tasks.filter(t => t.id !== id);
-        renderTasks();
-      }
-    };
-
-    // Прикрепление файлов
-    fileAttachBtn.addEventListener('click', () => {
-      const fileName = prompt('Введите название файла (например, схема.pdf)');
+    uploadFileBtn.addEventListener('click', () => {
+      const fileName = prompt('Введите название файла (например, схема.dxf):');
       if (fileName) {
-        attachedFiles.push(fileName);
-        updateFileList();
-      }
-    });
-
-    function updateFileList() {
-      fileList.innerHTML = attachedFiles.map(f => 
-        `<span class="file-tag" style="display:inline-block; margin-right:8px;">📎 ${f}</span>`
-      ).join('');
-    }
-
-    // Сохранение задачи
-    saveTaskBtn.addEventListener('click', () => {
-      const title = taskNameInput.value.trim();
-      const desc = taskDescInput.value.trim();
-      
-      if (!title) {
-        alert('Введите название задачи');
-        return;
-      }
-
-      if (currentTaskId) {
-        // Редактирование
-        const task = tasks.find(t => t.id === currentTaskId);
-        if (task) {
-          task.title = title;
-          task.desc = desc;
-          task.files = attachedFiles;
-        }
-      } else {
-        // Новая задача
-        const newTask = {
-          id: Date.now().toString(),
-          title,
-          desc,
-          files: attachedFiles,
-          status: 'planned'
-        };
-        tasks.push(newTask);
-      }
-
-      renderTasks();
-      taskModal.classList.remove('active');
-    });
-
-    // Закрытие модалки
-    modalClose.addEventListener('click', () => {
-      taskModal.classList.remove('active');
-    });
-
-    taskModal.addEventListener('click', (e) => {
-      if (e.target === taskModal) taskModal.classList.remove('active');
-    });
-
-    // Создание команды
-    const createTeamBtn = document.getElementById('createTeamBtn');
-    const projectsGrid = document.getElementById('projectsGrid');
-    
-    createTeamBtn.addEventListener('click', () => {
-      const teamName = prompt('Название команды:');
-      if (teamName) {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.innerHTML = `
-          <h4>${teamName}</h4>
-          <p style="color:#5b6b8f;">Участников: 1</p>
-          <a href="catalog.html" class="project-link">Публичная страница <i data-feather="external-link"></i></a>
+        const fileCard = document.createElement('div');
+        fileCard.className = 'file-card';
+        fileCard.innerHTML = `
+          <i data-feather="file"></i>
+          <span>${fileName}</span>
         `;
-        projectsGrid.appendChild(card);
+        fileCard.onclick = () => alert(`Скачивание ${fileName}`);
+        filesGrid.appendChild(fileCard);
         feather.replace();
       }
+    });
+
+    // Публикация в каталог
+    const publishBtn = document.getElementById('publishBtn');
+    publishBtn.addEventListener('click', () => {
+      alert('Проект опубликован в каталоге! (демо-режим)');
     });
   </script>
 </body>
