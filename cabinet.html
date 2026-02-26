@@ -4,390 +4,804 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Личный кабинет | Педагогический технопарк</title>
+  <!-- Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <!-- Feather icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Базовые стили как на главной + дополнительные */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: "Inter", sans-serif;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f5f7fb;
       color: #1b1f2b;
+      line-height: 1.5;
     }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-    
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
     /* Шапка */
     .header {
       padding: 20px 0;
       background: white;
-      border-bottom: 1px solid rgba(0,0,0,0.03);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     }
+
     .header-content {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .logo a {
       font-size: 1.5rem;
       font-weight: 600;
       text-decoration: none;
       color: #1b1f2b;
     }
+
     .nav-links {
       display: flex;
       gap: 32px;
     }
+
     .nav-links a {
       text-decoration: none;
       color: #4a5578;
       font-weight: 500;
     }
+
     .back-link {
       display: flex;
       align-items: center;
       gap: 8px;
       text-decoration: none;
       color: #2b3b6b;
+      font-weight: 500;
     }
 
-    /* Карточка входа */
-    .login-card {
+    /* Карточка регистрации */
+    .register-card {
       background: white;
-      border-radius: 48px;
-      padding: 56px 48px;
-      max-width: 480px;
+      border-radius: 50px;
+      padding: 60px 50px;
+      max-width: 550px;
       margin: 60px auto;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
     }
-    .login-card h2 { font-size: 2.2rem; margin-bottom: 12px; }
+
+    .register-card h2 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .register-sub {
+      color: #4a5578;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+
     .track-selector {
       display: flex;
-      gap: 12px;
-      margin: 32px 0;
+      gap: 16px;
+      margin-bottom: 40px;
     }
+
     .track-btn {
       flex: 1;
-      padding: 14px;
+      padding: 16px;
       border: 1px solid #e2e8f0;
       border-radius: 40px;
       background: white;
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: 500;
       cursor: pointer;
+      transition: all 0.2s;
     }
+
     .track-btn.active {
       background: #2b3b6b;
       color: white;
+      border-color: #2b3b6b;
     }
-    .form-group { margin-bottom: 20px; }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #3f4a6b;
+      font-size: 0.95rem;
+    }
+
     .form-group input {
+      width: 100%;
+      padding: 16px 24px;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #f9fcff;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #2b3b6b;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 18px;
+      background: #1b1f2b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 16px;
+    }
+
+    .register-btn:hover {
+      background: #2b3b6b;
+    }
+
+    /* Личный кабинет */
+    .cabinet-section {
+      background: white;
+      border-radius: 50px;
+      padding: 50px;
+      margin: 40px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+
+    /* Моя команда и проект */
+    .team-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    .form-field.full-width {
+      grid-column: span 2;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: #3f4a6b;
+    }
+
+    .form-field input,
+    .form-field textarea {
       width: 100%;
       padding: 14px 20px;
       border: 1px solid #e2e8f0;
-      border-radius: 40px;
+      border-radius: 30px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #f9fcff;
     }
-    .login-btn {
+
+    .form-field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Авторы */
+    .authors-section {
+      margin: 30px 0;
+    }
+
+    .authors-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .author-tag {
+      background: #eef2f9;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .author-tag i {
+      width: 18px;
+      height: 18px;
+      color: #2b3b6b;
+    }
+
+    .add-author-btn {
+      background: none;
+      border: 1px dashed #9aa9c0;
+      border-radius: 40px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #4a5578;
+    }
+
+    .add-author-btn:hover {
+      background: #f0f4fe;
+    }
+
+    /* Модальное окно для добавления автора */
+    .author-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 16px;
-      background: #1b1f2b;
+      height: 100%;
+      background: rgba(15, 18, 28, 0.7);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      z-index: 1100;
+    }
+
+    .author-modal.active {
+      display: flex;
+    }
+
+    .author-modal-content {
+      background: white;
+      max-width: 450px;
+      width: 90%;
+      border-radius: 40px;
+      padding: 40px;
+      position: relative;
+    }
+
+    .author-modal-content h3 {
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+    }
+
+    .author-modal-content input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 30px;
+      margin-bottom: 20px;
+    }
+
+    .save-author-btn {
+      width: 100%;
+      padding: 14px;
+      background: #2b3b6b;
       color: white;
       border: none;
       border-radius: 40px;
       cursor: pointer;
     }
 
-    /* Команда и проект */
-    .team-section {
+    /* Трекер проектов (drag & drop) */
+    .tracker-section {
       background: white;
-      border-radius: 48px;
-      padding: 40px;
+      border-radius: 50px;
+      padding: 50px;
       margin: 40px 0;
     }
-    .team-header {
+
+    .tracker-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 32px;
-    }
-    .team-form {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-    .form-field {
-      margin-bottom: 16px;
-    }
-    .form-field label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: #3f4a6b;
-    }
-    .form-field input, .form-field textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1px solid #e2e8f0;
-      border-radius: 24px;
-      font-family: inherit;
-    }
-    .form-field textarea { min-height: 80px; }
-    .authors-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .author-tag {
-      background: #eef2f9;
-      padding: 6px 16px;
-      border-radius: 40px;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .add-author-btn {
-      background: none;
-      border: 1px dashed #9aa9c0;
-      border-radius: 40px;
-      padding: 6px 16px;
-      cursor: pointer;
+      margin-bottom: 40px;
     }
 
-    /* Трекер (как был) */
-    .tracker-section {
-      background: white;
-      border-radius: 48px;
-      padding: 40px;
-      margin: 40px 0;
+    .add-task-btn {
+      padding: 14px 32px;
+      background: #2b3b6b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+
     .kanban-board {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 24px;
     }
+
     .kanban-col {
       background: #f9fbfe;
-      border-radius: 32px;
+      border-radius: 36px;
       padding: 24px;
+      min-height: 400px;
+    }
+
+    .kanban-col h4 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: #2b3b6b;
+      font-size: 1.2rem;
+    }
+
+    .task-list {
       min-height: 300px;
     }
+
     .task-card {
       background: white;
-      border-radius: 20px;
-      padding: 16px;
-      margin-bottom: 12px;
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 16px;
       border: 1px solid #eef2f9;
+      cursor: grab;
+      transition: all 0.2s;
+    }
+
+    .task-card:active {
+      cursor: grabbing;
+      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.2);
+    }
+
+    .task-card.dragging {
+      opacity: 0.5;
+      transform: scale(0.98);
+    }
+
+    .task-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .task-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .task-edit,
+    .task-delete {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #8b9bb5;
+    }
+
+    .task-edit:hover,
+    .task-delete:hover {
+      color: #2b3b6b;
     }
 
     /* Рабочие файлы */
     .files-section {
       background: white;
-      border-radius: 48px;
-      padding: 40px;
+      border-radius: 50px;
+      padding: 50px;
       margin: 40px 0;
     }
-    .files-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 16px;
-      margin-top: 24px;
+
+    .files-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
     }
-    .file-card {
-      background: #f9fbfe;
-      border-radius: 24px;
-      padding: 20px;
-      text-align: center;
-      border: 1px solid #eef2f9;
-      cursor: pointer;
-    }
-    .file-card i {
-      width: 32px;
-      height: 32px;
-      color: #2b3b6b;
-      margin-bottom: 12px;
-    }
+
     .upload-btn {
+      padding: 14px 32px;
       background: #2b3b6b;
       color: white;
       border: none;
       border-radius: 40px;
-      padding: 12px 24px;
+      font-weight: 500;
       cursor: pointer;
-      display: inline-flex;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .files-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .file-card {
+      background: #f9fbfe;
+      border-radius: 28px;
+      padding: 24px 20px;
+      text-align: center;
+      border: 1px solid #eef2f9;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .file-card:hover {
+      background: #eef2f9;
+      transform: translateY(-3px);
+    }
+
+    .file-card i {
+      width: 36px;
+      height: 36px;
+      color: #2b3b6b;
+      margin-bottom: 16px;
+    }
+
+    /* Итоговый файл для производства */
+    .production-file-section {
+      background: #f0f4fe;
+      border-radius: 40px;
+      padding: 30px;
+      margin: 30px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .production-file-section h4 {
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+
+    .attach-file-btn {
+      background: white;
+      border: 1px solid #2b3b6b;
+      color: #2b3b6b;
+      padding: 12px 28px;
+      border-radius: 40px;
+      cursor: pointer;
+      display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    /* Публикация */
+    /* Кнопка публикации */
     .publish-section {
       background: #eef2f9;
       border-radius: 60px;
-      padding: 40px;
+      padding: 50px;
+      margin: 50px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 40px 0;
+      flex-wrap: wrap;
+      gap: 30px;
     }
+
     .publish-btn {
       background: #2b3b6b;
       color: white;
       border: none;
       border-radius: 40px;
-      padding: 12px 32px;
+      padding: 16px 40px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Каталог внизу */
+    .catalog-block {
+      background: white;
+      border-radius: 60px;
+      padding: 50px;
+      margin: 40px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    /* Модальное окно для уведомлений */
+    .notification-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 18, 28, 0.7);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+    }
+
+    .notification-modal.active {
+      display: flex;
+    }
+
+    .notification-content {
+      background: white;
+      max-width: 450px;
+      width: 90%;
+      border-radius: 40px;
+      padding: 50px;
+      text-align: center;
+      position: relative;
+    }
+
+    .notification-content i {
+      width: 60px;
+      height: 60px;
+      color: #2b3b6b;
+      margin-bottom: 24px;
+    }
+
+    .notification-content h3 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .notification-content p {
+      color: #4a5578;
+      margin-bottom: 32px;
+    }
+
+    .notification-close {
+      background: #2b3b6b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 14px 40px;
       cursor: pointer;
     }
 
     .footer {
-      padding: 48px 0;
+      padding: 60px 0;
       text-align: center;
       color: #6e7c9e;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
     }
   </style>
 </head>
+
 <body>
   <header class="header">
     <div class="container header-content">
-      <div class="logo"><a href="index.html">Педагогический технопарк</a></div>
+      <div class="logo">
+        <a href="index.html">Педагогический технопарк</a>
+      </div>
       <div class="nav-links">
         <a href="index.html">Главная</a>
-        <a href="cabinet.html" style="color:#2b3b6b;">Личный кабинет</a>
+        <a href="cabinet.html" style="color: #2b3b6b;">Личный кабинет</a>
         <a href="catalog.html">Проекты</a>
       </div>
-      <a href="index.html" class="back-link"><i data-feather="arrow-left"></i>На главную</a>
+      <a href="index.html" class="back-link">
+        <i data-feather="arrow-left"></i>
+        <span>На главную</span>
+      </a>
     </div>
   </header>
 
   <main>
     <div class="container">
-      <!-- Карточка входа -->
-      <div class="login-card" id="loginCard">
-        <h2>Вход в кабинет</h2>
+      <!-- Карточка регистрации -->
+      <div class="register-card" id="registerCard">
+        <h2>Регистрация команды</h2>
+        <div class="register-sub">Выберите формат практики</div>
+
         <div class="track-selector">
           <button class="track-btn active" id="trackA1">А1 · Семестр</button>
           <button class="track-btn" id="trackA2">А2 · Интенсив</button>
         </div>
+
         <div class="form-group">
           <label>Имя и фамилия капитана</label>
           <input type="text" placeholder="Иванов Иван" id="captainName">
         </div>
+
         <div class="form-group">
           <label>Название команды</label>
           <input type="text" placeholder="Команда №1" id="teamName">
         </div>
-        <button class="login-btn" id="enterCabinetBtn">Войти в кабинет</button>
+
+        <button class="register-btn" id="registerBtn">Зарегистрировать команду</button>
       </div>
 
-      <!-- Личный кабинет (скрыт до входа) -->
+      <!-- Личный кабинет (скрыт до регистрации) -->
       <div id="cabinetContent" style="display: none;">
         <!-- Приветствие -->
-        <div style="background: white; border-radius: 48px; padding: 40px; margin: 40px 0;">
-          <h2 style="font-size: 2.2rem;">Здравствуйте, <span id="userNameDisplay">Капитан</span>!</h2>
-          <p>Команда: <span id="teamNameDisplay">Команда №1</span> · Формат: <span id="userTrackDisplay">А1</span></p>
+        <div class="cabinet-section">
+          <h2 style="font-size: 2.4rem;">Здравствуйте, <span id="userNameDisplay">Капитан</span>!</h2>
+          <p style="color: #4a5578; font-size: 1.2rem; margin-top: 16px;">Команда: <span
+              id="teamNameDisplay">Команда</span> · Формат: <span id="userTrackDisplay">А1</span></p>
         </div>
 
         <!-- Моя команда и проект -->
-        <div class="team-section">
-          <div class="team-header">
-            <h3>Моя команда и проект</h3>
-            <button class="add-author-btn" id="addAuthorBtn">+ Добавить участника</button>
-          </div>
-          
+        <div class="cabinet-section">
+          <h3 class="section-title">Моя команда и проект</h3>
+
           <div class="team-form">
             <div class="form-field">
               <label>Название проекта</label>
               <input type="text" id="projectName" placeholder="Например: Дидактическая игра">
             </div>
             <div class="form-field">
-              <label>Описание продукта</label>
-              <textarea id="projectDesc" placeholder="Краткое описание"></textarea>
-            </div>
-            <div class="form-field">
-              <label>Блок проекта / Время</label>
+              <label>Блок проекта</label>
               <input type="text" id="projectBlock" placeholder="Например: 1-й семестр, 2026">
             </div>
-            <div class="form-field">
-              <label>Авторы</label>
-              <div class="authors-list" id="authorsList">
-                <span class="author-tag"><i data-feather="user" style="width:14px;"></i> Иванов Иван (капитан)</span>
-              </div>
+            <div class="form-field full-width">
+              <label>Описание проекта</label>
+              <textarea id="projectDesc" placeholder="Краткое описание"></textarea>
             </div>
           </div>
+
+          <!-- Авторы -->
+          <div class="authors-section">
+            <label style="font-weight: 500; margin-bottom: 16px; display: block;">Авторы</label>
+            <div class="authors-list" id="authorsList">
+              <span class="author-tag" id="captainTag">
+                <i data-feather="user"></i> Иванов Иван (капитан)
+              </span>
+            </div>
+            <button class="add-author-btn" id="addAuthorBtn">
+              <i data-feather="user-plus"></i> Добавить участника
+            </button>
+          </div>
+
+          <!-- Итоговый файл для производства -->
+          <div class="production-file-section">
+            <div>
+              <h4>Итоговый файл для производства</h4>
+              <p style="color: #4a5578; margin-top: 8px;">DXF, SVG, STL или PDF</p>
+            </div>
+            <button class="attach-file-btn" id="attachProductionFileBtn">
+              <i data-feather="paperclip"></i> Прикрепить файл
+            </button>
+          </div>
+          <div id="productionFileDisplay" style="margin-top: 16px;"></div>
         </div>
 
-        <!-- Трекер проектов (как был) -->
+        <!-- Трекер проектов (drag & drop) -->
         <div class="tracker-section">
-          <h3 style="font-size: 1.8rem; margin-bottom: 24px;">Трекер проектов</h3>
-          <div class="kanban-board">
-            <div class="kanban-col">
+          <div class="tracker-header">
+            <h3 class="section-title" style="margin-bottom: 0;">Трекер проектов</h3>
+            <button class="add-task-btn" id="addTaskBtn">
+              <i data-feather="plus"></i> Добавить задачу
+            </button>
+          </div>
+
+          <div class="kanban-board" id="kanbanBoard">
+            <div class="kanban-col" data-status="planned">
               <h4><i data-feather="circle"></i> Запланировано</h4>
-              <div class="task-card">Собрать материалы</div>
-              <div class="task-card">Написать инструкцию</div>
+              <div class="task-list" id="plannedList"></div>
             </div>
-            <div class="kanban-col">
+            <div class="kanban-col" data-status="inprogress">
               <h4><i data-feather="clock"></i> В работе</h4>
-              <div class="task-card">Подготовить макет</div>
+              <div class="task-list" id="inprogressList"></div>
             </div>
-            <div class="kanban-col">
+            <div class="kanban-col" data-status="done">
               <h4><i data-feather="check-circle"></i> Готово</h4>
-              <div class="task-card">Выбрать тему</div>
+              <div class="task-list" id="doneList"></div>
             </div>
           </div>
         </div>
 
-        <!-- Рабочие файлы (новый блок) -->
+        <!-- Рабочие файлы -->
         <div class="files-section">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="font-size: 1.8rem;">Рабочие файлы</h3>
+          <div class="files-header">
+            <h3 class="section-title" style="margin-bottom: 0;">Рабочие файлы</h3>
             <button class="upload-btn" id="uploadFileBtn">
               <i data-feather="upload"></i> Загрузить файл
             </button>
           </div>
-          <div class="files-grid" id="filesGrid">
-            <!-- Файлы будут добавляться сюда -->
-          </div>
+          <div class="files-grid" id="filesGrid"></div>
         </div>
 
-        <!-- Публикация в каталог -->
+        <!-- Кнопка публикации -->
         <div class="publish-section">
           <div>
-            <h4 style="font-size: 1.5rem;">Опубликовать проект в каталог</h4>
-            <p style="color: #4a5578;">После публикации проект появится в общем каталоге</p>
+            <h3 style="font-size: 1.8rem;">Опубликовать проект в каталог</h3>
+            <p style="color: #4a5578; margin-top: 12px;">После отправки проект будет проверен куратором</p>
           </div>
           <button class="publish-btn" id="publishBtn">Опубликовать</button>
         </div>
 
-        <!-- Ссылка на каталог -->
-        <div style="background: #eef2f9; border-radius: 60px; padding: 40px; margin: 40px 0;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <div>
-              <h4 style="font-size: 1.5rem;">Готовые проекты студентов</h4>
-              <p>Посмотрите работы других команд</p>
-            </div>
-            <a href="catalog.html" class="button" style="background:#2b3b6b; color:white; padding:12px 32px; border-radius:40px; text-decoration:none;">Перейти в каталог →</a>
+        <!-- Каталог коробочных образовательных комплектов -->
+        <div class="catalog-block">
+          <div>
+            <h3 style="font-size: 1.8rem;">Каталог коробочных образовательных комплектов</h3>
+            <p style="color: #4a5578; margin-top: 12px;">Посмотрите готовые работы других команд</p>
           </div>
+          <a href="catalog.html" class="button" style="background:#2b3b6b; color:white; padding:16px 40px; border-radius:40px; text-decoration:none;">Перейти в каталог →</a>
         </div>
       </div>
     </div>
   </main>
 
   <footer class="footer">
-    <div class="container">Ткаченко Алиса Олеговна · магистерская работа</div>
+    <div class="container">
+      Ткаченко Алиса Олеговна · магистерская работа
+    </div>
   </footer>
+
+  <!-- Модальное окно для добавления автора -->
+  <div class="author-modal" id="authorModal">
+    <div class="author-modal-content">
+      <h3>Добавить участника</h3>
+      <input type="text" id="newAuthorName" placeholder="ФИО участника">
+      <button class="save-author-btn" id="saveAuthorBtn">Добавить</button>
+    </div>
+  </div>
+
+  <!-- Модальное окно для уведомления о публикации -->
+  <div class="notification-modal" id="notificationModal">
+    <div class="notification-content">
+      <i data-feather="check-circle"></i>
+      <h3>Отправлено!</h3>
+      <p>Проект отправлен куратору на согласование перед публикацией</p>
+      <button class="notification-close" id="notificationClose">Хорошо</button>
+    </div>
+  </div>
+
+  <!-- Модальное окно для задачи (трекер) -->
+  <div class="author-modal" id="taskModal" style="display: none;">
+    <div class="author-modal-content">
+      <h3 id="taskModalTitle">Новая задача</h3>
+      <input type="text" id="taskNameInput" placeholder="Название задачи">
+      <textarea id="taskDescInput" placeholder="Описание задачи" rows="3"
+        style="width:100%; padding:14px; border-radius:30px; border:1px solid #e2e8f0; margin-bottom:20px;"></textarea>
+      <button class="save-author-btn" id="saveTaskBtn">Сохранить</button>
+    </div>
+  </div>
 
   <script>
     feather.replace();
 
-    // Вход
-    const loginCard = document.getElementById('loginCard');
+    // Регистрация
+    const registerCard = document.getElementById('registerCard');
     const cabinetContent = document.getElementById('cabinetContent');
     const trackA1 = document.getElementById('trackA1');
     const trackA2 = document.getElementById('trackA2');
     const captainName = document.getElementById('captainName');
     const teamName = document.getElementById('teamName');
-    const enterBtn = document.getElementById('enterCabinetBtn');
+    const registerBtn = document.getElementById('registerBtn');
     const userNameDisplay = document.getElementById('userNameDisplay');
     const teamNameDisplay = document.getElementById('teamNameDisplay');
     const userTrackDisplay = document.getElementById('userTrackDisplay');
+    const captainTag = document.getElementById('captainTag');
 
     let selectedTrack = 'А1';
 
@@ -403,40 +817,210 @@
       selectedTrack = 'А2';
     });
 
-    enterBtn.addEventListener('click', () => {
+    registerBtn.addEventListener('click', () => {
       const captain = captainName.value.trim() || 'Капитан';
       const team = teamName.value.trim() || 'Команда';
-      loginCard.style.display = 'none';
+
+      registerCard.style.display = 'none';
       cabinetContent.style.display = 'block';
       userNameDisplay.textContent = captain;
       teamNameDisplay.textContent = team;
       userTrackDisplay.textContent = selectedTrack;
+
+      // Обновляем тег капитана
+      captainTag.innerHTML = `<i data-feather="user"></i> ${captain} (капитан)`;
+      feather.replace();
     });
 
     // Добавление авторов
     const addAuthorBtn = document.getElementById('addAuthorBtn');
+    const authorModal = document.getElementById('authorModal');
+    const newAuthorName = document.getElementById('newAuthorName');
+    const saveAuthorBtn = document.getElementById('saveAuthorBtn');
     const authorsList = document.getElementById('authorsList');
-    let authorCount = 1;
 
     addAuthorBtn.addEventListener('click', () => {
-      authorCount++;
-      const newAuthor = document.createElement('span');
-      newAuthor.className = 'author-tag';
-      newAuthor.innerHTML = `<i data-feather="user" style="width:14px;"></i> Участник ${authorCount}`;
-      authorsList.appendChild(newAuthor);
+      authorModal.classList.add('active');
+      newAuthorName.value = '';
+    });
+
+    saveAuthorBtn.addEventListener('click', () => {
+      const name = newAuthorName.value.trim();
+      if (name) {
+        const authorTag = document.createElement('span');
+        authorTag.className = 'author-tag';
+        authorTag.innerHTML = `<i data-feather="user"></i> ${name}`;
+        authorsList.appendChild(authorTag);
+        feather.replace();
+        authorModal.classList.remove('active');
+      }
+    });
+
+    authorModal.addEventListener('click', (e) => {
+      if (e.target === authorModal) authorModal.classList.remove('active');
+    });
+
+    // Итоговый файл для производства
+    const attachProductionFileBtn = document.getElementById('attachProductionFileBtn');
+    const productionFileDisplay = document.getElementById('productionFileDisplay');
+
+    attachProductionFileBtn.addEventListener('click', () => {
+      const fileName = prompt('Введите название файла (например, product.dxf):');
+      if (fileName) {
+        productionFileDisplay.innerHTML = `
+          <div style="background:#eef2f9; border-radius:30px; padding:16px 24px; display:inline-flex; align-items:center; gap:12px;">
+            <i data-feather="paperclip"></i>
+            <span>${fileName}</span>
+          </div>
+        `;
+        feather.replace();
+      }
+    });
+
+    // Трекер (drag & drop)
+    let tasks = [
+      { id: '1', title: 'Выбрать тему проекта', desc: '', status: 'planned' },
+      { id: '2', title: 'Подготовить макет', desc: '', status: 'inprogress' },
+      { id: '3', title: 'Написать инструкцию', desc: '', status: 'done' },
+    ];
+
+    let draggedTask = null;
+    let currentTaskId = null;
+
+    const plannedList = document.getElementById('plannedList');
+    const inprogressList = document.getElementById('inprogressList');
+    const doneList = document.getElementById('doneList');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskModal = document.getElementById('taskModal');
+    const taskModalTitle = document.getElementById('taskModalTitle');
+    const taskNameInput = document.getElementById('taskNameInput');
+    const taskDescInput = document.getElementById('taskDescInput');
+    const saveTaskBtn = document.getElementById('saveTaskBtn');
+
+    function renderTasks() {
+      plannedList.innerHTML = '';
+      inprogressList.innerHTML = '';
+      doneList.innerHTML = '';
+
+      tasks.forEach(task => {
+        const taskEl = createTaskElement(task);
+        if (task.status === 'planned') plannedList.appendChild(taskEl);
+        else if (task.status === 'inprogress') inprogressList.appendChild(taskEl);
+        else if (task.status === 'done') doneList.appendChild(taskEl);
+      });
+    }
+
+    function createTaskElement(task) {
+      const div = document.createElement('div');
+      div.className = 'task-card';
+      div.draggable = true;
+      div.dataset.id = task.id;
+
+      div.innerHTML = `
+        <div class="task-title">${task.title}</div>
+        ${task.desc ? `<p style="color:#6e7c9e; font-size:0.9rem;">${task.desc}</p>` : ''}
+        <div class="task-actions">
+          <button class="task-edit" onclick="editTask('${task.id}')"><i data-feather="edit-2"></i></button>
+          <button class="task-delete" onclick="deleteTask('${task.id}')"><i data-feather="trash-2"></i></button>
+        </div>
+      `;
+
+      div.addEventListener('dragstart', (e) => {
+        draggedTask = task.id;
+        div.classList.add('dragging');
+      });
+
+      div.addEventListener('dragend', (e) => {
+        div.classList.remove('dragging');
+        draggedTask = null;
+      });
+
+      return div;
+    }
+
+    // Drag & drop между колонками
+    document.querySelectorAll('.task-list').forEach(list => {
+      list.addEventListener('dragover', (e) => e.preventDefault());
+
+      list.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (!draggedTask) return;
+
+        const newStatus = list.closest('.kanban-col').dataset.status;
+        const task = tasks.find(t => t.id === draggedTask);
+        if (task) {
+          task.status = newStatus;
+          renderTasks();
+          feather.replace();
+        }
+      });
+    });
+
+    window.editTask = (id) => {
+      const task = tasks.find(t => t.id === id);
+      if (task) {
+        currentTaskId = id;
+        taskModalTitle.textContent = 'Редактировать задачу';
+        taskNameInput.value = task.title;
+        taskDescInput.value = task.desc || '';
+        taskModal.style.display = 'flex';
+      }
+    };
+
+    window.deleteTask = (id) => {
+      if (confirm('Удалить задачу?')) {
+        tasks = tasks.filter(t => t.id !== id);
+        renderTasks();
+        feather.replace();
+      }
+    };
+
+    addTaskBtn.addEventListener('click', () => {
+      currentTaskId = null;
+      taskModalTitle.textContent = 'Новая задача';
+      taskNameInput.value = '';
+      taskDescInput.value = '';
+      taskModal.style.display = 'flex';
+    });
+
+    saveTaskBtn.addEventListener('click', () => {
+      const title = taskNameInput.value.trim();
+      if (!title) return;
+
+      if (currentTaskId) {
+        const task = tasks.find(t => t.id === currentTaskId);
+        if (task) {
+          task.title = title;
+          task.desc = taskDescInput.value.trim();
+        }
+      } else {
+        const newTask = {
+          id: Date.now().toString(),
+          title: title,
+          desc: taskDescInput.value.trim(),
+          status: 'planned'
+        };
+        tasks.push(newTask);
+      }
+
+      renderTasks();
+      taskModal.style.display = 'none';
       feather.replace();
+    });
+
+    taskModal.addEventListener('click', (e) => {
+      if (e.target === taskModal) taskModal.style.display = 'none';
     });
 
     // Рабочие файлы
     const filesGrid = document.getElementById('filesGrid');
     const uploadFileBtn = document.getElementById('uploadFileBtn');
-    let fileCount = 3;
 
-    // Пример файлов
     const sampleFiles = [
       { name: 'Макет.dxf', icon: 'file' },
       { name: 'Инструкция.pdf', icon: 'file-text' },
-      { name: 'Код программы.ino', icon: 'code' }
+      { name: 'Код программы.ino', icon: 'code' },
+      { name: '3D-модель.stl', icon: 'box' },
     ];
 
     sampleFiles.forEach(file => {
@@ -451,7 +1035,7 @@
     });
 
     uploadFileBtn.addEventListener('click', () => {
-      const fileName = prompt('Введите название файла (например, схема.dxf):');
+      const fileName = prompt('Введите название файла:');
       if (fileName) {
         const fileCard = document.createElement('div');
         fileCard.className = 'file-card';
@@ -465,11 +1049,35 @@
       }
     });
 
-    // Публикация в каталог
+    // Публикация с уведомлением
     const publishBtn = document.getElementById('publishBtn');
+    const notificationModal = document.getElementById('notificationModal');
+    const notificationClose = document.getElementById('notificationClose');
+
     publishBtn.addEventListener('click', () => {
-      alert('Проект опубликован в каталоге! (демо-режим)');
+      notificationModal.classList.add('active');
     });
+
+    notificationClose.addEventListener('click', () => {
+      notificationModal.classList.remove('active');
+    });
+
+    notificationModal.addEventListener('click', (e) => {
+      if (e.target === notificationModal) notificationModal.classList.remove('active');
+    });
+
+    // Закрытие по Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        authorModal.classList.remove('active');
+        taskModal.style.display = 'none';
+        notificationModal.classList.remove('active');
+      }
+    });
+
+    // Начальный рендер задач
+    renderTasks();
+    feather.replace();
   </script>
 </body>
 </html>
