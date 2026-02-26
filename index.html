@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Педагогический технопарк | Практика студентов</title>
+  <title>Педагогический технопарк | Проектная деятельность</title>
   <!-- Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
     }
 
     .section {
-      padding: 80px 0;
+      padding: 100px 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     }
 
@@ -78,21 +78,21 @@
     }
 
     h2 {
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       font-weight: 500;
       letter-spacing: -0.02em;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
     }
 
     .subhead {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 300;
       color: #3a4055;
       max-width: 700px;
-      margin-bottom: 48px;
+      margin-bottom: 60px;
     }
 
-    /* Hero */
+    /* Hero с красивой графикой */
     .hero {
       min-height: 85vh;
       display: flex;
@@ -100,6 +100,39 @@
       background: radial-gradient(ellipse at 70% 30%, #e2e9ff, #f5f7fb 80%);
       position: relative;
       overflow: hidden;
+    }
+
+    .hero__graphic {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero__graphic::before,
+    .hero__graphic::after {
+      content: '';
+      position: absolute;
+      background: #2b3b6b;
+      opacity: 0.03;
+      border-radius: 50%;
+    }
+
+    .hero__graphic::before {
+      width: 550px;
+      height: 550px;
+      top: -200px;
+      right: -50px;
+    }
+
+    .hero__graphic::after {
+      width: 350px;
+      height: 350px;
+      bottom: -120px;
+      left: -30px;
+      border: 2px solid #2b3b6b;
+      background: transparent;
+      opacity: 0.1;
+      border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
     }
 
     .hero__content {
@@ -122,6 +155,7 @@
       font-weight: 300;
       color: #252e44;
       margin: 32px 0 48px;
+      max-width: 600px;
     }
 
     .button {
@@ -133,6 +167,7 @@
       text-decoration: none;
       font-weight: 500;
       transition: background 0.2s;
+      font-size: 1rem;
     }
 
     .button:hover {
@@ -143,6 +178,23 @@
       background: transparent;
       color: #1b1f2b;
       border: 1px solid #cdd6e4;
+      margin-left: 16px;
+    }
+
+    .button--outline:hover {
+      background: #f0f4fe;
+    }
+
+    @media (max-width: 600px) {
+      .hero__buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .button--outline {
+        margin-left: 0;
+      }
     }
 
     /* Два формата практики */
@@ -156,7 +208,8 @@
     .format-card {
       background: white;
       border-radius: 32px;
-      padding: 40px 32px;
+      padding: 48px 40px;
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.05);
       border: 1px solid #f0f3f8;
     }
 
@@ -165,94 +218,144 @@
       height: 48px;
       color: #2b3b6b;
       margin-bottom: 28px;
+      stroke-width: 1.5;
     }
 
     .format-card h3 {
       font-size: 2rem;
       font-weight: 500;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .format-card p {
+      color: #3a4055;
+      font-weight: 300;
+      margin-bottom: 28px;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
     .chip {
       background: #eef2f9;
       color: #1f293d;
-      padding: 4px 14px;
+      padding: 6px 16px;
       border-radius: 40px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 500;
       display: inline-block;
     }
 
-    /* Коробочные продукты */
+    /* Коробочные комплекты */
     .product-showcase {
       background: white;
-      border-radius: 48px;
-      padding: 56px 48px;
+      border-radius: 60px;
+      padding: 70px 60px;
       display: flex;
       flex-wrap: wrap;
-      gap: 40px;
+      gap: 60px;
       align-items: center;
+      border: 1px solid #edf2f9;
+    }
+
+    .product-showcase__content {
+      flex: 2;
+      min-width: 320px;
     }
 
     .product-showcase__title {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       font-weight: 500;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .product-showcase__text {
       font-size: 1.2rem;
       font-weight: 300;
       color: #383f5a;
-      margin-bottom: 32px;
+      margin-bottom: 40px;
+      max-width: 550px;
+      line-height: 1.7;
+    }
+
+    .product-showcase__icon {
+      flex: 1;
+      text-align: center;
+      color: #2b3b6b;
     }
 
     .product-showcase__icon i {
-      width: 140px;
-      height: 140px;
-      color: #2b3b6b;
+      width: 160px;
+      height: 160px;
+      stroke-width: 1.2;
     }
 
     /* Мастер-классы */
     .workshop-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 28px;
-      margin: 48px 0;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
+      margin: 50px 0;
     }
 
     .workshop-card {
       background: white;
-      border-radius: 32px;
-      padding: 32px 28px;
+      border-radius: 36px;
+      padding: 40px 32px;
       border: 1px solid #eef2f7;
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .workshop-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 30px -12px rgba(43,59,107,0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 25px 35px -12px rgba(43, 59, 107, 0.15);
     }
 
     .workshop-card__icon {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       color: #2b3b6b;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      stroke-width: 1.5;
     }
 
-    /* Правила и документы (теперь кликабельные) */
+    .workshop-card h3 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .workshop-card p {
+      color: #4b5672;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Правила и документы */
     .docs-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-      margin-top: 40px;
+      gap: 20px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 900px) {
+      .docs-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .docs-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .doc-card {
       background: white;
-      border-radius: 28px;
-      padding: 24px 16px;
+      border-radius: 30px;
+      padding: 30px 20px;
       text-align: center;
       border: 1px solid #f0f4fa;
       cursor: pointer;
@@ -260,69 +363,100 @@
     }
 
     .doc-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px -8px rgba(43,59,107,0.15);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 25px -10px rgba(43, 59, 107, 0.15);
       background: #f9fbfe;
     }
 
     .doc-card__icon {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       color: #2b3b6b;
-      margin: 0 auto 16px;
+      margin: 0 auto 18px;
+      stroke-width: 1.5;
     }
 
     .doc-card h4 {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 500;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     .doc-card p {
       color: #505e7e;
       font-weight: 300;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
 
-    /* КОНТАКТЫ — 6 МАЛЕНЬКИХ КАРТОЧЕК */
+    /* Контакты — 6 маленьких карточек (идеально) */
     .contacts-mini-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
-      margin: 40px 0;
+      gap: 16px;
+      margin: 50px 0;
     }
 
     .contact-mini-card {
       background: white;
-      border-radius: 20px;
-      padding: 12px 16px;
+      border-radius: 40px;
+      padding: 14px 24px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       border: 1px solid #eef2f9;
       text-decoration: none;
       color: #1b1f2b;
       transition: all 0.2s;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     .contact-mini-card:hover {
       background: #f0f4fe;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -8px rgba(43, 59, 107, 0.2);
     }
 
     .contact-mini-card i {
       width: 18px;
       height: 18px;
       color: #2b3b6b;
+      stroke-width: 1.5;
+    }
+
+    /* Блок студенческих комплектов */
+    .student-projects-block {
+      background: #eef2f9;
+      border-radius: 70px;
+      padding: 60px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .student-projects-block h4 {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .student-projects-block p {
+      color: #384362;
+      font-size: 1.1rem;
+      max-width: 550px;
     }
 
     /* Модальное окно */
     .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(15, 18, 28, 0.7);
       backdrop-filter: blur(6px);
       align-items: center;
@@ -338,14 +472,16 @@
       background: white;
       max-width: 600px;
       width: 90%;
-      border-radius: 48px;
-      padding: 48px;
+      border-radius: 50px;
+      padding: 50px;
       position: relative;
+      box-shadow: 0 40px 70px -10px rgba(0, 0, 0, 0.3);
     }
 
     .modal-close {
       position: absolute;
-      top: 24px; right: 28px;
+      top: 24px;
+      right: 28px;
       background: none;
       border: none;
       font-size: 2rem;
@@ -357,19 +493,21 @@
       width: 100%;
       height: 200px;
       background: #eef2f9;
-      border-radius: 24px;
+      border-radius: 30px;
       margin: 24px 0;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #8b9bb5;
+      font-size: 3rem;
     }
 
     .footer {
-      padding: 48px 0;
+      padding: 60px 0;
       text-align: center;
       color: #6e7c9e;
-      border-top: 1px solid rgba(0,0,0,0.03);
+      font-weight: 300;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
     }
   </style>
 </head>
@@ -380,7 +518,7 @@
         <a href="index.html">Педагогический технопарк</a>
       </div>
       <div class="nav-links">
-        <a href="index.html" style="color:#2b3b6b;">Главная</a>
+        <a href="index.html" style="color: #2b3b6b;">Главная</a>
         <a href="cabinet.html">Личный кабинет</a>
         <a href="catalog.html">Проекты</a>
       </div>
@@ -388,12 +526,13 @@
   </header>
 
   <main>
-    <!-- Герой -->
+    <!-- Герой с красивой графикой -->
     <section class="hero section">
+      <div class="hero__graphic" aria-hidden="true"></div>
       <div class="container hero__content">
         <div class="hero__label">ПЕДАГОГИЧЕСКИЙ ТЕХНОПАРК</div>
-        <h1>Создавай<br>образовательные решения</h1>
-        <p class="hero__description">Коробочные продукты, которые проходят апробацию в школах. Два формата практики.</p>
+        <h1>Проектная деятельность<br>на базе технопарка</h1>
+        <p class="hero__description">имени К.Д. Ушинского · РГПУ им. А.И. Герцена</p>
         <div class="hero__buttons">
           <a href="cabinet.html" class="button">Войти в кабинет</a>
           <a href="#formats" class="button button--outline">О практике</a>
@@ -405,34 +544,34 @@
     <section class="section" id="formats">
       <div class="container">
         <h2>Два формата практики</h2>
-        <div class="subhead">Выберите подходящий ритм работы</div>
+        <div class="subhead">Практики реализовываются в двух форматах</div>
         <div class="formats-grid">
           <div class="format-card">
             <i data-feather="calendar" class="format-card__icon"></i>
             <h3>А1 · Семестр</h3>
-            <p>Практика в течение семестра, гибкое расписание.</p>
+            <p>Практика в течение семестра, гибкое расписание, больше времени на разработку и апробацию комплекта в школе.</p>
             <div class="chip">длительный трек</div>
           </div>
           <div class="format-card">
             <i data-feather="zap" class="format-card__icon"></i>
             <h3>А2 · Интенсив</h3>
-            <p>Неделя плотной работы. Для быстрого результата.</p>
+            <p>Неделя плотной работы. Каждый день — новый этап. Для тех, кто любит быстрый результат и готов к погружению.</p>
             <div class="chip">короткий трек</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Коробочные продукты -->
+    <!-- Коробочные образовательные комплекты -->
     <section class="section">
       <div class="container">
         <div class="product-showcase">
           <div class="product-showcase__content">
-            <h3 class="product-showcase__title">Коробочные образовательные продукты</h3>
+            <h3 class="product-showcase__title">Коробочные образовательные комплекты</h3>
             <div class="product-showcase__text">
-              Готовые образовательные решения. Студенты разрабатывают уникальные продукты, дополняя их инструкциями и методикой.
+              Готовые образовательные решения. Студенты разрабатывают уникальные комплекты, дополняя их инструкциями и методикой, а затем проводят апробацию в школах.
             </div>
-            <a href="catalog.html" class="button">Все продукты</a>
+            <a href="catalog.html" class="button">Все комплекты</a>
           </div>
           <div class="product-showcase__icon">
             <i data-feather="box"></i>
@@ -450,7 +589,7 @@
       </div>
     </section>
 
-    <!-- Правила и документы (теперь с модальными окнами) -->
+    <!-- Правила и документы -->
     <section class="section">
       <div class="container">
         <h2>Правила и документы</h2>
@@ -459,7 +598,7 @@
       </div>
     </section>
 
-    <!-- КОНТАКТЫ — 6 МАЛЕНЬКИХ КАРТОЧЕК (без подписей) -->
+    <!-- Контакты — 6 маленьких карточек -->
     <section class="section">
       <div class="container">
         <h2>Контакты</h2>
@@ -467,22 +606,39 @@
       </div>
     </section>
 
-    <!-- Студенческие проекты -->
+    <!-- Коробочные образовательные комплекты студентов -->
     <section class="section">
       <div class="container">
-        <div style="background: #eef2f9; border-radius: 60px; padding: 40px; display: flex; align-items: center; justify-content: space-between;">
+        <div class="student-projects-block">
           <div>
-            <h4 style="font-size: 1.8rem; font-weight: 500;">Студенческие проекты</h4>
-            <p style="color: #384362;">Посмотрите готовые работы в каталоге</p>
+            <h4>Коробочные образовательные комплекты</h4>
+            <p>Посмотрите комплекты, реализованные студентами на базе технопарка</p>
           </div>
-          <a href="catalog.html" class="button button--outline">Перейти в каталог →</a>
+          <a href="catalog.html" class="button button--outline" style="border-color: #2b3b6b;">Перейти в каталог →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Партнёрство -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div style="background: white; border-radius: 70px; padding: 60px; text-align: center;">
+          <h4 style="font-size: 2.2rem; margin-bottom: 20px;">Хотите пройти практику на базе технопарка?</h4>
+          <p style="color: #4a5578; font-size: 1.2rem; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Напишите нам, и мы договоримся о сотрудничестве
+          </p>
+          <a href="https://technopark.herzen.spb.ru" target="_blank" class="button" style="background: #2b3b6b; padding: 16px 50px; font-size: 1.1rem;">
+            Связаться
+          </a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">Ткаченко Алиса Олеговна · магистерская работа</div>
+    <div class="container">
+      Ткаченко Алиса Олеговна · магистерская работа
+    </div>
   </footer>
 
   <!-- Модальное окно для документов -->
@@ -491,7 +647,6 @@
       <button class="modal-close" id="docModalClose">&times;</button>
       <h3 id="docModalTitle">Название документа</h3>
       <div class="modal-image" id="docModalImage">
-        <!-- Здесь будет картинка-заглушка -->
         <i data-feather="file-text" style="width: 48px; height: 48px;"></i>
       </div>
       <p id="docModalDesc">Описание документа</p>
@@ -504,7 +659,8 @@
       <button class="modal-close" id="workshopModalClose">&times;</button>
       <h3 id="workshopModalTitle">Название МК</h3>
       <div class="modal-image" id="workshopModalVideo">
-        <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen style="border-radius:24px;"></iframe>
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen
+          style="border-radius: 24px;"></iframe>
       </div>
       <p id="workshopModalDesc">Описание мастер-класса</p>
     </div>
@@ -514,32 +670,102 @@
     feather.replace();
 
     // Данные для мастер-классов
-    const workshops = [
-      { icon: 'zap', title: 'Лазерные технологии', desc: 'Резка, гравировка и работа с разными материалами.' },
-      { icon: 'box', title: 'Аддитивные технологии', desc: '3D-печать, постобработка, настройка оборудования.' },
-      { icon: 'edit-3', title: 'Векторная графика', desc: 'Inkscape, CorelDRAW — подготовка макетов.' },
-      { icon: 'hexagon', title: 'Промышленный дизайн', desc: 'Эскизирование, 3D-моделирование.' },
-      { icon: 'code', title: 'Программирование', desc: 'Arduino, Python для устройств.' },
-      { icon: 'tool', title: 'Прототипирование', desc: 'Быстрая сборка макетов, электроника.' },
+    const workshops = [{
+        icon: 'zap',
+        title: 'Лазерные технологии',
+        desc: 'Резка, гравировка и работа с разными материалами. Познакомитесь с оборудованием и создадите макет.'
+      },
+      {
+        icon: 'box',
+        title: 'Аддитивные технологии',
+        desc: '3D-печать, постобработка, настройка оборудования. Узнаете о современных технологиях прототипирования.'
+      },
+      {
+        icon: 'edit-3',
+        title: 'Векторная графика',
+        desc: 'Inkscape, CorelDRAW — подготовка макетов для лазера и плоттера. Научитесь создавать векторные изображения.'
+      },
+      {
+        icon: 'hexagon',
+        title: 'Промышленный дизайн',
+        desc: 'Эскизирование, 3D-моделирование, эргономика. Разработаете концепцию продукта.'
+      },
+      {
+        icon: 'code',
+        title: 'Программирование',
+        desc: 'Arduino, Python для устройств, автоматизация. Напишете код для первого устройства.'
+      },
+      {
+        icon: 'tool',
+        title: 'Прототипирование',
+        desc: 'Быстрая сборка макетов, электроника, отладка. Соберёте рабочий прототип за час.'
+      },
     ];
 
-    // Данные для документов (с картинками-заглушками)
-    const docs = [
-      { icon: 'shield', title: 'Техника безопасности', desc: 'Инструктаж, работа с оборудованием', image: '🔒' },
-      { icon: 'check-circle', title: 'Правила работы', desc: 'Кодекс участника, расписание', image: '📋' },
-      { icon: 'layers', title: 'AGILE', desc: 'Гибкие методологии, итерации', image: '🔄' },
-      { icon: 'columns', title: 'CANBAN', desc: 'Визуализация задач, WIP', image: '📊' },
-      { icon: 'file-text', title: 'Подготовка файлов', desc: 'Именование, форматы, облака', image: '📁' },
+    // Данные для документов
+    const docs = [{
+        icon: 'shield',
+        title: 'Техника безопасности',
+        desc: 'Инструктаж, работа с оборудованием',
+        image: '🔒'
+      },
+      {
+        icon: 'check-circle',
+        title: 'Правила работы',
+        desc: 'Кодекс участника, расписание',
+        image: '📋'
+      },
+      {
+        icon: 'layers',
+        title: 'AGILE',
+        desc: 'Гибкие методологии, итерации',
+        image: '🔄'
+      },
+      {
+        icon: 'columns',
+        title: 'CANBAN',
+        desc: 'Визуализация задач, WIP',
+        image: '📊'
+      },
+      {
+        icon: 'file-text',
+        title: 'Подготовка файлов',
+        desc: 'Именование, форматы, облака',
+        image: '📁'
+      },
     ];
 
     // Данные для контактов (6 маленьких карточек)
-    const contacts = [
-      { icon: 'map-pin', text: 'наб. Реки Мойки 48-52', link: 'https://yandex.ru/maps/?text=наб.+Реки+Мойки+48-52' },
-      { icon: 'globe', text: 'technopark.herzen.spb.ru', link: 'https://technopark.herzen.spb.ru' },
-      { icon: 'mail', text: 'technopark.herzen@yandex.ru', link: 'mailto:technopark.herzen@yandex.ru' },
-      { icon: 'message-circle', text: 'Общий чат ВК', link: 'https://vk.com/technoparkrgpu' },
-      { icon: 'hash', text: 'Чат Кванториума', link: '#' },
-      { icon: 'message-square', text: 'Связь с куратором', link: '#' },
+    const contacts = [{
+        icon: 'map-pin',
+        text: 'наб. Реки Мойки 48-52, корпус 1',
+        link: 'https://yandex.ru/maps/?text=наб.+Реки+Мойки+48-52'
+      },
+      {
+        icon: 'globe',
+        text: 'technopark.herzen.spb.ru',
+        link: 'https://technopark.herzen.spb.ru'
+      },
+      {
+        icon: 'mail',
+        text: 'technopark.herzen@yandex.ru',
+        link: 'mailto:technopark.herzen@yandex.ru'
+      },
+      {
+        icon: 'message-circle',
+        text: 'Общий чат ВК',
+        link: 'https://vk.com/technoparkrgpu'
+      },
+      {
+        icon: 'hash',
+        text: 'Чат Кванториума',
+        link: '#'
+      },
+      {
+        icon: 'message-square',
+        text: 'Связь с куратором',
+        link: '#'
+      },
     ];
 
     // Рендер мастер-классов
@@ -550,7 +776,7 @@
       card.innerHTML = `
         <i data-feather="${w.icon}" class="workshop-card__icon"></i>
         <h3>${w.title}</h3>
-        <p>${w.desc.substring(0, 40)}…</p>
+        <p>${w.desc.substring(0, 60)}…</p>
       `;
       card.onclick = () => openWorkshopModal(w);
       workshopGrid.appendChild(card);
@@ -570,7 +796,7 @@
       docsGrid.appendChild(card);
     });
 
-    // Рендер контактов (6 маленьких карточек)
+    // Рендер контактов
     const contactsGrid = document.getElementById('contactsGrid');
     contacts.forEach(contact => {
       const link = document.createElement('a');
@@ -600,7 +826,9 @@
     }
 
     docModalClose.onclick = () => docModal.classList.remove('active');
-    docModal.onclick = (e) => { if (e.target === docModal) docModal.classList.remove('active'); };
+    docModal.onclick = (e) => {
+      if (e.target === docModal) docModal.classList.remove('active');
+    };
 
     // Модальное окно для мастер-классов
     const workshopModal = document.getElementById('workshopModal');
@@ -615,7 +843,9 @@
     }
 
     workshopModalClose.onclick = () => workshopModal.classList.remove('active');
-    workshopModal.onclick = (e) => { if (e.target === workshopModal) workshopModal.classList.remove('active'); };
+    workshopModal.onclick = (e) => {
+      if (e.target === workshopModal) workshopModal.classList.remove('active');
+    };
 
     // Закрытие по Escape
     document.addEventListener('keydown', (e) => {
