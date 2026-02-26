@@ -595,14 +595,14 @@
       </div>
     </section>
 
-    <!-- Мастер-классы (теперь карточки одинакового размера) -->
-    <section class="section">
-      <div class="container">
-        <h2>Мастер-классы</h2>
-        <div class="subhead">Краткие видео и описание</div>
-        <div class="workshop-grid" id="workshopGrid"></div>
-      </div>
-    </section>
+    <!-- Мастер-классы (исправленные карточки) -->
+<section class="section">
+  <div class="container">
+    <h2>Мастер-классы</h2>
+    <div class="subhead">Краткие видео и описание</div>
+    <div class="workshop-grid" id="workshopGrid"></div>
+  </div>
+</section>
 
     <!-- Правила и документы -->
     <section class="section">
@@ -685,38 +685,52 @@
     feather.replace();
 
     // Данные для мастер-классов
-    const workshops = [
-      {
-        icon: 'zap',
-        title: 'Лазерные технологии',
-        desc: 'Резка, гравировка и работа с разными материалами. Познакомитесь с оборудованием и создадите макет.'
-      },
-      {
-        icon: 'box',
-        title: 'Аддитивные технологии',
-        desc: '3D-печать, постобработка, настройка оборудования. Узнаете о современных технологиях прототипирования.'
-      },
-      {
-        icon: 'edit-3',
-        title: 'Векторная графика',
-        desc: 'Inkscape, CorelDRAW — подготовка макетов для лазера и плоттера. Научитесь создавать векторные изображения.'
-      },
-      {
-        icon: 'hexagon',
-        title: 'Промышленный дизайн',
-        desc: 'Эскизирование, 3D-моделирование, эргономика. Разработаете концепцию продукта.'
-      },
-      {
-        icon: 'code',
-        title: 'Программирование',
-        desc: 'Arduino, Python для устройств, автоматизация. Напишете код для первого устройства.'
-      },
-      {
-        icon: 'tool',
-        title: 'Прототипирование',
-        desc: 'Быстрая сборка макетов, электроника, отладка. Соберёте рабочий прототип за час.'
-      }
-    ];
+const workshops = [
+  {
+    icon: 'zap',
+    title: 'Лазерные технологии',
+    desc: 'Резка, гравировка и работа с разными материалами. Познакомитесь с оборудованием и создадите макет.'
+  },
+  {
+    icon: 'box',
+    title: 'Аддитивные технологии',
+    desc: '3D-печать, постобработка, настройка оборудования. Узнаете о современных технологиях прототипирования.'
+  },
+  {
+    icon: 'edit-3',
+    title: 'Векторная графика',
+    desc: 'Inkscape, CorelDRAW — подготовка макетов для лазера и плоттера. Научитесь создавать векторные изображения.'
+  },
+  {
+    icon: 'hexagon',
+    title: 'Промышленный дизайн',
+    desc: 'Эскизирование, 3D-моделирование, эргономика. Разработаете концепцию продукта.'
+  },
+  {
+    icon: 'code',
+    title: 'Программирование',
+    desc: 'Arduino, Python для устройств, автоматизация. Напишете код для первого устройства.'
+  },
+  {
+    icon: 'tool',
+    title: 'Прототипирование',
+    desc: 'Быстрая сборка макетов, электроника, отладка. Соберёте рабочий прототип за час.'
+  }
+];
+
+// Рендер мастер-классов
+const workshopGrid = document.getElementById('workshopGrid');
+workshops.forEach(w => {
+  const card = document.createElement('div');
+  card.className = 'workshop-card';
+  card.innerHTML = `
+    <i data-feather="${w.icon}" class="workshop-card__icon"></i>
+    <h3>${w.title}</h3>
+    <p>${w.desc}</p>
+  `;
+  card.onclick = () => openWorkshopModal(w);
+  workshopGrid.appendChild(card);
+});
 
     // Данные для документов
     const docs = [
