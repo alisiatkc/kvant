@@ -35,8 +35,39 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     }
 
-    .section:last-of-type {
-      border-bottom: none;
+    /* Шапка */
+    .header {
+      padding: 20px 0;
+      background: white;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo a {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #1b1f2b;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #4a5578;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #2b3b6b;
     }
 
     h1 {
@@ -71,35 +102,6 @@
       overflow: hidden;
     }
 
-    .hero__graphic {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .hero__graphic::before,
-    .hero__graphic::after {
-      content: '';
-      position: absolute;
-      background: #2b3b6b;
-      opacity: 0.03;
-      border-radius: 50%;
-    }
-
-    .hero__graphic::before {
-      width: 550px; height: 550px;
-      top: -200px; right: -50px;
-    }
-
-    .hero__graphic::after {
-      width: 350px; height: 350px;
-      bottom: -120px; left: -30px;
-      border: 2px solid #2b3b6b;
-      background: transparent;
-      opacity: 0.1;
-      border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
-    }
-
     .hero__content {
       position: relative;
       z-index: 2;
@@ -120,7 +122,6 @@
       font-weight: 300;
       color: #252e44;
       margin: 32px 0 48px;
-      max-width: 600px;
     }
 
     .button {
@@ -131,10 +132,7 @@
       border-radius: 40px;
       text-decoration: none;
       font-weight: 500;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      font-size: 1rem;
+      transition: background 0.2s;
     }
 
     .button:hover {
@@ -145,22 +143,6 @@
       background: transparent;
       color: #1b1f2b;
       border: 1px solid #cdd6e4;
-      margin-left: 16px;
-    }
-
-    .button--outline:hover {
-      background: #f0f4fe;
-      border-color: #2b3b6b;
-    }
-
-    @media (max-width: 600px) {
-      .hero__buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-      }
-      .button--outline { margin-left: 0; }
     }
 
     /* Два формата практики */
@@ -175,7 +157,6 @@
       background: white;
       border-radius: 32px;
       padding: 40px 32px;
-      box-shadow: 0 12px 30px -10px rgba(0,0,0,0.05);
       border: 1px solid #f0f3f8;
     }
 
@@ -184,7 +165,6 @@
       height: 48px;
       color: #2b3b6b;
       margin-bottom: 28px;
-      stroke-width: 1.5;
     }
 
     .format-card h3 {
@@ -193,23 +173,16 @@
       margin-bottom: 16px;
     }
 
-    .format-card p {
-      color: #3a4055;
-      font-weight: 300;
-      margin-bottom: 24px;
-    }
-
     .chip {
       background: #eef2f9;
       color: #1f293d;
       padding: 4px 14px;
       border-radius: 40px;
       font-size: 0.85rem;
-      font-weight: 500;
       display: inline-block;
     }
 
-    /* коробочные продукты */
+    /* Коробочные продукты */
     .product-showcase {
       background: white;
       border-radius: 48px;
@@ -218,12 +191,6 @@
       flex-wrap: wrap;
       gap: 40px;
       align-items: center;
-      border: 1px solid #edf2f9;
-    }
-
-    .product-showcase__content {
-      flex: 2;
-      min-width: 280px;
     }
 
     .product-showcase__title {
@@ -237,27 +204,20 @@
       font-weight: 300;
       color: #383f5a;
       margin-bottom: 32px;
-      max-width: 500px;
-    }
-
-    .product-showcase__icon {
-      flex: 1;
-      text-align: center;
-      color: #2b3b6b;
     }
 
     .product-showcase__icon i {
       width: 140px;
       height: 140px;
-      stroke-width: 1.2;
+      color: #2b3b6b;
     }
 
-    /* мастер-классы */
+    /* Мастер-классы */
     .workshop-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 28px;
-      margin: 48px 0 20px;
+      margin: 48px 0;
     }
 
     .workshop-card {
@@ -265,22 +225,13 @@
       border-radius: 32px;
       padding: 32px 28px;
       border: 1px solid #eef2f7;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s;
-      display: block;
       cursor: pointer;
-      border: none;
-      width: 100%;
-      text-align: left;
-      font-family: inherit;
+      transition: all 0.2s;
     }
 
     .workshop-card:hover {
-      box-shadow: 0 20px 30px -12px rgba(43,59,107,0.12);
-      border-color: transparent;
-      background: white;
       transform: translateY(-4px);
+      box-shadow: 0 20px 30px -12px rgba(43,59,107,0.12);
     }
 
     .workshop-card__icon {
@@ -288,22 +239,9 @@
       height: 44px;
       color: #2b3b6b;
       margin-bottom: 24px;
-      stroke-width: 1.5;
     }
 
-    .workshop-card h3 {
-      font-size: 1.6rem;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .workshop-card p {
-      color: #4b5672;
-      font-weight: 300;
-      font-size: 0.95rem;
-    }
-
-    /* документы */
+    /* Правила и документы (теперь кликабельные) */
     .docs-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -311,196 +249,76 @@
       margin-top: 40px;
     }
 
-    @media (max-width: 900px) {
-      .docs-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .docs-grid { grid-template-columns: 1fr 1fr; }
-    }
-
     .doc-card {
       background: white;
       border-radius: 28px;
-      padding: 28px 16px;
+      padding: 24px 16px;
       text-align: center;
       border: 1px solid #f0f4fa;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -8px rgba(43,59,107,0.15);
+      background: #f9fbfe;
     }
 
     .doc-card__icon {
-      width: 40px;
-      height: 40px;
+      width: 32px;
+      height: 32px;
       color: #2b3b6b;
-      margin: 0 auto 20px;
-      stroke-width: 1.5;
+      margin: 0 auto 16px;
     }
 
     .doc-card h4 {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 500;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .doc-card p {
       color: #505e7e;
       font-weight: 300;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
 
-    /* КОНТАКТЫ — АККУРАТНЫЕ МИНИ-БЛОКИ */
-    .contacts-section {
-      background: white;
-      border-radius: 32px;
-      padding: 32px 40px;
-      box-shadow: 0 8px 20px -8px rgba(0,0,0,0.03);
-    }
-
-    .contacts-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin: 24px 0;
+    /* КОНТАКТЫ — 6 МАЛЕНЬКИХ КАРТОЧЕК */
+    .contacts-mini-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 40px 0;
     }
 
     .contact-mini-card {
+      background: white;
+      border-radius: 20px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: #f9fbfe;
+      gap: 8px;
       border: 1px solid #eef2f9;
-      border-radius: 24px;
-      padding: 12px 16px;
       text-decoration: none;
       color: #1b1f2b;
-      font-size: 0.85rem;
-      font-weight: 400;
       transition: all 0.2s;
-      line-height: 1.4;
-      min-height: 64px;
+      font-size: 0.9rem;
     }
 
     .contact-mini-card:hover {
-      background: #eef2f9;
+      background: #f0f4fe;
       transform: translateY(-2px);
-      box-shadow: 0 6px 12px -6px rgba(43,59,107,0.1);
     }
 
     .contact-mini-card i {
-      width: 20px;
-      height: 20px;
-      color: #2b3b6b;
-      stroke-width: 1.5;
-      flex-shrink: 0;
-    }
-
-    .contact-mini-card span {
-      font-size: 0.85rem;
-      line-height: 1.4;
-      word-break: break-word;
-    }
-
-    /* чаты */
-    .chats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 20px;
-      border-top: 1px solid #eef2f9;
-      padding-top: 24px;
-    }
-
-    .chat-mini-card {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #f9fbfe;
-      border: 1px solid #eef2f9;
-      border-radius: 24px;
-      padding: 12px 16px;
-      text-decoration: none;
-      color: #1b1f2b;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-
-    .chat-mini-card:hover {
-      background: #eef2f9;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px -6px rgba(43,59,107,0.1);
-    }
-
-    .chat-mini-card i {
-      width: 20px;
-      height: 20px;
-      color: #2b3b6b;
-      stroke-width: 1.5;
-      flex-shrink: 0;
-    }
-
-    @media (max-width: 800px) {
-      .contacts-grid,
-      .chats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 500px) {
-      .contacts-grid,
-      .chats-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .contacts-section {
-        padding: 24px 20px;
-      }
-    }
-
-    /* FAQ */
-    .faq-section {
-      background: white;
-      border-radius: 48px;
-      padding: 56px 48px;
-    }
-
-    details {
-      border-bottom: 1px solid #e3eaf1;
-      padding: 24px 0;
-    }
-
-    details:first-of-type { padding-top: 0; }
-    details:last-of-type { border-bottom: none; }
-
-    summary {
-      font-weight: 500;
-      font-size: 1.2rem;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    summary::-webkit-details-marker { display: none; }
-
-    summary::after {
-      content: "＋";
-      font-size: 1.6rem;
-      line-height: 1;
+      width: 18px;
+      height: 18px;
       color: #2b3b6b;
     }
 
-    details[open] summary::after {
-      content: "−";
-    }
-
-    .faq-answer {
-      margin-top: 16px;
-      font-weight: 300;
-      color: #414b68;
-      max-width: 80%;
-    }
-
-    /* модальное окно */
+    /* Модальное окно */
     .modal {
       display: none;
       position: fixed;
@@ -516,17 +334,16 @@
       display: flex;
     }
 
-    .modal__container {
+    .modal-content {
       background: white;
       max-width: 600px;
       width: 90%;
       border-radius: 48px;
       padding: 48px;
       position: relative;
-      box-shadow: 0 40px 70px -10px rgba(0,0,0,0.3);
     }
 
-    .modal__close {
+    .modal-close {
       position: absolute;
       top: 24px; right: 28px;
       background: none;
@@ -536,69 +353,47 @@
       color: #7c7f93;
     }
 
-    .modal__video {
+    .modal-image {
       width: 100%;
-      height: auto;
+      height: 200px;
+      background: #eef2f9;
       border-radius: 24px;
       margin: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8b9bb5;
     }
 
-    /* кабинет */
-    .cabinet-section {
-      text-align: center;
-      background: white;
-      border-radius: 80px;
-      padding: 64px 32px;
-      margin-top: 40px;
-      border: 1px solid #e9eef5;
-    }
-
-    .cabinet-section h3 {
-      font-size: 2.5rem;
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
-
-    .cabinet-section p {
-      font-size: 1.2rem;
-      color: #3f4a6b;
-      margin-bottom: 32px;
-    }
-
-    .big-button {
-      font-size: 1.3rem;
-      padding: 20px 60px;
-      background: #1b1f2b;
-      color: white;
-      border-radius: 60px;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s;
-    }
-
-    .big-button:hover {
-      background: #2b3b6b;
-    }
-
-    /* футер */
     .footer {
       padding: 48px 0;
       text-align: center;
       color: #6e7c9e;
-      font-weight: 300;
       border-top: 1px solid rgba(0,0,0,0.03);
     }
   </style>
 </head>
 <body>
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo">
+        <a href="index.html">Педагогический технопарк</a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" style="color:#2b3b6b;">Главная</a>
+        <a href="cabinet.html">Личный кабинет</a>
+        <a href="catalog.html">Проекты</a>
+      </div>
+    </div>
+  </header>
+
   <main>
     <!-- Герой -->
     <section class="hero section">
-      <div class="hero__graphic" aria-hidden="true"></div>
       <div class="container hero__content">
         <div class="hero__label">ПЕДАГОГИЧЕСКИЙ ТЕХНОПАРК</div>
         <h1>Создавай<br>образовательные решения</h1>
-        <p class="hero__description">Коробочные продукты, которые проходят апробацию в школах. Два формата практики — под любой график.</p>
+        <p class="hero__description">Коробочные продукты, которые проходят апробацию в школах. Два формата практики.</p>
         <div class="hero__buttons">
           <a href="cabinet.html" class="button">Войти в кабинет</a>
           <a href="#formats" class="button button--outline">О практике</a>
@@ -615,27 +410,27 @@
           <div class="format-card">
             <i data-feather="calendar" class="format-card__icon"></i>
             <h3>А1 · Семестр</h3>
-            <p>Практика в течение семестра, гибкое расписание, больше времени на разработку и апробацию продукта в школе.</p>
+            <p>Практика в течение семестра, гибкое расписание.</p>
             <div class="chip">длительный трек</div>
           </div>
           <div class="format-card">
             <i data-feather="zap" class="format-card__icon"></i>
             <h3>А2 · Интенсив</h3>
-            <p>Неделя плотной работы. Каждый день — новый этап. Для тех, кто любит быстрый результат и готов к погружению.</p>
+            <p>Неделя плотной работы. Для быстрого результата.</p>
             <div class="chip">короткий трек</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Коробочные образовательные продукты -->
+    <!-- Коробочные продукты -->
     <section class="section">
       <div class="container">
         <div class="product-showcase">
           <div class="product-showcase__content">
             <h3 class="product-showcase__title">Коробочные образовательные продукты</h3>
             <div class="product-showcase__text">
-              Готовые образовательные решения. Студенты разрабатывают уникальные продукты, дополняя их инструкциями и методикой, а затем проводят апробацию в школах.
+              Готовые образовательные решения. Студенты разрабатывают уникальные продукты, дополняя их инструкциями и методикой.
             </div>
             <a href="catalog.html" class="button">Все продукты</a>
           </div>
@@ -655,197 +450,179 @@
       </div>
     </section>
 
-    <!-- Правила и документы -->
+    <!-- Правила и документы (теперь с модальными окнами) -->
     <section class="section">
       <div class="container">
         <h2>Правила и документы</h2>
-        <div class="subhead">Коротко о главном: изучи перед стартом</div>
-        <div class="docs-grid">
-          <div class="doc-card">
-            <i data-feather="shield" class="doc-card__icon"></i>
-            <h4>Техника безопасности</h4>
-            <p>Инструктаж, работа с оборудованием</p>
-          </div>
-          <div class="doc-card">
-            <i data-feather="check-circle" class="doc-card__icon"></i>
-            <h4>Правила работы</h4>
-            <p>Кодекс участника, расписание</p>
-          </div>
-          <div class="doc-card">
-            <i data-feather="layers" class="doc-card__icon"></i>
-            <h4>AGILE</h4>
-            <p>Гибкие методологии, итерации</p>
-          </div>
-          <div class="doc-card">
-            <i data-feather="columns" class="doc-card__icon"></i>
-            <h4>CANBAN</h4>
-            <p>Визуализация задач, WIP</p>
-          </div>
-          <div class="doc-card">
-            <i data-feather="file-text" class="doc-card__icon"></i>
-            <h4>Подготовка файлов</h4>
-            <p>Именование, форматы, облака</p>
-          </div>
-        </div>
+        <div class="subhead">Нажмите на карточку, чтобы открыть файл</div>
+        <div class="docs-grid" id="docsGrid"></div>
       </div>
     </section>
 
-    <!-- КОНТАКТЫ — АККУРАТНЫЕ МИНИ-БЛОКИ -->
+    <!-- КОНТАКТЫ — 6 МАЛЕНЬКИХ КАРТОЧЕК (без подписей) -->
     <section class="section">
       <div class="container">
-        <div class="contacts-section">
-          <h2 style="margin-bottom: 8px; font-size: 2rem;">Контакты</h2>
-          <div class="subhead" style="margin-bottom: 8px;">Всегда на связи</div>
-          
-          <!-- Контакты в виде мини-карточек -->
-          <div class="contacts-grid">
-            <a href="https://yandex.ru/maps/?text=наб.+Реки+Мойки+48-52+корпус+1+Кванториум" target="_blank" class="contact-mini-card">
-              <i data-feather="map-pin"></i>
-              <span>наб. Реки Мойки 48-52, корпус 1 "Кванториум"</span>
-            </a>
-            <a href="https://technopark.herzen.spb.ru" target="_blank" class="contact-mini-card">
-              <i data-feather="globe"></i>
-              <span>technopark.herzen.spb.ru</span>
-            </a>
-            <a href="mailto:technopark.herzen@yandex.ru" class="contact-mini-card">
-              <i data-feather="mail"></i>
-              <span>technopark.herzen@yandex.ru</span>
-            </a>
-          </div>
-
-          <!-- Чаты в виде мини-карточек -->
-          <div class="chats-grid">
-            <a href="https://vk.com/technoparkrgpu" target="_blank" class="chat-mini-card">
-              <i data-feather="message-circle"></i>
-              <span>Общий чат ВК</span>
-            </a>
-            <a href="#" class="chat-mini-card">
-              <i data-feather="hash"></i>
-              <span>Чат Кванториума</span>
-            </a>
-            <a href="#" class="chat-mini-card">
-              <i data-feather="message-square"></i>
-              <span>Связь с куратором</span>
-            </a>
-          </div>
-        </div>
+        <h2>Контакты</h2>
+        <div class="contacts-mini-grid" id="contactsGrid"></div>
       </div>
     </section>
 
-    <!-- Личный кабинет -->
-    <section class="section" id="cabinet">
-      <div class="container">
-        <div class="cabinet-section">
-          <h3>Личный кабинет</h3>
-          <p>Выбери трек, создай команду, веди трекер задач (канбан/agile), смотри публичные страницы проектов.</p>
-          <a href="cabinet.html" class="big-button">Войти в кабинет →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ перед подвалом -->
+    <!-- Студенческие проекты -->
     <section class="section">
       <div class="container">
-        <div class="faq-section">
-          <h2 style="margin-bottom: 40px;">Часто спрашивают</h2>
-          <details>
-            <summary>Как выбрать трек А1 или А2?</summary>
-            <div class="faq-answer">При входе в личный кабинет вы укажете свой график. А1 — семестр, А2 — неделя. Можно сменить в течение первых двух дней.</div>
-          </details>
-          <details>
-            <summary>Что такое коробочный продукт?</summary>
-            <div class="faq-answer">Это готовое образовательное решение (игра, набор, методика), которое студент разрабатывает, дополняет инструкциями и проводит апробацию в школе.</div>
-          </details>
-          <details>
-            <summary>Где брать материалы и оборудование?</summary>
-            <div class="faq-answer">Всё необходимое выдаётся в технопарке. Для удалённой работы есть эмуляторы и методички.</div>
-          </details>
-          <details>
-            <summary>Как устроен трекер проектов?</summary>
-            <div class="faq-answer">В личном кабинете вы ведёте канбан-доску, ставите задачи и отмечаете прогресс. Можно пригласить команду.</div>
-          </details>
-          <details>
-            <summary>Где найти примеры проектов?</summary>
-            <div class="faq-answer">На главной странице в разделе "Студенческие проекты" собраны публичные карточки с файлами и себестоимостью.</div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- Блок студенческих проектов -->
-    <section class="section" style="padding-top: 0;">
-      <div class="container">
-        <div style="background: #eef2f9; border-radius: 60px; padding: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;">
+        <div style="background: #eef2f9; border-radius: 60px; padding: 40px; display: flex; align-items: center; justify-content: space-between;">
           <div>
             <h4 style="font-size: 1.8rem; font-weight: 500;">Студенческие проекты</h4>
-            <p style="color: #384362;">Посмотрите, что уже создали другие команды. У каждого проекта — публичная страница с файлами и себестоимостью.</p>
+            <p style="color: #384362;">Посмотрите готовые работы в каталоге</p>
           </div>
-          <a href="catalog.html" class="button button--outline" style="border-color:#2b3b6b;">Примеры проектов →</a>
+          <a href="catalog.html" class="button button--outline">Перейти в каталог →</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      Ткаченко Алиса Олеговна · магистерская работа
-    </div>
+    <div class="container">Ткаченко Алиса Олеговна · магистерская работа</div>
   </footer>
 
-  <!-- Модальное окно -->
+  <!-- Модальное окно для документов -->
+  <div class="modal" id="docModal">
+    <div class="modal-content">
+      <button class="modal-close" id="docModalClose">&times;</button>
+      <h3 id="docModalTitle">Название документа</h3>
+      <div class="modal-image" id="docModalImage">
+        <!-- Здесь будет картинка-заглушка -->
+        <i data-feather="file-text" style="width: 48px; height: 48px;"></i>
+      </div>
+      <p id="docModalDesc">Описание документа</p>
+    </div>
+  </div>
+
+  <!-- Модальное окно для мастер-классов -->
   <div class="modal" id="workshopModal">
-    <div class="modal__container">
-      <button class="modal__close" id="modalClose">&times;</button>
-      <h3 id="modalTitle" style="font-size: 2rem;">Название МК</h3>
-      <div class="modal__video" id="modalVideoContainer"></div>
-      <p id="modalDescription" style="font-weight: 300;">Описание мастер-класса.</p>
+    <div class="modal-content">
+      <button class="modal-close" id="workshopModalClose">&times;</button>
+      <h3 id="workshopModalTitle">Название МК</h3>
+      <div class="modal-image" id="workshopModalVideo">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen style="border-radius:24px;"></iframe>
+      </div>
+      <p id="workshopModalDesc">Описание мастер-класса</p>
     </div>
   </div>
 
   <script>
-    feather.replace({ width: '100%', height: '100%', strokeWidth: 1.5 });
+    feather.replace();
 
     // Данные для мастер-классов
     const workshops = [
-      { icon: 'zap', title: 'Лазерные технологии', desc: 'Резка, гравировка и работа с разными материалами. Познакомитесь с оборудованием и создадите макет.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
-      { icon: 'box', title: 'Аддитивные технологии', desc: '3D-печать, постобработка, настройка оборудования. Узнаете о современных технологиях прототипирования.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
-      { icon: 'edit-3', title: 'Векторная графика', desc: 'Inkscape, CorelDRAW — подготовка макетов для лазера и плоттера. Научитесь создавать векторные изображения.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
-      { icon: 'hexagon', title: 'Промышленный дизайн', desc: 'Эскизирование, 3D-моделирование, эргономика. Разработаете концепцию продукта.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
-      { icon: 'code', title: 'Программирование', desc: 'Arduino, Python для устройств, автоматизация. Напишете код для первого устройства.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
-      { icon: 'tool', title: 'Прототипирование', desc: 'Быстрая сборка макетов, электроника, отладка. Соберёте рабочий прототип за час.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
+      { icon: 'zap', title: 'Лазерные технологии', desc: 'Резка, гравировка и работа с разными материалами.' },
+      { icon: 'box', title: 'Аддитивные технологии', desc: '3D-печать, постобработка, настройка оборудования.' },
+      { icon: 'edit-3', title: 'Векторная графика', desc: 'Inkscape, CorelDRAW — подготовка макетов.' },
+      { icon: 'hexagon', title: 'Промышленный дизайн', desc: 'Эскизирование, 3D-моделирование.' },
+      { icon: 'code', title: 'Программирование', desc: 'Arduino, Python для устройств.' },
+      { icon: 'tool', title: 'Прототипирование', desc: 'Быстрая сборка макетов, электроника.' },
     ];
 
-    const grid = document.getElementById('workshopGrid');
-    const modal = document.getElementById('workshopModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDescription');
-    const modalVideo = document.getElementById('modalVideoContainer');
-    const closeBtn = document.getElementById('modalClose');
+    // Данные для документов (с картинками-заглушками)
+    const docs = [
+      { icon: 'shield', title: 'Техника безопасности', desc: 'Инструктаж, работа с оборудованием', image: '🔒' },
+      { icon: 'check-circle', title: 'Правила работы', desc: 'Кодекс участника, расписание', image: '📋' },
+      { icon: 'layers', title: 'AGILE', desc: 'Гибкие методологии, итерации', image: '🔄' },
+      { icon: 'columns', title: 'CANBAN', desc: 'Визуализация задач, WIP', image: '📊' },
+      { icon: 'file-text', title: 'Подготовка файлов', desc: 'Именование, форматы, облака', image: '📁' },
+    ];
 
+    // Данные для контактов (6 маленьких карточек)
+    const contacts = [
+      { icon: 'map-pin', text: 'наб. Реки Мойки 48-52', link: 'https://yandex.ru/maps/?text=наб.+Реки+Мойки+48-52' },
+      { icon: 'globe', text: 'technopark.herzen.spb.ru', link: 'https://technopark.herzen.spb.ru' },
+      { icon: 'mail', text: 'technopark.herzen@yandex.ru', link: 'mailto:technopark.herzen@yandex.ru' },
+      { icon: 'message-circle', text: 'Общий чат ВК', link: 'https://vk.com/technoparkrgpu' },
+      { icon: 'hash', text: 'Чат Кванториума', link: '#' },
+      { icon: 'message-square', text: 'Связь с куратором', link: '#' },
+    ];
+
+    // Рендер мастер-классов
+    const workshopGrid = document.getElementById('workshopGrid');
     workshops.forEach(w => {
-      const card = document.createElement('button');
+      const card = document.createElement('div');
       card.className = 'workshop-card';
       card.innerHTML = `
         <i data-feather="${w.icon}" class="workshop-card__icon"></i>
         <h3>${w.title}</h3>
-        <p>${w.desc.substring(0, 60)}…</p>
+        <p>${w.desc.substring(0, 40)}…</p>
       `;
-      card.addEventListener('click', () => {
-        modalTitle.innerText = w.title;
-        modalDesc.innerText = w.desc;
-        modalVideo.innerHTML = w.video;
-        modal.classList.add('active');
-        feather.replace();
-      });
-      grid.appendChild(card);
+      card.onclick = () => openWorkshopModal(w);
+      workshopGrid.appendChild(card);
     });
 
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
+    // Рендер документов
+    const docsGrid = document.getElementById('docsGrid');
+    docs.forEach(doc => {
+      const card = document.createElement('div');
+      card.className = 'doc-card';
+      card.innerHTML = `
+        <i data-feather="${doc.icon}" class="doc-card__icon"></i>
+        <h4>${doc.title}</h4>
+        <p>${doc.desc}</p>
+      `;
+      card.onclick = () => openDocModal(doc);
+      docsGrid.appendChild(card);
     });
 
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.remove('active');
+    // Рендер контактов (6 маленьких карточек)
+    const contactsGrid = document.getElementById('contactsGrid');
+    contacts.forEach(contact => {
+      const link = document.createElement('a');
+      link.href = contact.link;
+      link.target = '_blank';
+      link.className = 'contact-mini-card';
+      link.innerHTML = `
+        <i data-feather="${contact.icon}"></i>
+        <span>${contact.text}</span>
+      `;
+      contactsGrid.appendChild(link);
+    });
+
+    // Модальное окно для документов
+    const docModal = document.getElementById('docModal');
+    const docModalTitle = document.getElementById('docModalTitle');
+    const docModalDesc = document.getElementById('docModalDesc');
+    const docModalImage = document.getElementById('docModalImage');
+    const docModalClose = document.getElementById('docModalClose');
+
+    function openDocModal(doc) {
+      docModalTitle.textContent = doc.title;
+      docModalDesc.textContent = doc.desc;
+      docModalImage.innerHTML = `<div style="font-size: 4rem;">${doc.image}</div>`;
+      docModal.classList.add('active');
+      feather.replace();
+    }
+
+    docModalClose.onclick = () => docModal.classList.remove('active');
+    docModal.onclick = (e) => { if (e.target === docModal) docModal.classList.remove('active'); };
+
+    // Модальное окно для мастер-классов
+    const workshopModal = document.getElementById('workshopModal');
+    const workshopModalTitle = document.getElementById('workshopModalTitle');
+    const workshopModalDesc = document.getElementById('workshopModalDesc');
+    const workshopModalClose = document.getElementById('workshopModalClose');
+
+    function openWorkshopModal(workshop) {
+      workshopModalTitle.textContent = workshop.title;
+      workshopModalDesc.textContent = workshop.desc;
+      workshopModal.classList.add('active');
+    }
+
+    workshopModalClose.onclick = () => workshopModal.classList.remove('active');
+    workshopModal.onclick = (e) => { if (e.target === workshopModal) workshopModal.classList.remove('active'); };
+
+    // Закрытие по Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        docModal.classList.remove('active');
+        workshopModal.classList.remove('active');
+      }
     });
 
     feather.replace();
