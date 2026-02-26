@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Лаборатория практики | Цифровая среда</title>
+  <title>Педагогический технопарк | Практика студентов</title>
   <!-- Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <!-- Feather icons (векторные, тонкие) -->
+  <!-- Feather icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
     * {
@@ -163,15 +163,15 @@
       .button--outline { margin-left: 0; }
     }
 
-    /* карточки аудиторий А1/А2 */
-    .audience-grid {
+    /* Два формата практики */
+    .formats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 32px;
       margin-top: 40px;
     }
 
-    .audience-card {
+    .format-card {
       background: white;
       border-radius: 32px;
       padding: 40px 32px;
@@ -179,7 +179,7 @@
       border: 1px solid #f0f3f8;
     }
 
-    .audience-card__icon {
+    .format-card__icon {
       width: 48px;
       height: 48px;
       color: #2b3b6b;
@@ -187,13 +187,13 @@
       stroke-width: 1.5;
     }
 
-    .audience-card h3 {
+    .format-card h3 {
       font-size: 2rem;
       font-weight: 500;
       margin-bottom: 16px;
     }
 
-    .audience-card p {
+    .format-card p {
       color: #3a4055;
       font-weight: 300;
       margin-bottom: 24px;
@@ -209,7 +209,7 @@
       display: inline-block;
     }
 
-    /* блок про коробочные продукты */
+    /* коробочные продукты */
     .product-showcase {
       background: white;
       border-radius: 48px;
@@ -252,7 +252,7 @@
       stroke-width: 1.2;
     }
 
-    /* мастер-классы (карточки-ссылки) */
+    /* мастер-классы */
     .workshop-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -269,12 +269,18 @@
       color: inherit;
       transition: all 0.2s;
       display: block;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
     }
 
     .workshop-card:hover {
       box-shadow: 0 20px 30px -12px rgba(43,59,107,0.12);
       border-color: transparent;
       background: white;
+      transform: translateY(-4px);
     }
 
     .workshop-card__icon {
@@ -297,100 +303,168 @@
       font-size: 0.95rem;
     }
 
-    /* блок правил / документов (5 карточек) */
+    /* документы */
     .docs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
       margin-top: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .docs-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .docs-grid { grid-template-columns: 1fr 1fr; }
     }
 
     .doc-card {
       background: white;
       border-radius: 28px;
-      padding: 32px 20px;
+      padding: 28px 16px;
       text-align: center;
       border: 1px solid #f0f4fa;
     }
 
     .doc-card__icon {
-      width: 48px;
-      height: 48px;
+      width: 40px;
+      height: 40px;
       color: #2b3b6b;
-      margin: 0 auto 24px;
+      margin: 0 auto 20px;
       stroke-width: 1.5;
     }
 
     .doc-card h4 {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       font-weight: 500;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .doc-card p {
       color: #505e7e;
       font-weight: 300;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
-    /* контакты + форма + FAQ (2 колонки) */
-    .contact-faq-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-    }
-
-    @media (max-width: 800px) {
-      .contact-faq-row { grid-template-columns: 1fr; }
-    }
-
-    .contact-info {
+    /* КОНТАКТЫ — АККУРАТНЫЕ МИНИ-БЛОКИ */
+    .contacts-section {
       background: white;
-      border-radius: 40px;
-      padding: 48px 40px;
+      border-radius: 32px;
+      padding: 32px 40px;
+      box-shadow: 0 8px 20px -8px rgba(0,0,0,0.03);
     }
 
-    .contact-item {
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .contact-mini-card {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin: 28px 0;
+      gap: 12px;
+      background: #f9fbfe;
+      border: 1px solid #eef2f9;
+      border-radius: 24px;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: #1b1f2b;
+      font-size: 0.85rem;
+      font-weight: 400;
+      transition: all 0.2s;
+      line-height: 1.4;
+      min-height: 64px;
     }
 
-    .contact-item i {
-      width: 28px;
-      height: 28px;
+    .contact-mini-card:hover {
+      background: #eef2f9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px -6px rgba(43,59,107,0.1);
+    }
+
+    .contact-mini-card i {
+      width: 20px;
+      height: 20px;
       color: #2b3b6b;
+      stroke-width: 1.5;
       flex-shrink: 0;
     }
 
-    .contact-item span {
-      font-weight: 300;
-      font-size: 1.1rem;
+    .contact-mini-card span {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      word-break: break-word;
     }
 
-    .social-link {
-      display: inline-flex;
+    /* чаты */
+    .chats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+      border-top: 1px solid #eef2f9;
+      padding-top: 24px;
+    }
+
+    .chat-mini-card {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      background: #eef2f9;
-      padding: 10px 20px;
-      border-radius: 40px;
+      gap: 10px;
+      background: #f9fbfe;
+      border: 1px solid #eef2f9;
+      border-radius: 24px;
+      padding: 12px 16px;
       text-decoration: none;
       color: #1b1f2b;
+      font-size: 0.85rem;
       font-weight: 500;
-      margin-top: 20px;
+      transition: all 0.2s;
     }
 
+    .chat-mini-card:hover {
+      background: #eef2f9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px -6px rgba(43,59,107,0.1);
+    }
+
+    .chat-mini-card i {
+      width: 20px;
+      height: 20px;
+      color: #2b3b6b;
+      stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 800px) {
+      .contacts-grid,
+      .chats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .contacts-grid,
+      .chats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contacts-section {
+        padding: 24px 20px;
+      }
+    }
+
+    /* FAQ */
     .faq-section {
       background: white;
-      border-radius: 40px;
-      padding: 48px 40px;
+      border-radius: 48px;
+      padding: 56px 48px;
     }
 
     details {
       border-bottom: 1px solid #e3eaf1;
-      padding: 20px 0;
+      padding: 24px 0;
     }
 
     details:first-of-type { padding-top: 0; }
@@ -423,55 +497,53 @@
       margin-top: 16px;
       font-weight: 300;
       color: #414b68;
+      max-width: 80%;
     }
 
-    .feedback-form {
-      margin-top: 40px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 16px 20px;
-      border: 1px solid #d9e1ec;
-      border-radius: 40px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      background: #fbfdff;
-    }
-
-    textarea {
-      border-radius: 28px;
-      resize: vertical;
-    }
-
-    .submit-btn {
-      background: #1b1f2b;
-      color: white;
-      border: none;
-      padding: 14px 36px;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 1rem;
-      cursor: pointer;
-      display: inline-flex;
+    /* модальное окно */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 18, 28, 0.7);
+      backdrop-filter: blur(6px);
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      z-index: 1000;
     }
 
-    /* футер */
-    .footer {
-      padding: 48px 0;
-      text-align: center;
-      color: #6e7c9e;
-      font-weight: 300;
-      border-top: 1px solid rgba(0,0,0,0.03);
+    .modal.active {
+      display: flex;
     }
 
-    /* кнопка входа в личный кабинет */
+    .modal__container {
+      background: white;
+      max-width: 600px;
+      width: 90%;
+      border-radius: 48px;
+      padding: 48px;
+      position: relative;
+      box-shadow: 0 40px 70px -10px rgba(0,0,0,0.3);
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 24px; right: 28px;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #7c7f93;
+    }
+
+    .modal__video {
+      width: 100%;
+      height: auto;
+      border-radius: 24px;
+      margin: 24px 0;
+    }
+
+    /* кабинет */
     .cabinet-section {
       text-align: center;
       background: white;
@@ -507,6 +579,15 @@
     .big-button:hover {
       background: #2b3b6b;
     }
+
+    /* футер */
+    .footer {
+      padding: 48px 0;
+      text-align: center;
+      color: #6e7c9e;
+      font-weight: 300;
+      border-top: 1px solid rgba(0,0,0,0.03);
+    }
   </style>
 </head>
 <body>
@@ -515,98 +596,66 @@
     <section class="hero section">
       <div class="hero__graphic" aria-hidden="true"></div>
       <div class="container hero__content">
-        <div class="hero__label">ЛАБОРАТОРИЯ ПРАКТИКИ</div>
-        <h1>Собирай свой<br>коробочный продукт</h1>
-        <p class="hero__description">Дидактические игры, образовательные наборы — всё, что нужно для практики. Выбирай свой трек.</p>
+        <div class="hero__label">ПЕДАГОГИЧЕСКИЙ ТЕХНОПАРК</div>
+        <h1>Создавай<br>образовательные решения</h1>
+        <p class="hero__description">Коробочные продукты, которые проходят апробацию в школах. Два формата практики — под любой график.</p>
         <div class="hero__buttons">
           <a href="#cabinet" class="button">Войти в кабинет</a>
-          <a href="#about" class="button button--outline">О практике</a>
+          <a href="#formats" class="button button--outline">О практике</a>
         </div>
       </div>
     </section>
 
-    <!-- Блок А1 / А2 -->
-    <section class="section" id="about">
+    <!-- Два формата практики -->
+    <section class="section" id="formats">
       <div class="container">
-        <h2>Студенты</h2>
-        <div class="subhead">Два формата участия — под любой график и ритм жизни</div>
-        <div class="audience-grid">
-          <div class="audience-card">
-            <i data-feather="calendar" class="audience-card__icon"></i>
+        <h2>Два формата практики</h2>
+        <div class="subhead">Выберите подходящий ритм работы</div>
+        <div class="formats-grid">
+          <div class="format-card">
+            <i data-feather="calendar" class="format-card__icon"></i>
             <h3>А1 · Семестр</h3>
-            <p>Практика в течение семестра, гибкое расписание, больше времени на разработку и исследования.</p>
+            <p>Практика в течение семестра, гибкое расписание, больше времени на разработку и апробацию продукта в школе.</p>
             <div class="chip">длительный трек</div>
           </div>
-          <div class="audience-card">
-            <i data-feather="zap" class="audience-card__icon"></i>
+          <div class="format-card">
+            <i data-feather="zap" class="format-card__icon"></i>
             <h3>А2 · Интенсив</h3>
-            <p>Неделя плотной работы. Каждый день — новый этап. Для тех, кто любит быстрый результат.</p>
+            <p>Неделя плотной работы. Каждый день — новый этап. Для тех, кто любит быстрый результат и готов к погружению.</p>
             <div class="chip">короткий трек</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Коробочный продукт и практика (объединено, как просили) -->
+    <!-- Коробочные образовательные продукты -->
     <section class="section">
       <div class="container">
         <div class="product-showcase">
           <div class="product-showcase__content">
-            <h3 class="product-showcase__title">Коробочные продукты</h3>
+            <h3 class="product-showcase__title">Коробочные образовательные продукты</h3>
             <div class="product-showcase__text">
-              Дидактические игры, наборы для экспериментов, готовые образовательные решения. 
-              Студенты не создают с нуля — они собирают, улучшают и упаковывают готовые продукты.
+              Готовые образовательные решения. Студенты разрабатывают уникальные продукты, дополняя их инструкциями и методикой, а затем проводят апробацию в школах.
             </div>
             <a href="#" class="button">Все продукты</a>
           </div>
           <div class="product-showcase__icon">
-            <i data-feather="package"></i>
+            <i data-feather="box"></i>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Мастер-классы (карточки-ссылки) -->
+    <!-- Мастер-классы -->
     <section class="section">
       <div class="container">
         <h2>Мастер-классы</h2>
-        <div class="subhead">Записывайся и прокачивай навыки</div>
-        <div class="workshop-grid">
-          <a href="#" class="workshop-card">
-            <i data-feather="loader" class="workshop-card__icon"></i>
-            <h3>Лазерные технологии</h3>
-            <p>Резка, гравировка и работа с разными материалами.</p>
-          </a>
-          <a href="#" class="workshop-card">
-            <i data-feather="printer" class="workshop-card__icon"></i>
-            <h3>Аддитивные технологии</h3>
-            <p>3D-печать, постобработка, настройка оборудования.</p>
-          </a>
-          <a href="#" class="workshop-card">
-            <i data-feather="edit-3" class="workshop-card__icon"></i>
-            <h3>Векторная графика</h3>
-            <p>Inkscape, CorelDRAW — подготовка макетов.</p>
-          </a>
-          <a href="#" class="workshop-card">
-            <i data-feather="cpu" class="workshop-card__icon"></i>
-            <h3>Промышленный дизайн</h3>
-            <p>Эскизирование, 3D-моделирование, эргономика.</p>
-          </a>
-          <a href="#" class="workshop-card">
-            <i data-feather="code" class="workshop-card__icon"></i>
-            <h3>Программирование</h3>
-            <p>Arduino, Python для устройств, автоматизация.</p>
-          </a>
-          <a href="#" class="workshop-card">
-            <i data-feather="droplet" class="workshop-card__icon"></i>
-            <h3>Прототипирование</h3>
-            <p>Быстрая сборка макетов, электроника, отладка.</p>
-          </a>
-        </div>
+        <div class="subhead">Краткие видео и описание</div>
+        <div class="workshop-grid" id="workshopGrid"></div>
       </div>
     </section>
 
-    <!-- Правила работы, техника безопасности, Agile, Canban, подготовка файлов -->
+    <!-- Правила и документы -->
     <section class="section">
       <div class="container">
         <h2>Правила и документы</h2>
@@ -615,22 +664,22 @@
           <div class="doc-card">
             <i data-feather="shield" class="doc-card__icon"></i>
             <h4>Техника безопасности</h4>
-            <p>Инструктаж, работа с оборудованием, электробезопасность</p>
+            <p>Инструктаж, работа с оборудованием</p>
           </div>
           <div class="doc-card">
             <i data-feather="check-circle" class="doc-card__icon"></i>
             <h4>Правила работы</h4>
-            <p>Кодекс участника, расписание, коммуникация</p>
+            <p>Кодекс участника, расписание</p>
           </div>
           <div class="doc-card">
             <i data-feather="layers" class="doc-card__icon"></i>
             <h4>AGILE</h4>
-            <p>Гибкие методологии, итерации, стендапы</p>
+            <p>Гибкие методологии, итерации</p>
           </div>
           <div class="doc-card">
             <i data-feather="columns" class="doc-card__icon"></i>
             <h4>CANBAN</h4>
-            <p>Визуализация задач, WIP-лимиты</p>
+            <p>Визуализация задач, WIP</p>
           </div>
           <div class="doc-card">
             <i data-feather="file-text" class="doc-card__icon"></i>
@@ -641,92 +690,95 @@
       </div>
     </section>
 
-    <!-- Контакты, форма обратной связи, FAQ -->
+    <!-- КОНТАКТЫ — АККУРАТНЫЕ МИНИ-БЛОКИ -->
     <section class="section">
       <div class="container">
-        <div class="contact-faq-row">
-          <!-- Левая колонка: контакты + форма -->
-          <div class="contact-info">
-            <h3 style="font-size: 2rem; margin-bottom: 32px;">Контакты</h3>
-            <div class="contact-item">
+        <div class="contacts-section">
+          <h2 style="margin-bottom: 8px; font-size: 2rem;">Контакты</h2>
+          <div class="subhead" style="margin-bottom: 8px;">Всегда на связи</div>
+          
+          <!-- Контакты в виде мини-карточек -->
+          <div class="contacts-grid">
+            <a href="https://yandex.ru/maps/?text=наб.+Реки+Мойки+48-52+корпус+1+Кванториум" target="_blank" class="contact-mini-card">
               <i data-feather="map-pin"></i>
-              <span>ул. Политехническая, 29, к. 4, лаборатория 317</span>
-            </div>
-            <div class="contact-item">
-              <i data-feather="phone"></i>
-              <span>+7 (812) 123-45-67</span>
-            </div>
-            <div class="contact-item">
+              <span>наб. Реки Мойки 48-52, корпус 1 "Кванториум"</span>
+            </a>
+            <a href="https://technopark.herzen.spb.ru" target="_blank" class="contact-mini-card">
+              <i data-feather="globe"></i>
+              <span>technopark.herzen.spb.ru</span>
+            </a>
+            <a href="mailto:technopark.herzen@yandex.ru" class="contact-mini-card">
               <i data-feather="mail"></i>
-              <span>practice@lab.edu</span>
-            </div>
-            <div class="contact-item">
-              <i data-feather="message-square"></i>
-              <span>@lab_practice (Telegram)</span>
-            </div>
-            <a href="#" class="social-link"><i data-feather="users"></i> Чат ВКонтакте (все студенты)</a>
-
-            <!-- форма обратной связи (короткая) -->
-            <div class="feedback-form">
-              <h4 style="font-size:1.5rem; margin: 48px 0 24px;">Напишите нам</h4>
-              <div class="form-group">
-                <input type="email" placeholder="Email">
-              </div>
-              <div class="form-group">
-                <textarea rows="3" placeholder="Сообщение"></textarea>
-              </div>
-              <button class="submit-btn"><i data-feather="send"></i> Отправить</button>
-            </div>
+              <span>technopark.herzen@yandex.ru</span>
+            </a>
           </div>
-          <!-- Правая колонка: FAQ -->
-          <div class="faq-section">
-            <h3 style="font-size: 2rem; margin-bottom: 32px;">Часто спрашивают</h3>
-            <details>
-              <summary>Как выбрать трек А1 или А2?</summary>
-              <div class="faq-answer">При входе в личный кабинет вы укажете свой график. А1 — семестр, А2 — неделя. Можно сменить в течение первых двух дней.</div>
-            </details>
-            <details>
-              <summary>Что такое коробочный продукт?</summary>
-              <div class="faq-answer">Это готовый набор (дидактическая игра, макет, образовательный конструктор), который нужно собрать, доработать и упаковать.</div>
-            </details>
-            <details>
-              <summary>Где брать материалы и оборудование?</summary>
-              <div class="faq-answer">Всё необходимое выдаётся в лаборатории. Для удалённой работы есть эмуляторы и методички.</div>
-            </details>
-            <details>
-              <summary>Как устроен трекер проектов?</summary>
-              <div class="faq-answer">В личном кабинете вы ведёте канбан-доску, ставите задачи и отмечаете прогресс. Можно пригласить команду.</div>
-            </details>
-            <details>
-              <summary>Есть ли общий чат?</summary>
-              <div class="faq-answer">Да, ссылка на чат ВКонтакте есть в блоке контактов. Туда приходят новости и анонсы.</div>
-            </details>
+
+          <!-- Чаты в виде мини-карточек -->
+          <div class="chats-grid">
+            <a href="https://vk.com/technoparkrgpu" target="_blank" class="chat-mini-card">
+              <i data-feather="message-circle"></i>
+              <span>Общий чат ВК</span>
+            </a>
+            <a href="#" class="chat-mini-card">
+              <i data-feather="hash"></i>
+              <span>Чат Кванториума</span>
+            </a>
+            <a href="#" class="chat-mini-card">
+              <i data-feather="message-square"></i>
+              <span>Связь с куратором</span>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Кнопка входа в личный кабинет студента -->
+    <!-- Личный кабинет -->
     <section class="section" id="cabinet">
       <div class="container">
         <div class="cabinet-section">
-          <h3>Личный кабинет студента</h3>
-          <p>Выбери трек, создай команду, веди трекер задач и смотри публичные страницы проектов.</p>
-          <a href="#" class="big-button">Перейти в кабинет →</a>
-          <div style="margin-top: 32px; color: #4d5b7c;">
-            Уже есть аккаунт? Войди через ВК или почту.
-          </div>
+          <h3>Личный кабинет</h3>
+          <p>Выбери трек, создай команду, веди трекер задач (канбан/agile), смотри публичные страницы проектов.</p>
+          <a href="#" class="big-button">Войти в кабинет →</a>
         </div>
       </div>
     </section>
 
-    <!-- Дополнительно: ссылка на студенческие проекты (упоминание про публичные страницы) -->
+    <!-- FAQ перед подвалом -->
+    <section class="section">
+      <div class="container">
+        <div class="faq-section">
+          <h2 style="margin-bottom: 40px;">Часто спрашивают</h2>
+          <details>
+            <summary>Как выбрать трек А1 или А2?</summary>
+            <div class="faq-answer">При входе в личный кабинет вы укажете свой график. А1 — семестр, А2 — неделя. Можно сменить в течение первых двух дней.</div>
+          </details>
+          <details>
+            <summary>Что такое коробочный продукт?</summary>
+            <div class="faq-answer">Это готовое образовательное решение (игра, набор, методика), которое студент разрабатывает, дополняет инструкциями и проводит апробацию в школе.</div>
+          </details>
+          <details>
+            <summary>Где брать материалы и оборудование?</summary>
+            <div class="faq-answer">Всё необходимое выдаётся в технопарке. Для удалённой работы есть эмуляторы и методички.</div>
+          </details>
+          <details>
+            <summary>Как устроен трекер проектов?</summary>
+            <div class="faq-answer">В личном кабинете вы ведёте канбан-доску, ставите задачи и отмечаете прогресс. Можно пригласить команду.</div>
+          </details>
+          <details>
+            <summary>Где найти примеры проектов?</summary>
+            <div class="faq-answer">На главной странице в разделе "Студенческие проекты" собраны публичные карточки с файлами и себестоимостью.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Блок студенческих проектов -->
     <section class="section" style="padding-top: 0;">
       <div class="container">
         <div style="background: #eef2f9; border-radius: 60px; padding: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;">
           <div>
             <h4 style="font-size: 1.8rem; font-weight: 500;">Студенческие проекты</h4>
-            <p style="color: #384362;">Посмотри, что уже сделали другие команды. У каждого проекта — публичная страница с файлами и себестоимостью.</p>
+            <p style="color: #384362;">Посмотрите, что уже создали другие команды. У каждого проекта — публичная страница с файлами и себестоимостью.</p>
           </div>
           <a href="#" class="button button--outline" style="border-color:#2b3b6b;">Примеры проектов →</a>
         </div>
@@ -736,22 +788,67 @@
 
   <footer class="footer">
     <div class="container">
-      Лаборатория практики · Цифровая образовательная среда · 2026
+      Ткаченко Алиса Олеговна · магистерская работа
     </div>
   </footer>
+
+  <!-- Модальное окно -->
+  <div class="modal" id="workshopModal">
+    <div class="modal__container">
+      <button class="modal__close" id="modalClose">&times;</button>
+      <h3 id="modalTitle" style="font-size: 2rem;">Название МК</h3>
+      <div class="modal__video" id="modalVideoContainer"></div>
+      <p id="modalDescription" style="font-weight: 300;">Описание мастер-класса.</p>
+    </div>
+  </div>
 
   <script>
     feather.replace({ width: '100%', height: '100%', strokeWidth: 1.5 });
 
-    // маленькая заглушка для формы
-    const form = document.querySelector('.feedback-form');
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Сообщение отправлено (демо-режим). Мы ответим в ближайшее время.');
-        form.reset();
+    // Данные для мастер-классов
+    const workshops = [
+      { icon: 'zap', title: 'Лазерные технологии', desc: 'Резка, гравировка и работа с разными материалами. Познакомитесь с оборудованием и создадите макет.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
+      { icon: 'box', title: 'Аддитивные технологии', desc: '3D-печать, постобработка, настройка оборудования. Узнаете о современных технологиях прототипирования.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
+      { icon: 'edit-3', title: 'Векторная графика', desc: 'Inkscape, CorelDRAW — подготовка макетов для лазера и плоттера. Научитесь создавать векторные изображения.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
+      { icon: 'hexagon', title: 'Промышленный дизайн', desc: 'Эскизирование, 3D-моделирование, эргономика. Разработаете концепцию продукта.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
+      { icon: 'code', title: 'Программирование', desc: 'Arduino, Python для устройств, автоматизация. Напишете код для первого устройства.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
+      { icon: 'tool', title: 'Прототипирование', desc: 'Быстрая сборка макетов, электроника, отладка. Соберёте рабочий прототип за час.', video: '<iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube" frameborder="0" allowfullscreen></iframe>' },
+    ];
+
+    const grid = document.getElementById('workshopGrid');
+    const modal = document.getElementById('workshopModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDescription');
+    const modalVideo = document.getElementById('modalVideoContainer');
+    const closeBtn = document.getElementById('modalClose');
+
+    workshops.forEach(w => {
+      const card = document.createElement('button');
+      card.className = 'workshop-card';
+      card.innerHTML = `
+        <i data-feather="${w.icon}" class="workshop-card__icon"></i>
+        <h3>${w.title}</h3>
+        <p>${w.desc.substring(0, 60)}…</p>
+      `;
+      card.addEventListener('click', () => {
+        modalTitle.innerText = w.title;
+        modalDesc.innerText = w.desc;
+        modalVideo.innerHTML = w.video;
+        modal.classList.add('active');
+        feather.replace();
       });
-    }
+      grid.appendChild(card);
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+
+    feather.replace();
   </script>
 </body>
 </html>
