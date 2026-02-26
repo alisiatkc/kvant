@@ -289,10 +289,10 @@
       stroke-width: 1.2;
     }
 
-    /* Мастер-классы */
+    /* Мастер-классы — все карточки одинакового размера */
     .workshop-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 30px;
       margin: 50px 0;
     }
@@ -304,6 +304,10 @@
       border: 1px solid #eef2f7;
       cursor: pointer;
       transition: all 0.2s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 340px;
     }
 
     .workshop-card:hover {
@@ -317,12 +321,14 @@
       color: #2b3b6b;
       margin-bottom: 28px;
       stroke-width: 1.5;
+      flex-shrink: 0;
     }
 
     .workshop-card h3 {
       font-size: 1.7rem;
       font-weight: 500;
       margin-bottom: 16px;
+      line-height: 1.3;
     }
 
     .workshop-card p {
@@ -330,6 +336,12 @@
       font-weight: 300;
       font-size: 1rem;
       line-height: 1.6;
+      margin: 0;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     /* Правила и документы */
@@ -388,7 +400,7 @@
       font-size: 0.85rem;
     }
 
-    /* Контакты — 6 маленьких карточек (идеально) */
+    /* Контакты — 6 маленьких карточек */
     .contacts-mini-grid {
       display: flex;
       flex-wrap: wrap;
@@ -580,7 +592,7 @@
       </div>
     </section>
 
-    <!-- Мастер-классы -->
+    <!-- Мастер-классы (теперь карточки одинакового размера) -->
     <section class="section">
       <div class="container">
         <h2>Мастер-классы</h2>
@@ -670,7 +682,8 @@
     feather.replace();
 
     // Данные для мастер-классов
-    const workshops = [{
+    const workshops = [
+      {
         icon: 'zap',
         title: 'Лазерные технологии',
         desc: 'Резка, гравировка и работа с разными материалами. Познакомитесь с оборудованием и создадите макет.'
@@ -699,11 +712,12 @@
         icon: 'tool',
         title: 'Прототипирование',
         desc: 'Быстрая сборка макетов, электроника, отладка. Соберёте рабочий прототип за час.'
-      },
+      }
     ];
 
     // Данные для документов
-    const docs = [{
+    const docs = [
+      {
         icon: 'shield',
         title: 'Техника безопасности',
         desc: 'Инструктаж, работа с оборудованием',
@@ -732,11 +746,12 @@
         title: 'Подготовка файлов',
         desc: 'Именование, форматы, облака',
         image: '📁'
-      },
+      }
     ];
 
     // Данные для контактов (6 маленьких карточек)
-    const contacts = [{
+    const contacts = [
+      {
         icon: 'map-pin',
         text: 'наб. Реки Мойки 48-52, корпус 1',
         link: 'https://yandex.ru/maps/?text=наб.+Реки+Мойки+48-52'
@@ -765,7 +780,7 @@
         icon: 'message-square',
         text: 'Связь с куратором',
         link: '#'
-      },
+      }
     ];
 
     // Рендер мастер-классов
@@ -776,7 +791,7 @@
       card.innerHTML = `
         <i data-feather="${w.icon}" class="workshop-card__icon"></i>
         <h3>${w.title}</h3>
-        <p>${w.desc.substring(0, 60)}…</p>
+        <p>${w.desc}</p>
       `;
       card.onclick = () => openWorkshopModal(w);
       workshopGrid.appendChild(card);
@@ -855,6 +870,7 @@
       }
     });
 
+    // Повторный вызов feather.replace
     feather.replace();
   </script>
 </body>
