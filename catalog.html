@@ -1,377 +1,215 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Проекты студентов | Педагогический технопарк</title>
+  <title>Коробочные образовательные комплекты | Педагогический технопарк</title>
+  <!-- Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <!-- Feather icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: "Inter", sans-serif;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f5f7fb;
       color: #1b1f2b;
+      line-height: 1.5;
     }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-    
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Шапка */
     .header {
       padding: 20px 0;
       background: white;
-      border-bottom: 1px solid rgba(0,0,0,0.03);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     }
+
     .header-content {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .logo a {
       font-size: 1.5rem;
       font-weight: 600;
       text-decoration: none;
       color: #1b1f2b;
     }
+
     .nav-links {
       display: flex;
       gap: 32px;
     }
+
     .nav-links a {
       text-decoration: none;
       color: #4a5578;
       font-weight: 500;
     }
+
+    .nav-links a:hover {
+      color: #2b3b6b;
+    }
+
     .back-link {
       display: flex;
       align-items: center;
       gap: 8px;
       text-decoration: none;
       color: #2b3b6b;
+      font-weight: 500;
     }
 
-    .page-header { padding: 60px 0 20px; }
-    .page-header h1 { font-size: 3.2rem; }
+    /* Заголовок страницы */
+    .page-header {
+      padding: 80px 0 30px;
+    }
+
+    .page-header h1 {
+      font-size: 3.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .page-header p {
+      font-size: 1.3rem;
+      color: #4a5578;
+      max-width: 700px;
+    }
 
     /* Фильтры по предметным областям */
     .filters {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin: 40px 0;
+      margin: 50px 0;
     }
+
     .filter-btn {
-      padding: 10px 24px;
+      padding: 12px 28px;
       border: 1px solid #e2e8f0;
       border-radius: 40px;
       background: white;
       cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
     }
+
+    .filter-btn:hover {
+      background: #f0f4fe;
+    }
+
     .filter-btn.active {
       background: #2b3b6b;
       color: white;
+      border-color: #2b3b6b;
     }
 
+    /* Сетка проектов */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 28px;
-      margin: 40px 0;
+      gap: 30px;
+      margin: 50px 0 80px;
     }
 
     .project-card {
       background: white;
-      border-radius: 32px;
-      padding: 28px;
+      border-radius: 36px;
+      padding: 32px;
       border: 1px solid #eef2f9;
       cursor: pointer;
       transition: all 0.2s;
     }
+
     .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 30px -12px rgba(43,59,107,0.15);
+      transform: translateY(-8px);
+      box-shadow: 0 25px 35px -12px rgba(43, 59, 107, 0.15);
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      color: #2b3b6b;
+      margin-bottom: 24px;
+    }
+
+    .project-card h3 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .project-excerpt {
+      color: #4a5578;
+      margin-bottom: 20px;
+      font-weight: 300;
+      line-height: 1.6;
     }
 
     .project-meta {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       color: #6e7c9e;
-      margin: 16px 0;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
     }
 
+    /* Модальное окно */
     .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(15, 18, 28, 0.7);
       backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
       z-index: 1000;
     }
-    .modal.active { display: flex; }
+
+    .modal.active {
+      display: flex;
+    }
+
     .modal-content {
       background: white;
       max-width: 800px;
       width: 90%;
       max-height: 90vh;
       overflow-y: auto;
-      border-radius: 48px;
-      padding: 48px;
+      border-radius: 50px;
+      padding: 50px;
       position: relative;
+      box-shadow: 0 40px 70px -10px rgba(0, 0, 0, 0.3);
     }
+
     .modal-close {
       position: absolute;
-      top: 24px; right: 28px;
+      top: 24px;
+      right: 28px;
       background: none;
       border: none;
       font-size: 2rem;
       cursor: pointer;
-    }
-    .modal-image {
-      width: 100%;
-      height: 200px;
-      background: #eef2f9;
-      border-radius: 24px;
-      margin: 24px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: #7c7f93;
     }
 
-    .footer {
-      padding: 48px 0;
-      text-align: center;
-      color: #6e7c9e;
-    }
-  </style>
-</head>
-<body>
-  <header class="header">
-    <div class="container header-content">
-      <div class="logo"><a href="index.html">Педагогический технопарк</a></div>
-      <div class="nav-links">
-        <a href="index.html">Главная</a>
-        <a href="cabinet.html">Личный кабинет</a>
-        <a href="catalog.html" style="color:#2b3b6b;">Проекты</a>
-      </div>
-      <a href="index.html" class="back-link"><i data-feather="arrow-left"></i>На главную</a>
-    </div>
-  </header>
-
-  <main>
-    <div class="container">
-      <div class="page-header">
-        <h1>Проекты студентов</h1>
-        <p>Коробочные образовательные продукты по разным предметам</p>
-      </div>
-
-      <!-- Фильтры по предметам -->
-      <div class="filters">
-        <button class="filter-btn active" data-filter="all">Все</button>
-        <button class="filter-btn" data-filter="math">Математика</button>
-        <button class="filter-btn" data-filter="bio">Биология</button>
-        <button class="filter-btn" data-filter="physics">Физика</button>
-        <button class="filter-btn" data-filter="it">Информатика</button>
-        <button class="filter-btn" data-filter="economics">Экономика</button>
-        <button class="filter-btn" data-filter="pedagogy">Педагогика</button>
-      </div>
-
-      <!-- Сетка проектов -->
-      <div class="projects-grid" id="projectsGrid"></div>
-
-      <!-- Блок призыва войти в кабинет -->
-      <div style="background: white; border-radius: 60px; padding: 48px; margin: 60px 0; text-align: center;">
-        <h3 style="font-size: 2rem; margin-bottom: 16px;">Хотите добавить свой проект?</h3>
-        <p style="color: #4a5578; margin-bottom: 32px;">Войдите в личный кабинет и создайте команду</p>
-        <a href="cabinet.html" class="button" style="background:#2b3b6b; color:white; padding:16px 48px; border-radius:40px; text-decoration:none;">Перейти в личный кабинет</a>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">Ткаченко Алиса Олеговна · магистерская работа</div>
-  </footer>
-
-  <!-- Модальное окно проекта -->
-  <div class="modal" id="projectModal">
-    <div class="modal-content">
-      <button class="modal-close" id="modalClose">&times;</button>
-      <div id="modalContent"></div>
-    </div>
-  </div>
-
-  <script>
-    feather.replace();
-
-    // Проекты с новыми категориями (предметы)
-    const projects = [
-      {
-        id: 1,
-        title: 'Геометрический конструктор',
-        desc: 'Набор для изучения стереометрии',
-        fullDesc: 'Деревянные детали для сборки многогранников. Помогает визуализировать пространственные фигуры.',
-        subject: 'math',
-        authors: ['Иванов Иван', 'Петрова Анна'],
-        files: ['cube.dxf', 'pyramid.dxf', 'manual.pdf'],
-        image: '📐',
-        tech: ['Лазерная резка', 'Фанера 3мм']
-      },
-      {
-        id: 2,
-        title: 'Модель ДНК',
-        desc: 'Сборная модель молекулы ДНК',
-        fullDesc: 'Образовательный набор для изучения генетики. Содержит все элементы двойной спирали.',
-        subject: 'bio',
-        authors: ['Сидорова Мария'],
-        files: ['dna.stl', 'base_pairs.stl'],
-        image: '🧬',
-        tech: ['3D-печать', 'PLA пластик']
-      },
-      {
-        id: 3,
-        title: 'Электрическая цепь',
-        desc: 'Набор для сборки простых схем',
-        fullDesc: 'Комплект для изучения электричества: провода, лампочки, выключатели на деревянной основе.',
-        subject: 'physics',
-        authors: ['Козлов Петр', 'Морозов Илья'],
-        files: ['scheme.dxf', 'instructions.pdf'],
-        image: '⚡',
-        tech: ['Лазерная гравировка', 'Электроника']
-      },
-      {
-        id: 4,
-        title: 'Сортировка данных',
-        desc: 'Игра для изучения алгоритмов',
-        fullDesc: 'Настольная игра, объясняющая принципы сортировки массивов для детей.',
-        subject: 'it',
-        authors: ['Волков Дмитрий'],
-        files: ['game.svg', 'cards.dxf'],
-        image: '💻',
-        tech: ['Векторная графика', 'Дизайн']
-      },
-      {
-        id: 5,
-        title: 'Бизнес-игра',
-        desc: 'Экономическая стратегия для школьников',
-        fullDesc: 'Игра, моделирующая рыночные отношения, спрос и предложение.',
-        subject: 'economics',
-        authors: ['Соколова Елена', 'Новиков Павел'],
-        files: ['rules.pdf', 'money.svg'],
-        image: '💰',
-        tech: ['Полиграфия', 'Дизайн']
-      },
-      {
-        id: 6,
-        title: 'Развивающие карточки',
-        desc: 'Методическое пособие для дошкольников',
-        fullDesc: 'Набор карточек для развития речи и логики. Апробировано в детском саду.',
-        subject: 'pedagogy',
-        authors: ['Михайлова Ольга'],
-        files: ['cards.svg', 'methodology.pdf'],
-        image: '📚',
-        tech: ['Печать', 'Ламинация']
-      }
-    ];
-
-    const grid = document.getElementById('projectsGrid');
-    const modal = document.getElementById('projectModal');
-    const modalContent = document.getElementById('modalContent');
-    const modalClose = document.getElementById('modalClose');
-    let currentFilter = 'all';
-
-    function renderProjects() {
-      grid.innerHTML = '';
-      const filtered = currentFilter === 'all' 
-        ? projects 
-        : projects.filter(p => p.subject === currentFilter);
-
-      filtered.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.onclick = () => openModal(p);
-        
-        let subjectIcon = 'box';
-        if (p.subject === 'math') subjectIcon = 'hash';
-        else if (p.subject === 'bio') subjectIcon = 'activity';
-        else if (p.subject === 'physics') subjectIcon = 'zap';
-        else if (p.subject === 'it') subjectIcon = 'code';
-        else if (p.subject === 'economics') subjectIcon = 'trending-up';
-        else if (p.subject === 'pedagogy') subjectIcon = 'book-open';
-
-        card.innerHTML = `
-          <i data-feather="${subjectIcon}" style="width:40px; height:40px; color:#2b3b6b; margin-bottom:20px;"></i>
-          <h3>${p.title}</h3>
-          <p style="color:#4a5578; margin:12px 0;">${p.desc}</p>
-          <div class="project-meta">
-            <span><i data-feather="users" style="width:14px;"></i> ${p.authors.length}</span>
-            <span><i data-feather="file" style="width:14px;"></i> ${p.files.length}</span>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-      feather.replace();
-    }
-
-    function openModal(project) {
-      const filesHtml = project.files.map(f => 
-        `<div style="background:#f9fbfe; border-radius:20px; padding:12px; display:inline-block; margin-right:8px; margin-bottom:8px;">
-          <i data-feather="paperclip" style="width:16px;"></i> ${f}
-        </div>`
-      ).join('');
-
-      const authorsHtml = project.authors.map(a => 
-        `<span style="background:#eef2f9; border-radius:40px; padding:6px 16px; display:inline-block; margin-right:8px;">
-          <i data-feather="user" style="width:14px;"></i> ${a}
-        </span>`
-      ).join('');
-
-      const techHtml = project.tech.map(t => 
-        `<span style="background:#2b3b6b10; border-radius:20px; padding:4px 12px; margin-right:6px;">${t}</span>`
-      ).join('');
-
-      modalContent.innerHTML = `
-        <h2 style="font-size:2.2rem;">${project.title}</h2>
-        <div style="font-size:4rem; text-align:center; margin:24px 0;">${project.image}</div>
-        <p style="font-size:1.1rem; line-height:1.6;">${project.fullDesc}</p>
-        
-        <div style="margin:32px 0;">
-          <h4 style="margin-bottom:16px;">Авторы</h4>
-          <div>${authorsHtml}</div>
-        </div>
-
-        <div style="margin:32px 0;">
-          <h4 style="margin-bottom:16px;">Файлы проекта</h4>
-          <div>${filesHtml}</div>
-        </div>
-
-        <div style="margin:32px 0;">
-          <h4 style="margin-bottom:16px;">Технологии</h4>
-          <div>${techHtml}</div>
-        </div>
-
-        <a href="#" style="display:inline-flex; align-items:center; gap:8px; background:#2b3b6b; color:white; padding:14px 28px; border-radius:40px; text-decoration:none; margin-top:24px;">
-          <i data-feather="message-circle"></i> Написать автору
-        </a>
-      `;
-      modal.classList.add('active');
-      feather.replace();
-    }
-
-    // Фильтры
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.dataset.filter;
-        renderProjects();
-      });
-    });
-
-    modalClose.onclick = () => modal.classList.remove('active');
-    modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('active'); };
-
-    renderProjects();
-  </script>
-</body>
-</html>
+   
