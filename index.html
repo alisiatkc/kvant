@@ -289,60 +289,63 @@
       stroke-width: 1.2;
     }
 
-    /* Мастер-классы — все карточки одинакового размера */
-    .workshop-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
-      margin: 50px 0;
-    }
+   /* Мастер-классы — все карточки одинакового размера */
+.workshop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  margin: 50px 0;
+}
 
-    .workshop-card {
-      background: white;
-      border-radius: 36px;
-      padding: 40px 32px;
-      border: 1px solid #eef2f7;
-      cursor: pointer;
-      transition: all 0.2s;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      min-height: 340px;
-    }
+.workshop-card {
+  background: white;
+  border-radius: 36px;
+  padding: 36px 28px; /* Уменьшил горизонтальные отступы */
+  border: 1px solid #eef2f7;
+  cursor: pointer;
+  transition: all 0.2s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+}
 
-    .workshop-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 35px -12px rgba(43, 59, 107, 0.15);
-    }
+.workshop-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 35px -12px rgba(43, 59, 107, 0.15);
+}
 
-    .workshop-card__icon {
-      width: 48px;
-      height: 48px;
-      color: #2b3b6b;
-      margin-bottom: 28px;
-      stroke-width: 1.5;
-      flex-shrink: 0;
-    }
+.workshop-card__icon {
+  width: 44px; /* Чуть уменьшил иконку */
+  height: 44px;
+  color: #2b3b6b;
+  margin-bottom: 20px;
+  stroke-width: 1.5;
+  flex-shrink: 0;
+}
 
-    .workshop-card h3 {
-      font-size: 1.7rem;
-      font-weight: 500;
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
+.workshop-card h3 {
+  font-size: 1.4rem; /* Ещё уменьшил для надёжности */
+  font-weight: 500;
+  margin-bottom: 12px;
+  line-height: 1.3;
+  word-break: break-word;
+  hyphens: auto;
+  padding-right: 0; /* Убрал лишний отступ */
+}
 
-    .workshop-card p {
-      color: #4b5672;
-      font-weight: 300;
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 0;
-      flex-grow: 1;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+.workshop-card p {
+  color: #4b5672;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
     /* Правила и документы */
     .docs-grid {
