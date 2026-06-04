@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
+    /* Базовые стили (оставлены как в предыдущей версии, без изменений) */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -58,7 +59,7 @@
       padding: 60px 50px;
       max-width: 550px;
       margin: 60px auto;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
     }
     .register-card h2 {
       font-size: 2.4rem;
@@ -214,7 +215,6 @@
       gap: 8px;
     }
 
-    /* Трекер */
     .tracker-section {
       background: white;
       border-radius: 50px;
@@ -312,7 +312,6 @@
     .file-card:hover { background: #eef2f9; transform: translateY(-3px); }
     .file-card i { width: 36px; height: 36px; color: #2b3b6b; margin-bottom: 16px; }
 
-    /* Публикация и статус */
     .publish-section {
       background: #eef2f9;
       border-radius: 60px;
@@ -332,6 +331,8 @@
       font-size: 1.1rem;
       cursor: pointer;
     }
+
+    /* Статус и карточка опубликованного проекта */
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -341,11 +342,10 @@
       border-radius: 40px;
       font-weight: 500;
     }
-    .status-badge.published { background: #c8e6c9; color: #2e7d32; }
+    .status-badge.approved { background: #c8e6c9; color: #2e7d32; }
     .status-badge.review { background: #fff3e0; color: #ef6c00; }
     .status-badge.rejected { background: #ffebee; color: #c62828; }
 
-    /* Карточка опубликованного проекта (как в каталоге) */
     .published-card {
       background: #f9fbfe;
       border-radius: 36px;
@@ -355,6 +355,27 @@
     }
     .published-card h3 { font-size: 1.8rem; margin-bottom: 16px; }
     .published-card .meta { display: flex; gap: 20px; color: #6e7c9e; margin: 16px 0; }
+
+    /* Аккордеон для записей апробации */
+    details {
+      background: #f9fbfe;
+      border-radius: 32px;
+      padding: 16px 24px;
+      margin-bottom: 16px;
+      border: 1px solid #eef2f9;
+    }
+    summary {
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .approbation-record {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+    }
 
     /* Модальные окна */
     .author-modal, .notification-modal, .task-modal {
@@ -436,6 +457,9 @@
         <div class="cabinet-section">
           <h2 style="font-size: 2.4rem;">Здравствуйте, <span id="userNameDisplay">Капитан</span>!</h2>
           <p style="color: #4a5578; margin-top: 16px;">Команда: <span id="teamNameDisplay">Команда</span> · Формат: <span id="userTrackDisplay">А1</span></p>
+          <div style="margin-top: 20px;">
+            <a href="curator.html" class="button" style="background: #2b3b6b; color: white; padding: 8px 24px; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i data-feather="users"></i> Куратор</a>
+          </div>
         </div>
 
         <!-- Редактируемые блоки (до публикации) -->
@@ -485,8 +509,8 @@
             </div>
             <div class="published-card" id="publishedProjectCard"></div>
             <div style="display: flex; gap: 20px; margin-top: 20px;">
-              <button class="upload-btn" id="approbationBtn" style="background:#7c3aed;">📋 Апробация</button>
-              <button class="upload-btn" id="editProjectBtn" style="background:#2b3b6b;">✏️ Редактировать</button>
+              <button class="upload-btn" id="approbationBtn" style="background:#7c3aed;"><i data-feather="file-text"></i> Апробация</button>
+              <button class="upload-btn" id="editProjectBtn" style="background:#2b3b6b;"><i data-feather="edit-2"></i> Редактировать</button>
             </div>
           </div>
         </div>
@@ -499,9 +523,12 @@
 
         <!-- Блок апробации (форма обратной связи) -->
         <div class="cabinet-section" id="approbationSection" style="display: none;">
-          <h3 class="section-title">📋 Апробация комплекта в школе</h3>
+          <h3 class="section-title">Апробация комплекта в школе</h3>
           <p>Заполните форму после проведения занятия</p>
-          <div style="margin:20px 0;"><button class="upload-btn" id="generateAIQuestionsBtn" style="background:#7c3aed;">🤖 Сгенерировать вопросы</button><div id="aiQuestionsOutput" style="margin-top:16px; background:#f9fbfe; border-radius:24px; padding:16px; display:none;"></div></div>
+          <div style="margin:20px 0;">
+            <button class="upload-btn" id="generateAIQuestionsBtn" style="background:#7c3aed;"><i data-feather="cpu"></i> Сгенерировать вопросы</button>
+            <div id="aiQuestionsOutput" style="margin-top:16px; background:#f9fbfe; border-radius:24px; padding:16px; display:none;"></div>
+          </div>
           <div id="approbationForm">
             <div class="form-field"><label>Название школы / класс</label><input type="text" id="schoolName"></div>
             <div class="form-field"><label>Дата апробации</label><input type="date" id="approbationDate"></div>
@@ -512,6 +539,8 @@
             <button class="publish-btn" id="saveApprobationBtn">Сохранить результаты</button>
           </div>
           <div id="approbationResult" style="margin-top:20px; display:none;"></div>
+          <!-- Аккордеон с предыдущими записями апробации -->
+          <div id="approbationHistory"></div>
         </div>
 
         <!-- Кнопка публикации (видна только в режиме редактирования) -->
@@ -524,7 +553,7 @@
         <div class="cabinet-section" style="background:#eef2f9; text-align:center;">
           <h3 style="font-size:1.8rem;">Каталог коробочных образовательных комплектов</h3>
           <p style="margin:16px 0;">Посмотрите готовые работы других команд</p>
-          <a href="catalog.html" class="button" style="background:#2b3b6b; color:white; padding:16px 40px; border-radius:40px; text-decoration:none; display:inline-block;">Перейти в каталог →</a>
+          <a href="catalog.html" class="button" style="background:#2b3b6b; color:white; padding:16px 40px; border-radius:40px; text-decoration:none; display:inline-block;">Перейти в каталог</a>
         </div>
       </div>
     </div>
@@ -540,7 +569,7 @@
   <script>
     feather.replace();
 
-    // Регистрация
+    // ------------------------- РЕГИСТРАЦИЯ -------------------------
     const registerCard = document.getElementById('registerCard');
     const cabinetContent = document.getElementById('cabinetContent');
     const trackA1 = document.getElementById('trackA1'), trackA2 = document.getElementById('trackA2');
@@ -563,12 +592,11 @@
       feather.replace();
       localStorage.setItem('currentProjectId', Date.now().toString());
       loadTasks(); loadFiles();
-      // Загружаем статус публикации
       const isPublished = localStorage.getItem('projectPublished') === 'true';
       if(isPublished) switchToPublishedMode();
     };
 
-    // Данные проекта (глобальные переменные)
+    // ------------------------- ТРЕКЕР -------------------------
     let tasks = [
       { id: '1', title: 'Выбрать тему проекта', desc: '', status: 'planned' },
       { id: '2', title: 'Подготовить макет', desc: '', status: 'inprogress' },
@@ -577,7 +605,6 @@
     let files = [{name:'Макет.dxf', icon:'file'}, {name:'Инструкция.pdf', icon:'file-text'}, {name:'Код.ino', icon:'code'}];
     let draggedTask = null, currentTaskId = null;
 
-    // Элементы
     const plannedList = document.getElementById('plannedList'), inprogressList = document.getElementById('inprogressList'), doneList = document.getElementById('doneList');
     const addTaskBtn = document.getElementById('addTaskBtn');
     const taskModal = document.getElementById('taskModal'), taskModalTitle = document.getElementById('taskModalTitle'), taskNameInput = document.getElementById('taskNameInput'), taskDescInput = document.getElementById('taskDescInput'), saveTaskBtn = document.getElementById('saveTaskBtn');
@@ -588,7 +615,6 @@
     const addAuthorBtn = document.getElementById('addAuthorBtn'), authorModal = document.getElementById('authorModal'), newAuthorName = document.getElementById('newAuthorName'), saveAuthorBtn = document.getElementById('saveAuthorBtn'), authorsList = document.getElementById('authorsList');
     const attachProductionFileBtn = document.getElementById('attachProductionFileBtn'), productionFileDisplay = document.getElementById('productionFileDisplay');
 
-    // Функции трекера
     function createTaskElement(task) {
       const div = document.createElement('div');
       div.className = 'task-card';
@@ -648,7 +674,7 @@
       if(fileName) { files.push({name: fileName, icon:'file'}); renderFiles(); }
     };
 
-    // Авторы
+    // ------------------------- АВТОРЫ -------------------------
     addAuthorBtn.onclick = () => authorModal.classList.add('active');
     saveAuthorBtn.onclick = () => {
       const name = newAuthorName.value.trim();
@@ -664,34 +690,36 @@
     };
     authorModal.onclick = (e) => { if(e.target === authorModal) authorModal.classList.remove('active'); };
 
-    // Итоговый файл
+    // ------------------------- ИТОГОВЫЙ ФАЙЛ -------------------------
     attachProductionFileBtn.onclick = () => {
       const fileName = prompt('Введите название файла (например, product.dxf):');
       if(fileName) { productionFileDisplay.innerHTML = `<div style="background:#eef2f9; border-radius:30px; padding:16px 24px; display:inline-flex; gap:12px;"><i data-feather="paperclip"></i>${fileName}</div>`; feather.replace(); }
     };
 
-    // Публикация
+    // ------------------------- ПУБЛИКАЦИЯ И РЕЖИМЫ -------------------------
     function switchToPublishedMode() {
       editModeBlocks.style.display = 'none';
       publishSection.style.display = 'none';
       publishedModeBlocks.style.display = 'block';
-      // Заполняем карточку опубликованного проекта
       const projectName = document.getElementById('projectName').value || 'Без названия';
       const projectDesc = document.getElementById('projectDesc').value || 'Описание отсутствует';
       const projectBlock = document.getElementById('projectBlock').value || 'Не указан';
       const authors = Array.from(document.querySelectorAll('.author-tag')).map(a => a.innerText.replace('✏️', '').trim()).join(', ');
       const prodFile = productionFileDisplay.innerText || 'Не прикреплён';
       const status = localStorage.getItem('projectStatus') || 'review';
-      const statusText = { review: '⏳ На рассмотрении куратора', approved: '✅ Одобрено', published: '📦 Опубликовано в каталоге', rejected: '❌ Отклонено' }[status] || '⏳ На рассмотрении';
-      statusBadge.className = `status-badge ${status === 'approved' || status === 'published' ? 'published' : status === 'rejected' ? 'rejected' : 'review'}`;
+      const statusText = { review: '⏳ На рассмотрении куратора', approved: '✅ Одобрено', rejected: '❌ Отклонено' }[status] || '⏳ На рассмотрении';
+      statusBadge.className = `status-badge ${status === 'approved' ? 'approved' : status === 'rejected' ? 'rejected' : 'review'}`;
       statusBadge.innerHTML = statusText;
       document.getElementById('publishedProjectCard').innerHTML = `
-        <h3>${projectName}</h3>
-        <div class="meta"><span>📅 ${projectBlock}</span><span>👥 ${authors}</span></div>
-        <p>${projectDesc}</p>
-        <div><strong>📦 Итоговый файл:</strong> ${prodFile}</div>
+        <h3>${escapeHtml(projectName)}</h3>
+        <div class="meta"><span>📅 ${escapeHtml(projectBlock)}</span><span>👥 ${escapeHtml(authors)}</span></div>
+        <p>${escapeHtml(projectDesc)}</p>
+        <div><strong>Итоговый файл:</strong> ${escapeHtml(prodFile)}</div>
       `;
+      loadApprobationHistory(); // загружаем историю апробации
     }
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
     publishBtn.onclick = () => {
       notificationModal.classList.add('active');
       localStorage.setItem('projectPublished', 'true');
@@ -701,26 +729,20 @@
     };
     notificationClose.onclick = () => notificationModal.classList.remove('active');
     notificationModal.onclick = (e) => { if(e.target === notificationModal) notificationModal.classList.remove('active'); };
-
-    // Редактирование (возврат к режиму редактирования)
     editProjectBtn.onclick = () => {
       editModeBlocks.style.display = 'block';
       publishSection.style.display = 'flex';
       publishedModeBlocks.style.display = 'none';
-      // Можно также сбросить статус публикации? По задумке — только если куратор разрешил, но пока сделаем просто скрытие.
     };
+    approbationBtn.onclick = () => { approbationSection.scrollIntoView({ behavior: 'smooth' }); };
 
-    // Апробация (показываем форму)
-    approbationBtn.onclick = () => {
-      approbationSection.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    // Сохранение апробации
+    // ------------------------- АПРОБАЦИЯ: СОХРАНЕНИЕ И АККОРДЕОН -------------------------
     const saveApprobationBtn = document.getElementById('saveApprobationBtn');
     if(saveApprobationBtn) {
       saveApprobationBtn.onclick = () => {
         const projectId = localStorage.getItem('currentProjectId') || Date.now().toString();
-        const data = {
+        const record = {
+          id: Date.now(),
           school: document.getElementById('schoolName')?.value || '',
           date: document.getElementById('approbationDate')?.value || '',
           engagement: document.getElementById('engagement')?.value || '',
@@ -728,17 +750,45 @@
           whatNeedsWork: document.getElementById('whatNeedsWork')?.value || '',
           recommendations: document.getElementById('recommendations')?.value || '',
         };
-        localStorage.setItem(`approbation_${projectId}`, JSON.stringify(data));
+        if(!record.school) { alert('Укажите название школы'); return; }
+        let history = JSON.parse(localStorage.getItem(`approbationHistory_${projectId}`) || '[]');
+        history.push(record);
+        localStorage.setItem(`approbationHistory_${projectId}`, JSON.stringify(history));
+        document.getElementById('approbationForm')?.reset();
         const resultDiv = document.getElementById('approbationResult');
         if(resultDiv) {
-          resultDiv.innerHTML = '<div class="task-card" style="background:#e8f5e9;">✅ Спасибо! Результаты сохранены.</div>';
+          resultDiv.innerHTML = '<div class="task-card" style="background:#e8f5e9;">Спасибо! Результаты сохранены.</div>';
           resultDiv.style.display = 'block';
-          document.getElementById('approbationForm')?.reset();
+          setTimeout(() => { resultDiv.style.display = 'none'; }, 3000);
         }
+        loadApprobationHistory();
       };
     }
 
-    // ИИ-генерация вопросов
+    function loadApprobationHistory() {
+      const projectId = localStorage.getItem('currentProjectId') || Date.now().toString();
+      const history = JSON.parse(localStorage.getItem(`approbationHistory_${projectId}`) || '[]');
+      const container = document.getElementById('approbationHistory');
+      if(!container) return;
+      if(history.length === 0) {
+        container.innerHTML = '<p>Нет сохранённых записей апробации.</p>';
+        return;
+      }
+      container.innerHTML = history.map(rec => `
+        <details>
+          <summary><i data-feather="file-text"></i> ${escapeHtml(rec.school)} — ${rec.date}</summary>
+          <div class="approbation-record">
+            <p><strong>Вовлечённость:</strong> ${rec.engagement}/5</p>
+            <p><strong>Что удалось:</strong> ${escapeHtml(rec.whatWorked)}</p>
+            <p><strong>Что требует доработки:</strong> ${escapeHtml(rec.whatNeedsWork)}</p>
+            <p><strong>Рекомендации:</strong> ${escapeHtml(rec.recommendations)}</p>
+          </div>
+        </details>
+      `).join('');
+      feather.replace();
+    }
+
+    // ------------------------- ИИ-ГЕНЕРАЦИЯ ВОПРОСОВ -------------------------
     const genBtn = document.getElementById('generateAIQuestionsBtn');
     if(genBtn) {
       genBtn.onclick = () => {
@@ -755,7 +805,7 @@
         };
         const questions = questionsMap[subject] || questionsMap.математика;
         const outDiv = document.getElementById('aiQuestionsOutput');
-        outDiv.innerHTML = `<strong>📋 Рекомендуемые вопросы (ИИ):</strong><ul>${questions.map(q => `<li>${q}</li>`).join('')}</ul><button id="copyQuestionsBtn" class="upload-btn" style="background:#4a5578; margin-top:10px;">Скопировать</button>`;
+        outDiv.innerHTML = `<strong>Рекомендуемые вопросы (ИИ):</strong><ul>${questions.map(q => `<li>${q}</li>`).join('')}</ul><button id="copyQuestionsBtn" class="upload-btn" style="background:#4a5578; margin-top:10px;">Скопировать</button>`;
         outDiv.style.display = 'block';
         document.getElementById('copyQuestionsBtn')?.addEventListener('click', () => {
           const recField = document.getElementById('recommendations');
@@ -764,7 +814,7 @@
       };
     }
 
-    // Заявки от школ (имитация)
+    // ------------------------- ЗАЯВКИ ОТ ШКОЛ -------------------------
     function loadApprobationRequests() {
       const requests = JSON.parse(localStorage.getItem('approbationRequests') || '[]');
       const currentProjectId = localStorage.getItem('currentProjectId');
@@ -774,41 +824,15 @@
       if(myRequests.length === 0) { container.innerHTML = '<p>Пока нет заявок. Поделитесь ссылкой на ваш проект в каталоге со школами.</p>'; return; }
       container.innerHTML = myRequests.map(r => `
         <div class="task-card" style="margin-bottom:16px;">
-          <strong>🏫 ${r.school}</strong><br>Контакт: ${r.person} (${r.email})<br>Дата: ${r.date}<br>
+          <strong>${escapeHtml(r.school)}</strong><br>Контакт: ${escapeHtml(r.person)} (${escapeHtml(r.email)})<br>Дата: ${r.date}<br>
           <button class="upload-btn" style="background:#2b3b6b; margin-top:10px;" onclick="window.location.href='mailto:${r.email}'">Связаться</button>
           <button class="upload-btn" style="background:#4caf50; margin-left:10px;" onclick="alert('Апробация начата. После завершения заполните анкету выше.')">Начать апробацию</button>
         </div>
       `).join('');
     }
     loadApprobationRequests();
-
-    // Для демонстрации: кнопка "Одобрить" (имитация куратора) — можно добавить в админку, но здесь для удобства в консоль
-    // На самом деле статус обновляется через localStorage.
-    // Также можно добавить ручное изменение статуса через консоль: localStorage.setItem('projectStatus','approved')
-    // Для удобства добавим кнопку в интерфейс (скрытую от обычного пользователя)
-    const adminBtn = document.createElement('button');
-    adminBtn.textContent = '🛠️ Одобрить (куратор)';
-    adminBtn.style.position = 'fixed';
-    adminBtn.style.bottom = '10px';
-    adminBtn.style.left = '10px';
-    adminBtn.style.fontSize = '12px';
-    adminBtn.style.zIndex = '9999';
-    adminBtn.style.background = '#ccc';
-    adminBtn.style.border = 'none';
-    adminBtn.style.borderRadius = '20px';
-    adminBtn.style.padding = '6px 12px';
-    adminBtn.style.cursor = 'pointer';
-    adminBtn.onclick = () => {
-      localStorage.setItem('projectStatus', 'approved');
-      if(document.getElementById('statusBadge')) {
-        document.getElementById('statusBadge').innerHTML = '✅ Одобрено';
-        document.getElementById('statusBadge').className = 'status-badge published';
-      }
-      alert('Статус изменён на "Одобрено"');
-    };
-    document.body.appendChild(adminBtn);
-    // Проверяем статус при загрузке
-    if(localStorage.getItem('projectPublished') === 'true') switchToPublishedMode();
+    // Загружаем историю апробации, если уже опубликовано
+    if(localStorage.getItem('projectPublished') === 'true') loadApprobationHistory();
   </script>
 </body>
 </html>
