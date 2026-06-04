@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Базовые стили (оставлены как в предыдущей версии, без изменений) */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -331,8 +330,6 @@
       font-size: 1.1rem;
       cursor: pointer;
     }
-
-    /* Статус и карточка опубликованного проекта */
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -356,7 +353,6 @@
     .published-card h3 { font-size: 1.8rem; margin-bottom: 16px; }
     .published-card .meta { display: flex; gap: 20px; color: #6e7c9e; margin: 16px 0; }
 
-    /* Аккордеон для записей апробации */
     details {
       background: #f9fbfe;
       border-radius: 32px;
@@ -377,7 +373,6 @@
       border-top: 1px solid #e2e8f0;
     }
 
-    /* Модальные окна */
     .author-modal, .notification-modal, .task-modal {
       display: none;
       position: fixed;
@@ -438,31 +433,55 @@
 
   <main>
     <div class="container">
-      <!-- Регистрация -->
+      <!-- Карточка входа с выбором типа пользователя -->
       <div class="register-card" id="registerCard">
-        <h2>Регистрация команды</h2>
-        <div class="register-sub">Выберите формат практики</div>
-        <div class="track-selector">
-          <button class="track-btn active" id="trackA1">А1 · Семестр</button>
-          <button class="track-btn" id="trackA2">А2 · Интенсив</button>
+        <h2>Вход в личный кабинет</h2>
+        <div class="register-sub">Выберите тип пользователя</div>
+        <div style="display: flex; gap: 20px; margin-bottom: 30px; justify-content: center;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="radio" name="userType" value="student" id="studentRadio" checked> Студент
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="radio" name="userType" value="curator" id="curatorRadio"> Куратор
+          </label>
         </div>
-        <div class="form-group"><label>Имя и фамилия капитана</label><input type="text" placeholder="Иванов Иван" id="captainName"></div>
-        <div class="form-group"><label>Название команды</label><input type="text" placeholder="Команда №1" id="teamName"></div>
-        <button class="register-btn" id="registerBtn">Зарегистрировать команду</button>
+        <div id="studentBlock">
+          <div class="track-selector">
+            <button class="track-btn active" id="trackA1">А1 · Семестр</button>
+            <button class="track-btn" id="trackA2">А2 · Интенсив</button>
+          </div>
+          <div class="form-group">
+            <label>Имя и фамилия капитана</label>
+            <input type="text" placeholder="Иванов Иван" id="captainName">
+          </div>
+          <div class="form-group">
+            <label>Название команды</label>
+            <input type="text" placeholder="Команда №1" id="teamName">
+          </div>
+        </div>
+        <div id="curatorBlock" style="display: none;">
+          <div class="form-group">
+            <label>Логин</label>
+            <input type="text" placeholder="Логин" id="curatorLogin">
+          </div>
+          <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" placeholder="Пароль" id="curatorPassword">
+          </div>
+        </div>
+        <button class="register-btn" id="registerBtn">Войти</button>
+        <div id="loginError" style="color: #c62828; margin-top: 16px; text-align: center; display: none;"></div>
       </div>
 
-      <!-- Личный кабинет -->
+      <!-- Личный кабинет студента -->
       <div id="cabinetContent" style="display: none;">
         <!-- Приветствие -->
         <div class="cabinet-section">
           <h2 style="font-size: 2.4rem;">Здравствуйте, <span id="userNameDisplay">Капитан</span>!</h2>
           <p style="color: #4a5578; margin-top: 16px;">Команда: <span id="teamNameDisplay">Команда</span> · Формат: <span id="userTrackDisplay">А1</span></p>
-          <div style="margin-top: 20px;">
-            <a href="curator.html" class="button" style="background: #2b3b6b; color: white; padding: 8px 24px; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i data-feather="users"></i> Куратор</a>
-          </div>
         </div>
 
-        <!-- Редактируемые блоки (до публикации) -->
+        <!-- Редактируемые блоки -->
         <div id="editModeBlocks">
           <div class="cabinet-section">
             <h3 class="section-title">Моя команда и проект</h3>
@@ -500,7 +519,7 @@
           </div>
         </div>
 
-        <!-- Блок опубликованного проекта (показывается после публикации) -->
+        <!-- Блок опубликованного проекта -->
         <div id="publishedModeBlocks" style="display: none;">
           <div class="cabinet-section">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
@@ -521,7 +540,7 @@
           <div id="requestsList"></div>
         </div>
 
-        <!-- Блок апробации (форма обратной связи) -->
+        <!-- Апробация (форма + история) -->
         <div class="cabinet-section" id="approbationSection" style="display: none;">
           <h3 class="section-title">Апробация комплекта в школе</h3>
           <p>Заполните форму после проведения занятия</p>
@@ -539,11 +558,10 @@
             <button class="publish-btn" id="saveApprobationBtn">Сохранить результаты</button>
           </div>
           <div id="approbationResult" style="margin-top:20px; display:none;"></div>
-          <!-- Аккордеон с предыдущими записями апробации -->
           <div id="approbationHistory"></div>
         </div>
 
-        <!-- Кнопка публикации (видна только в режиме редактирования) -->
+        <!-- Публикация проекта -->
         <div class="publish-section" id="publishSection">
           <div><h3 style="font-size:1.8rem;">Опубликовать проект в каталог</h3><p>После отправки проект будет проверен куратором</p></div>
           <button class="publish-btn" id="publishBtn">Опубликовать</button>
@@ -561,7 +579,7 @@
 
   <footer class="footer"><div class="container">Ткаченко Алиса Олеговна · магистерская работа</div></footer>
 
-  <!-- Модалки -->
+  <!-- Модальные окна -->
   <div class="author-modal" id="authorModal"><div class="author-modal-content"><h3>Добавить участника</h3><input type="text" id="newAuthorName"><button class="save-author-btn" id="saveAuthorBtn">Добавить</button></div></div>
   <div class="task-modal" id="taskModal"><div class="author-modal-content"><h3 id="taskModalTitle">Новая задача</h3><input type="text" id="taskNameInput" placeholder="Название задачи"><textarea id="taskDescInput" placeholder="Описание" rows="3"></textarea><button class="save-author-btn" id="saveTaskBtn">Сохранить</button></div></div>
   <div class="notification-modal" id="notificationModal"><div class="notification-content"><i data-feather="check-circle"></i><h3>Отправлено!</h3><p>Проект отправлен куратору на согласование</p><button class="notification-close" id="notificationClose">Хорошо</button></div></div>
@@ -569,34 +587,26 @@
   <script>
     feather.replace();
 
-    // ------------------------- РЕГИСТРАЦИЯ -------------------------
-    const registerCard = document.getElementById('registerCard');
-    const cabinetContent = document.getElementById('cabinetContent');
-    const trackA1 = document.getElementById('trackA1'), trackA2 = document.getElementById('trackA2');
-    const captainName = document.getElementById('captainName'), teamName = document.getElementById('teamName');
+    // ----- Переключение студент/куратор -----
+    const studentRadio = document.getElementById('studentRadio');
+    const curatorRadio = document.getElementById('curatorRadio');
+    const studentBlock = document.getElementById('studentBlock');
+    const curatorBlock = document.getElementById('curatorBlock');
     const registerBtn = document.getElementById('registerBtn');
-    const userNameDisplay = document.getElementById('userNameDisplay'), teamNameDisplay = document.getElementById('teamNameDisplay'), userTrackDisplay = document.getElementById('userTrackDisplay');
-    const captainTag = document.getElementById('captainTag');
-    let selectedTrack = 'А1';
-    trackA1.onclick = () => { trackA1.classList.add('active'); trackA2.classList.remove('active'); selectedTrack = 'А1'; };
-    trackA2.onclick = () => { trackA2.classList.add('active'); trackA1.classList.remove('active'); selectedTrack = 'А2'; };
-    registerBtn.onclick = () => {
-      const captain = captainName.value.trim() || 'Капитан';
-      const team = teamName.value.trim() || 'Команда';
-      registerCard.style.display = 'none';
-      cabinetContent.style.display = 'block';
-      userNameDisplay.textContent = captain;
-      teamNameDisplay.textContent = team;
-      userTrackDisplay.textContent = selectedTrack;
-      captainTag.innerHTML = `<i data-feather="user"></i> ${captain} (капитан)`;
-      feather.replace();
-      localStorage.setItem('currentProjectId', Date.now().toString());
-      loadTasks(); loadFiles();
-      const isPublished = localStorage.getItem('projectPublished') === 'true';
-      if(isPublished) switchToPublishedMode();
-    };
+    const loginErrorDiv = document.getElementById('loginError');
 
-    // ------------------------- ТРЕКЕР -------------------------
+    studentRadio.addEventListener('change', () => {
+      studentBlock.style.display = 'block';
+      curatorBlock.style.display = 'none';
+      loginErrorDiv.style.display = 'none';
+    });
+    curatorRadio.addEventListener('change', () => {
+      studentBlock.style.display = 'none';
+      curatorBlock.style.display = 'block';
+      loginErrorDiv.style.display = 'none';
+    });
+
+    // ----- Глобальные переменные для студенческой части -----
     let tasks = [
       { id: '1', title: 'Выбрать тему проекта', desc: '', status: 'planned' },
       { id: '2', title: 'Подготовить макет', desc: '', status: 'inprogress' },
@@ -605,6 +615,7 @@
     let files = [{name:'Макет.dxf', icon:'file'}, {name:'Инструкция.pdf', icon:'file-text'}, {name:'Код.ino', icon:'code'}];
     let draggedTask = null, currentTaskId = null;
 
+    // DOM элементы
     const plannedList = document.getElementById('plannedList'), inprogressList = document.getElementById('inprogressList'), doneList = document.getElementById('doneList');
     const addTaskBtn = document.getElementById('addTaskBtn');
     const taskModal = document.getElementById('taskModal'), taskModalTitle = document.getElementById('taskModalTitle'), taskNameInput = document.getElementById('taskNameInput'), taskDescInput = document.getElementById('taskDescInput'), saveTaskBtn = document.getElementById('saveTaskBtn');
@@ -615,19 +626,26 @@
     const addAuthorBtn = document.getElementById('addAuthorBtn'), authorModal = document.getElementById('authorModal'), newAuthorName = document.getElementById('newAuthorName'), saveAuthorBtn = document.getElementById('saveAuthorBtn'), authorsList = document.getElementById('authorsList');
     const attachProductionFileBtn = document.getElementById('attachProductionFileBtn'), productionFileDisplay = document.getElementById('productionFileDisplay');
 
+    // Функции трекера
     function createTaskElement(task) {
       const div = document.createElement('div');
       div.className = 'task-card';
       div.draggable = true;
       div.dataset.id = task.id;
-      div.innerHTML = `<div class="task-title">${task.title}</div>${task.desc ? `<p style="color:#6e7c9e;">${task.desc}</p>` : ''}<div class="task-actions"><button class="task-edit" onclick="editTask('${task.id}')"><i data-feather="edit-2"></i></button><button class="task-delete" onclick="deleteTask('${task.id}')"><i data-feather="trash-2"></i></button></div>`;
+      div.innerHTML = `<div class="task-title">${escapeHtml(task.title)}</div>${task.desc ? `<p style="color:#6e7c9e;">${escapeHtml(task.desc)}</p>` : ''}<div class="task-actions"><button class="task-edit" onclick="editTask('${task.id}')"><i data-feather="edit-2"></i></button><button class="task-delete" onclick="deleteTask('${task.id}')"><i data-feather="trash-2"></i></button></div>`;
       div.addEventListener('dragstart', (e) => { draggedTask = task.id; div.classList.add('dragging'); });
       div.addEventListener('dragend', () => { div.classList.remove('dragging'); draggedTask = null; });
       return div;
     }
     function renderTasks() {
+      if(!plannedList) return;
       plannedList.innerHTML = ''; inprogressList.innerHTML = ''; doneList.innerHTML = '';
-      tasks.forEach(t => { const el = createTaskElement(t); if(t.status === 'planned') plannedList.appendChild(el); else if(t.status === 'inprogress') inprogressList.appendChild(el); else if(t.status === 'done') doneList.appendChild(el); });
+      tasks.forEach(t => {
+        const el = createTaskElement(t);
+        if(t.status === 'planned') plannedList.appendChild(el);
+        else if(t.status === 'inprogress') inprogressList.appendChild(el);
+        else if(t.status === 'done') doneList.appendChild(el);
+      });
       feather.replace();
     }
     document.querySelectorAll('.task-list').forEach(list => {
@@ -659,11 +677,12 @@
     function loadFiles() { renderFiles(); }
 
     function renderFiles() {
+      if(!filesGrid) return;
       filesGrid.innerHTML = '';
       files.forEach(f => {
         const card = document.createElement('div');
         card.className = 'file-card';
-        card.innerHTML = `<i data-feather="${f.icon}"></i><span>${f.name}</span>`;
+        card.innerHTML = `<i data-feather="${f.icon}"></i><span>${escapeHtml(f.name)}</span>`;
         card.onclick = () => alert(`Скачивание ${f.name} (демо)`);
         filesGrid.appendChild(card);
       });
@@ -674,14 +693,14 @@
       if(fileName) { files.push({name: fileName, icon:'file'}); renderFiles(); }
     };
 
-    // ------------------------- АВТОРЫ -------------------------
+    // Авторы
     addAuthorBtn.onclick = () => authorModal.classList.add('active');
     saveAuthorBtn.onclick = () => {
       const name = newAuthorName.value.trim();
       if(name) {
         const tag = document.createElement('span');
         tag.className = 'author-tag';
-        tag.innerHTML = `<i data-feather="user"></i> ${name}`;
+        tag.innerHTML = `<i data-feather="user"></i> ${escapeHtml(name)}`;
         authorsList.appendChild(tag);
         feather.replace();
         authorModal.classList.remove('active');
@@ -690,13 +709,15 @@
     };
     authorModal.onclick = (e) => { if(e.target === authorModal) authorModal.classList.remove('active'); };
 
-    // ------------------------- ИТОГОВЫЙ ФАЙЛ -------------------------
+    // Итоговый файл
     attachProductionFileBtn.onclick = () => {
       const fileName = prompt('Введите название файла (например, product.dxf):');
-      if(fileName) { productionFileDisplay.innerHTML = `<div style="background:#eef2f9; border-radius:30px; padding:16px 24px; display:inline-flex; gap:12px;"><i data-feather="paperclip"></i>${fileName}</div>`; feather.replace(); }
+      if(fileName) { productionFileDisplay.innerHTML = `<div style="background:#eef2f9; border-radius:30px; padding:16px 24px; display:inline-flex; gap:12px;"><i data-feather="paperclip"></i>${escapeHtml(fileName)}</div>`; feather.replace(); }
     };
 
-    // ------------------------- ПУБЛИКАЦИЯ И РЕЖИМЫ -------------------------
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    // Публикация и переключение режимов
     function switchToPublishedMode() {
       editModeBlocks.style.display = 'none';
       publishSection.style.display = 'none';
@@ -716,10 +737,8 @@
         <p>${escapeHtml(projectDesc)}</p>
         <div><strong>Итоговый файл:</strong> ${escapeHtml(prodFile)}</div>
       `;
-      loadApprobationHistory(); // загружаем историю апробации
+      loadApprobationHistory();
     }
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
-
     publishBtn.onclick = () => {
       notificationModal.classList.add('active');
       localStorage.setItem('projectPublished', 'true');
@@ -736,7 +755,7 @@
     };
     approbationBtn.onclick = () => { approbationSection.scrollIntoView({ behavior: 'smooth' }); };
 
-    // ------------------------- АПРОБАЦИЯ: СОХРАНЕНИЕ И АККОРДЕОН -------------------------
+    // Апробация: сохранение и история
     const saveApprobationBtn = document.getElementById('saveApprobationBtn');
     if(saveApprobationBtn) {
       saveApprobationBtn.onclick = () => {
@@ -764,16 +783,12 @@
         loadApprobationHistory();
       };
     }
-
     function loadApprobationHistory() {
       const projectId = localStorage.getItem('currentProjectId') || Date.now().toString();
       const history = JSON.parse(localStorage.getItem(`approbationHistory_${projectId}`) || '[]');
       const container = document.getElementById('approbationHistory');
       if(!container) return;
-      if(history.length === 0) {
-        container.innerHTML = '<p>Нет сохранённых записей апробации.</p>';
-        return;
-      }
+      if(history.length === 0) { container.innerHTML = '<p>Нет сохранённых записей апробации.</p>'; return; }
       container.innerHTML = history.map(rec => `
         <details>
           <summary><i data-feather="file-text"></i> ${escapeHtml(rec.school)} — ${rec.date}</summary>
@@ -788,7 +803,7 @@
       feather.replace();
     }
 
-    // ------------------------- ИИ-ГЕНЕРАЦИЯ ВОПРОСОВ -------------------------
+    // ИИ-генерация вопросов
     const genBtn = document.getElementById('generateAIQuestionsBtn');
     if(genBtn) {
       genBtn.onclick = () => {
@@ -814,7 +829,7 @@
       };
     }
 
-    // ------------------------- ЗАЯВКИ ОТ ШКОЛ -------------------------
+    // Заявки от школ
     function loadApprobationRequests() {
       const requests = JSON.parse(localStorage.getItem('approbationRequests') || '[]');
       const currentProjectId = localStorage.getItem('currentProjectId');
@@ -830,8 +845,48 @@
         </div>
       `).join('');
     }
+
+    // Обработка входа (студент / куратор)
+    registerBtn.onclick = () => {
+      if (studentRadio.checked) {
+        const captain = document.getElementById('captainName').value.trim();
+        const team = document.getElementById('teamName').value.trim();
+        if (!captain || !team) {
+          loginErrorDiv.textContent = 'Заполните имя капитана и название команды';
+          loginErrorDiv.style.display = 'block';
+          return;
+        }
+        const selectedTrack = document.querySelector('.track-btn.active').innerText.includes('А1') ? 'А1' : 'А2';
+        localStorage.setItem('userType', 'student');
+        localStorage.setItem('captainName', captain);
+        localStorage.setItem('teamName', team);
+        localStorage.setItem('selectedTrack', selectedTrack);
+        document.getElementById('registerCard').style.display = 'none';
+        document.getElementById('cabinetContent').style.display = 'block';
+        document.getElementById('userNameDisplay').textContent = captain;
+        document.getElementById('teamNameDisplay').textContent = team;
+        document.getElementById('userTrackDisplay').textContent = selectedTrack;
+        document.getElementById('captainTag').innerHTML = `<i data-feather="user"></i> ${escapeHtml(captain)} (капитан)`;
+        feather.replace();
+        localStorage.setItem('currentProjectId', Date.now().toString());
+        loadTasks(); loadFiles();
+        const isPublished = localStorage.getItem('projectPublished') === 'true';
+        if(isPublished) switchToPublishedMode();
+      } else {
+        const login = document.getElementById('curatorLogin').value.trim();
+        const password = document.getElementById('curatorPassword').value.trim();
+        if (login === 'curator' && password === 'curator123') {
+          localStorage.setItem('userType', 'curator');
+          window.location.href = 'curator.html';
+        } else {
+          loginErrorDiv.textContent = 'Неверный логин или пароль';
+          loginErrorDiv.style.display = 'block';
+        }
+      }
+    };
+
+    // Инициализация заявок и истории
     loadApprobationRequests();
-    // Загружаем историю апробации, если уже опубликовано
     if(localStorage.getItem('projectPublished') === 'true') loadApprobationHistory();
   </script>
 </body>
