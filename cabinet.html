@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
+    /* (стили оставлены такие же, как в предыдущей полной версии, без изменений) */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -606,6 +607,21 @@
       loginErrorDiv.style.display = 'none';
     });
 
+    // ----- Обработчики для кнопок А1 и А2 -----
+    const trackA1 = document.getElementById('trackA1');
+    const trackA2 = document.getElementById('trackA2');
+    let selectedTrack = 'А1';
+    trackA1.addEventListener('click', () => {
+      trackA1.classList.add('active');
+      trackA2.classList.remove('active');
+      selectedTrack = 'А1';
+    });
+    trackA2.addEventListener('click', () => {
+      trackA2.classList.add('active');
+      trackA1.classList.remove('active');
+      selectedTrack = 'А2';
+    });
+
     // ----- Глобальные переменные для студенческой части -----
     let tasks = [
       { id: '1', title: 'Выбрать тему проекта', desc: '', status: 'planned' },
@@ -856,22 +872,30 @@
           loginErrorDiv.style.display = 'block';
           return;
         }
-        const selectedTrack = document.querySelector('.track-btn.active').innerText.includes('А1') ? 'А1' : 'А2';
+        // Выбранный трек (active)
+        const activeTrack = document.querySelector('.track-btn.active');
+        const trackText = activeTrack ? activeTrack.innerText : 'А1 · Семестр';
+        const selectedTrackVal = trackText.includes('А1') ? 'А1' : 'А2';
         localStorage.setItem('userType', 'student');
         localStorage.setItem('captainName', captain);
         localStorage.setItem('teamName', team);
-        localStorage.setItem('selectedTrack', selectedTrack);
+        localStorage.setItem('selectedTrack', selectedTrackVal);
         document.getElementById('registerCard').style.display = 'none';
         document.getElementById('cabinetContent').style.display = 'block';
         document.getElementById('userNameDisplay').textContent = captain;
         document.getElementById('teamNameDisplay').textContent = team;
-        document.getElementById('userTrackDisplay').textContent = selectedTrack;
+        document.getElementById('userTrackDisplay').textContent = selectedTrackVal;
         document.getElementById('captainTag').innerHTML = `<i data-feather="user"></i> ${escapeHtml(captain)} (капитан)`;
         feather.replace();
         localStorage.setItem('currentProjectId', Date.now().toString());
+        // Сбрасываем флаг публикации для нового проекта
+        localStorage.setItem('projectPublished', 'false');
+        localStorage.removeItem('projectStatus');
+        // Убедимся, что режим редактирования активен
+        editModeBlocks.style.display = 'block';
+        publishSection.style.display = 'flex';
+        publishedModeBlocks.style.display = 'none';
         loadTasks(); loadFiles();
-        const isPublished = localStorage.getItem('projectPublished') === 'true';
-        if(isPublished) switchToPublishedMode();
       } else {
         const login = document.getElementById('curatorLogin').value.trim();
         const password = document.getElementById('curatorPassword').value.trim();
@@ -885,9 +909,12 @@
       }
     };
 
-    // Инициализация заявок и истории
+    // Инициализация заявок
     loadApprobationRequests();
-    if(localStorage.getItem('projectPublished') === 'true') loadApprobationHistory();
+    // Если после регистрации случайно остался старый проектPublished, сбрасываем
+    if(localStorage.getItem('projectPublished') === 'true') {
+      // Но для уже существующих проектов можно оставить, но при новой регистрации сбросили выше
+    }
   </script>
 </body>
 </html>
