@@ -876,14 +876,13 @@
     feather.replace();
   </script>
 </body>
-<!-- ========== ИИ-АССИСТЕНТ «КВАНТ» ========== -->
+<!-- ========== ИИ-АССИСТЕНТ «КВАНТ» (исправленный, без обрезания) ========== -->
 <style>
   /* Фиолетовая тема */
   :root {
     --ai-primary: #7c3aed;
     --ai-primary-dark: #5b21b6;
     --ai-light: #ede9fe;
-    --ai-bg: #ffffff;
   }
 
   /* Плавающая кнопка */
@@ -922,7 +921,7 @@
     font-size: 1rem;
   }
 
-  /* Окно чата */
+  /* Окно чата — исправлено, чтобы не обрезалось */
   .ai-chat-window {
     position: fixed;
     bottom: 100px;
@@ -930,20 +929,19 @@
     width: 380px;
     max-width: calc(100vw - 60px);
     height: 560px;
-    max-height: 80vh;
-    background: var(--ai-bg);
+    max-height: calc(100vh - 120px);
+    background: white;
     border-radius: 32px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-    display: flex;
+    display: none;
     flex-direction: column;
     overflow: hidden;
     z-index: 1002;
     border: 1px solid var(--ai-light);
     font-family: 'Inter', sans-serif;
-    transition: all 0.2s ease;
   }
-  .ai-chat-window:not(.active) {
-    display: none;
+  .ai-chat-window.active {
+    display: flex;
   }
 
   /* Заголовок */
@@ -954,6 +952,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
   }
   .ai-chat-header h3 {
     font-size: 1.2rem;
@@ -982,7 +981,7 @@
     background: rgba(255,255,255,0.2);
   }
 
-  /* Область сообщений */
+  /* Область сообщений — с прокруткой */
   .ai-chat-messages {
     flex: 1;
     padding: 20px;
@@ -991,6 +990,7 @@
     flex-direction: column;
     gap: 14px;
     background: #faf9ff;
+    min-height: 0; /* важно для flex */
   }
   .message {
     max-width: 85%;
@@ -1013,7 +1013,6 @@
     border-bottom-left-radius: 8px;
     position: relative;
   }
-  /* Кнопка озвучки для сообщений бота */
   .speech-btn {
     position: absolute;
     bottom: 8px;
@@ -1034,9 +1033,7 @@
     color: var(--ai-primary);
   }
 
-  /* Индикатор печати */
   .typing-indicator {
-    display: none;
     background: white;
     padding: 12px 16px;
     border-radius: 24px;
@@ -1046,13 +1043,14 @@
     border: 1px solid #e9e4ff;
   }
 
-  /* Поле ввода */
+  /* Поле ввода — фиксированное, не обрезается */
   .ai-chat-input {
     display: flex;
     padding: 16px;
     border-top: 1px solid #ede9fe;
     background: white;
     gap: 12px;
+    flex-shrink: 0;
   }
   .ai-chat-input input {
     flex: 1;
@@ -1077,23 +1075,24 @@
     cursor: pointer;
     font-weight: 500;
     transition: background 0.2s;
+    white-space: nowrap;
   }
   .ai-chat-input button:hover {
     background: var(--ai-primary-dark);
   }
 </style>
 
-<div class="ai-chat-button" id="aiChatButton" style="display: none;">
+<div class="ai-chat-button" id="aiChatButton">
   <i data-feather="cpu"></i>
   <span>ИИ ассистент</span>
 </div>
-<div class="ai-chat-window active" id="aiChatWindow">
+<div class="ai-chat-window" id="aiChatWindow">
   <div class="ai-chat-header">
     <h3><i data-feather="bot"></i> Квант · AI ассистент</h3>
     <button class="ai-chat-close" id="aiChatClose">&times;</button>
   </div>
   <div class="ai-chat-messages" id="aiChatMessages">
-    <div class="message bot">👋 Привет! Я Квант, твой ИИ-помощник. Можешь спросить о практике, коробочных комплектах, мастер‑классах, правилах или контактах. Чем помочь?</div>
+    <!-- Сообщения будут добавляться сюда динамически, начальное приветствие добавится при первом открытии -->
   </div>
   <div class="ai-chat-input">
     <input type="text" id="aiChatInput" placeholder="Напиши вопрос...">
@@ -1103,19 +1102,13 @@
 
 <script>
   (function() {
-    // ----------------------------------------------
-    // 1. Настройка голоса (Web Speech API)
-    // ----------------------------------------------
-    let speechEnabled = true;
+    // Голос
     let speechSynth = window.speechSynthesis;
     let voice = null;
-
     function initVoice() {
       if (!speechSynth) return;
-      // Подождать загрузки голосов
       const setVoice = () => {
         const voices = speechSynth.getVoices();
-        // Ищем русский голос (обычно Google русский)
         let ruVoice = voices.find(v => v.lang === 'ru-RU' && v.name.includes('Google'));
         if (!ruVoice) ruVoice = voices.find(v => v.lang === 'ru-RU');
         voice = ruVoice || voices[0];
@@ -1128,8 +1121,7 @@
     initVoice();
 
     function speakText(text) {
-      if (!speechEnabled || !speechSynth) return;
-      // Отменяем текущую речь, чтобы не наслаивалась
+      if (!speechSynth) return;
       speechSynth.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'ru-RU';
@@ -1139,42 +1131,38 @@
       speechSynth.speak(utterance);
     }
 
-    // ----------------------------------------------
-    // 2. Логика ответов (расширенная)
-    // ----------------------------------------------
+    // Логика ответов (как была)
     function getBotAnswer(question) {
       const q = question.toLowerCase().trim();
       if (q.includes('формат') || q.includes('практик') || q.includes('а1') || q.includes('а2')) {
-        return 'У нас два формата практики:\n• А1 – семестр (гибкое расписание, длительная разработка)\n• А2 – интенсив (1 неделя, ежедневная работа). Выберите подходящий в личном кабинете.';
+        return 'У нас два формата практики:\n• А1 – семестр (гибкое расписание)\n• А2 – интенсив (1 неделя). Выберите в личном кабинете.';
       }
-      if (q.includes('коробочн') || q.includes('комплект') || q.includes('кто создаёт')) {
-        return 'Коробочные образовательные комплекты (КОП) – это готовые образовательные наборы (игры, модели, методички). Студенты разрабатывают их в технопарке, апробируют в школах. Примеры – в разделе "Проекты".';
+      if (q.includes('коробочн') || q.includes('комплект')) {
+        return 'Коробочные образовательные комплекты (КОП) – готовые наборы (игры, модели). Студенты разрабатывают в технопарке, апробируют в школах. Примеры – в разделе "Проекты".';
       }
       if (q.includes('мастер-класс') || q.includes('мк')) {
-        return 'Мастер-классы: лазерные технологии, 3D-печать, векторная графика, промышленный дизайн, программирование, прототипирование. Запись – в личном кабинете.';
+        return 'Мастер-классы: лазерные технологии, 3D-печать, векторная графика, дизайн, программирование, прототипирование. Запись – в личном кабинете.';
       }
       if (q.includes('правила') || q.includes('техника безопасности') || q.includes('agile') || q.includes('canban')) {
-        return 'Документы: техника безопасности, правила работы, Agile, Kanban, подготовка файлов – все на главной странице в блоке "Правила и документы".';
+        return 'Документы: техника безопасности, правила работы, Agile, Kanban, подготовка файлов – на главной странице.';
       }
       if (q.includes('контакт') || q.includes('чат') || q.includes('куратор')) {
-        return 'Контакты: наб. Реки Мойки 48-52, корпус 1; сайт technopark.herzen.spb.ru; почта technopark.herzen@yandex.ru; общий чат ВК – vk.com/technoparkrgpu.';
+        return 'Контакты: наб. Реки Мойки 48-52, корпус 1; technopark.herzen.spb.ru; technopark.herzen@yandex.ru; чат ВК – vk.com/technoparkrgpu.';
       }
       if (q.includes('кабинет') || q.includes('войти')) {
-        return 'Личный кабинет доступен по кнопке "Войти в кабинет" в шапке сайта. Там регистрация команды, трекер задач и публикация проектов.';
+        return 'Личный кабинет – в шапке сайта. Там регистрация команды, трекер задач и публикация проектов.';
       }
       if (q.includes('лайк') || q.includes('топ')) {
-        return 'На странице "Проекты" можно ставить лайки проектам и фильтровать Топ-5 семестра.';
+        return 'На странице "Проекты" можно ставить лайки и фильтровать Топ-5 семестра.';
       }
       if (q.includes('спасибо')) {
-        return 'Всегда рад помочь! Обращайся ещё.';
+        return 'Всегда рад помочь!';
       }
-      return 'Хм... Я ещё учусь. Попробуй спросить о практике, комплектах, мастер-классах, правилах или контактах. Или напиши подробнее – я передам куратору.';
+      return 'Я ещё учусь. Попробуй спросить о практике, комплектах, мастер-классах, правилах или контактах.';
     }
 
-    // ----------------------------------------------
-    // 3. Эффект печати (имитация набора)
-    // ----------------------------------------------
-    async function typeMessage(text, container, onComplete) {
+    // Эффект печати
+    async function typeMessage(text, container) {
       container.innerHTML = '';
       let i = 0;
       const speed = 20;
@@ -1183,12 +1171,16 @@
         i++;
         await new Promise(r => setTimeout(r, speed));
       }
-      if (onComplete) onComplete();
+      // Добавить кнопку озвучки
+      const speechBtn = document.createElement('button');
+      speechBtn.className = 'speech-btn';
+      speechBtn.innerHTML = '<i data-feather="volume-2"></i>';
+      speechBtn.onclick = () => speakText(text);
+      container.appendChild(speechBtn);
+      feather.replace();
     }
 
-    // ----------------------------------------------
-    // 4. Управление чатом, озвучка
-    // ----------------------------------------------
+    // DOM элементы
     const chatWindow = document.getElementById('aiChatWindow');
     const chatButton = document.getElementById('aiChatButton');
     const chatCloseBtn = document.getElementById('aiChatClose');
@@ -1196,50 +1188,34 @@
     const inputField = document.getElementById('aiChatInput');
     const sendBtn = document.getElementById('aiChatSend');
 
-    // Функция добавления сообщения пользователя
+    // Флаги
+    let isFirstOpen = true; // чтобы добавить приветствие только при первом открытии
+
     function addUserMessage(text) {
       const msgDiv = document.createElement('div');
       msgDiv.className = 'message user';
       msgDiv.textContent = text;
       messagesContainer.appendChild(msgDiv);
-      scrollToBottom();
-    }
-
-    // Добавление сообщения бота с печатью и голосом
-    async function addBotMessage(text) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'message bot';
-      messagesContainer.appendChild(msgDiv);
-      scrollToBottom();
-      
-      // Печатаем текст
-      await typeMessage(text, msgDiv, () => {
-        // Добавляем кнопку озвучки
-        const speechBtn = document.createElement('button');
-        speechBtn.className = 'speech-btn';
-        speechBtn.innerHTML = '<i data-feather="volume-2"></i>';
-        speechBtn.onclick = () => speakText(text);
-        msgDiv.appendChild(speechBtn);
-        feather.replace(); // обновить иконку
-      });
-      
-      // Озвучиваем ответ
-      speakText(text);
-      scrollToBottom();
-    }
-
-    function scrollToBottom() {
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // Показать индикатор печати
+    async function addBotMessage(text, withSpeech = true) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'message bot';
+      messagesContainer.appendChild(msgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      await typeMessage(text, msgDiv);
+      if (withSpeech) speakText(text);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
     function showTyping() {
       const typingDiv = document.createElement('div');
       typingDiv.className = 'typing-indicator';
       typingDiv.id = 'typingIndicator';
       typingDiv.textContent = 'Квант печатает...';
       messagesContainer.appendChild(typingDiv);
-      scrollToBottom();
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
     function hideTyping() {
@@ -1247,18 +1223,16 @@
       if (typingDiv) typingDiv.remove();
     }
 
-    // Обработка сообщения пользователя
     async function sendUserMessage() {
       const text = inputField.value.trim();
       if (!text) return;
       addUserMessage(text);
       inputField.value = '';
       showTyping();
-      // Имитируем задержку ответа
       await new Promise(r => setTimeout(r, 600));
       const answer = getBotAnswer(text);
       hideTyping();
-      await addBotMessage(answer);
+      await addBotMessage(answer, true);
     }
 
     sendBtn.addEventListener('click', sendUserMessage);
@@ -1266,32 +1240,25 @@
       if (e.key === 'Enter') sendUserMessage();
     });
 
-    // ----------------------------------------------
-    // 5. Управление окном: изначально открыто, сворачивается в иконку
-    // ----------------------------------------------
+    // Открыть чат
     function openChat() {
       chatWindow.classList.add('active');
-      chatButton.style.display = 'none';
+      if (isFirstOpen) {
+        // Добавляем приветственное сообщение только один раз
+        addBotMessage('👋 Привет! Я Квант, твой ИИ-помощник. Спрашивай о практике, коробочных комплектах, мастер‑классах, правилах или контактах.', false);
+        isFirstOpen = false;
+      }
     }
+
     function closeChat() {
       chatWindow.classList.remove('active');
-      chatButton.style.display = 'flex';
     }
 
-    chatCloseBtn.addEventListener('click', closeChat);
     chatButton.addEventListener('click', openChat);
+    chatCloseBtn.addEventListener('click', closeChat);
 
-    // При загрузке окно открыто, кнопка скрыта
-    chatWindow.classList.add('active');
-    chatButton.style.display = 'none';
-
-    // Если кликнуть вне окна — не закрываем (только крестик)
-    // Но можно добавить: клик по оверлею? Не требуется.
-    
-    // Инициализация иконок
-    feather.replace();
-
-    // Предлагаем озвучку при первом сообщении бота (уже есть)
+    // При загрузке окно скрыто
+    chatWindow.classList.remove('active');
   })();
 </script>
 </html>
