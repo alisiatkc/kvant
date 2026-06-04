@@ -876,4 +876,248 @@
     feather.replace();
   </script>
 </body>
+  <!-- ========== ИИ-АССИСТЕНТ (всплывающий чат) ========== -->
+<style>
+  /* Плавающая кнопка и окно чата */
+  .ai-chat-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #2b3b6b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    z-index: 1001;
+  }
+  .ai-chat-button:hover {
+    transform: scale(1.1);
+    background: #1b2a50;
+  }
+  .ai-chat-button i {
+    color: white;
+    width: 32px;
+    height: 32px;
+  }
+  .ai-chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1002;
+    border: 1px solid #eef2f9;
+    font-family: 'Inter', sans-serif;
+  }
+  .ai-chat-window.active {
+    display: flex;
+  }
+  .ai-chat-header {
+    background: #2b3b6b;
+    color: white;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ai-chat-header h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ai-chat-header i {
+    width: 20px;
+    height: 20px;
+  }
+  .ai-chat-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .ai-chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #f9fbfe;
+  }
+  .message {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .message.user {
+    background: #2b3b6b;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 8px;
+  }
+  .message.bot {
+    background: white;
+    border: 1px solid #e2e8f0;
+    align-self: flex-start;
+    border-bottom-left-radius: 8px;
+  }
+  .ai-chat-input {
+    display: flex;
+    padding: 16px;
+    border-top: 1px solid #eef2f9;
+    background: white;
+    gap: 12px;
+  }
+  .ai-chat-input input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .ai-chat-input button {
+    background: #2b3b6b;
+    border: none;
+    border-radius: 40px;
+    padding: 0 20px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .ai-chat-input button:hover {
+    background: #1b2a50;
+  }
+  .typing-indicator {
+    display: none;
+    background: white;
+    padding: 12px 16px;
+    border-radius: 24px;
+    width: fit-content;
+    font-style: italic;
+    color: #6e7c9e;
+  }
+</style>
+
+<div class="ai-chat-button" id="aiChatButton">
+  <i data-feather="message-circle"></i>
+</div>
+<div class="ai-chat-window" id="aiChatWindow">
+  <div class="ai-chat-header">
+    <h3><i data-feather="cpu"></i> ИИ-ассистент технопарка</h3>
+    <button class="ai-chat-close" id="aiChatClose">&times;</button>
+  </div>
+  <div class="ai-chat-messages" id="aiChatMessages">
+    <div class="message bot">👋 Привет! Я ИИ-ассистент педагогического технопарка. Спрашивай о практиках (А1/А2), коробочных комплектах, мастер-классах, правилах и контактах. Чем могу помочь?</div>
+  </div>
+  <div class="ai-chat-input">
+    <input type="text" id="aiChatInput" placeholder="Напишите ваш вопрос...">
+    <button id="aiChatSend">Отправить</button>
+  </div>
+</div>
+
+<script>
+  // Простая имитация ИИ-ответов на основе ключевых слов (можно заменить на вызов реального API)
+  function getBotAnswer(question) {
+    const q = question.toLowerCase().trim();
+    if (q.includes('формат') || q.includes('практик') || q.includes('а1') || q.includes('а2')) {
+      return 'У нас два формата практики:\n• А1 – семестр (гибкое расписание, длительная разработка)\n• А2 – интенсив (1 неделя, ежедневная работа). Выберите подходящий в личном кабинете.';
+    }
+    if (q.includes('коробочн') || q.includes('комплект') || q.includes('кто создаёт')) {
+      return 'Коробочные образовательные комплекты (КОП) – это готовые образовательные наборы (дидактические игры, модели, методички). Студенты разрабатывают их в технопарке, а затем апробируют в школах. Посмотреть примеры можно в разделе "Проекты".';
+    }
+    if (q.includes('мастер-класс') || q.includes('мк')) {
+      return 'В технопарке проходят мастер-классы по лазерным технологиям, 3D-печати, векторной графике, дизайну, программированию и прототипированию. Запись – в личном кабинете. Подробности на главной странице.';
+    }
+    if (q.includes('правила') || q.includes('техника безопасности') || q.includes('agile') || q.includes('canban')) {
+      return 'Все важные документы (техника безопасности, правила работы, Agile, Kanban, подготовка файлов) доступны в разделе "Правила и документы" на главной странице. Нажмите на карточку, чтобы открыть информацию.';
+    }
+    if (q.includes('контакт') || q.includes('чат') || q.includes('куратор')) {
+      return 'Контакты: адрес – наб. Реки Мойки 48-52, корпус 1; сайт – technopark.herzen.spb.ru; почта – technopark.herzen@yandex.ru; общий чат ВК – https://vk.com/technoparkrgpu. Также есть чат Кванториума и связь с куратором.';
+    }
+    if (q.includes('кабинет') || q.includes('войти')) {
+      return 'Для доступа к личному кабинету нажмите кнопку "Войти в кабинет" в шапке сайта или в герое. Там вы сможете зарегистрировать команду, управлять проектом и трекером задач.';
+    }
+    if (q.includes('лайк') || q.includes('топ')) {
+      return 'На странице "Проекты" вы можете ставить лайки понравившимся комплектам. Также есть фильтр "Топ-5 проектов семестра" – там отображаются самые популярные проекты.';
+    }
+    if (q.includes('спасибо')) {
+      return 'Пожалуйста! Рад помочь. Если возникнут ещё вопросы, обращайтесь.';
+    }
+    return 'Извините, я ещё учусь. Попробуйте спросить о форматах практики, коробочных комплектах, мастер-классах, правилах или контактах. Или напишите подробнее – я передам вопрос куратору.';
+  }
+
+  const chatButton = document.getElementById('aiChatButton');
+  const chatWindow = document.getElementById('aiChatWindow');
+  const chatClose = document.getElementById('aiChatClose');
+  const chatMessages = document.getElementById('aiChatMessages');
+  const chatInput = document.getElementById('aiChatInput');
+  const chatSend = document.getElementById('aiChatSend');
+
+  function addMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `message ${sender}`;
+    msgDiv.textContent = text;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendUserMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    addMessage(text, 'user');
+    chatInput.value = '';
+    // Показать индикатор набора
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'typing-indicator';
+    typingDiv.textContent = 'Ассистент печатает...';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typingDiv.remove();
+      const answer = getBotAnswer(text);
+      addMessage(answer, 'bot');
+      feather.replace(); // обновить иконки, если они есть внутри сообщений (нет)
+    }, 500);
+  }
+
+  chatButton.addEventListener('click', () => {
+    chatWindow.classList.toggle('active');
+  });
+  chatClose.addEventListener('click', () => {
+    chatWindow.classList.remove('active');
+  });
+  chatSend.addEventListener('click', sendUserMessage);
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendUserMessage();
+  });
+  // При клике вне окна не закрываем, только крестиком
+  document.addEventListener('click', (e) => {
+    if (!chatWindow.contains(e.target) && !chatButton.contains(e.target) && chatWindow.classList.contains('active')) {
+      chatWindow.classList.remove('active');
+    }
+  });
+  // Инициализация иконки
+  feather.replace();
+</script>
 </html>
