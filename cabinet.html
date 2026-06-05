@@ -9,78 +9,481 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Стили оставляем как в предыдущей версии – они были полные, здесь не дублирую для краткости, но в реальном файле они все есть */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: "Inter", sans-serif; background: #f5f7fb; color: #1b1f2b; line-height: 1.5; }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-    .header { padding: 20px 0; background: white; border-bottom: 1px solid rgba(0,0,0,0.03); }
-    .header-content { display: flex; align-items: center; justify-content: space-between; }
-    .logo a { font-size: 1.5rem; font-weight: 600; text-decoration: none; color: #1b1f2b; }
-    .nav-links { display: flex; gap: 32px; }
-    .nav-links a { text-decoration: none; color: #4a5578; font-weight: 500; }
-    .back-link { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #2b3b6b; font-weight: 500; }
-    .register-card { background: white; border-radius: 50px; padding: 60px 50px; max-width: 550px; margin: 60px auto; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1); }
-    .register-card h2 { font-size: 2.4rem; font-weight: 500; margin-bottom: 16px; }
-    .register-sub { color: #4a5578; font-size: 1.1rem; margin-bottom: 40px; }
-    .track-selector { display: flex; gap: 16px; margin-bottom: 40px; }
-    .track-btn { flex: 1; padding: 16px; border: 1px solid #e2e8f0; border-radius: 40px; background: white; font-family: inherit; font-size: 1.1rem; font-weight: 500; cursor: pointer; }
-    .track-btn.active { background: #2b3b6b; color: white; border-color: #2b3b6b; }
-    .form-group { margin-bottom: 24px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #3f4a6b; }
-    .form-group input, .form-group textarea { width: 100%; padding: 16px 24px; border: 1px solid #e2e8f0; border-radius: 40px; font-family: inherit; font-size: 1rem; background: #f9fcff; }
-    .register-btn { width: 100%; padding: 18px; background: #1b1f2b; color: white; border: none; border-radius: 40px; font-size: 1.1rem; font-weight: 500; cursor: pointer; margin-top: 16px; }
-    .register-btn:hover { background: #2b3b6b; }
-    .cabinet-section { background: white; border-radius: 50px; padding: 50px; margin: 40px 0; }
-    .section-title { font-size: 2rem; font-weight: 500; margin-bottom: 32px; }
-    .team-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-    .form-field.full-width { grid-column: span 2; }
-    .form-field label { display: block; margin-bottom: 10px; font-weight: 500; color: #3f4a6b; }
-    .form-field input, .form-field textarea { width: 100%; padding: 14px 20px; border: 1px solid #e2e8f0; border-radius: 30px; font-family: inherit; font-size: 1rem; background: #f9fcff; }
-    .form-field textarea { min-height: 100px; resize: vertical; }
-    .authors-section { margin: 30px 0; }
-    .authors-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
-    .author-tag { background: #eef2f9; padding: 10px 20px; border-radius: 40px; font-size: 1rem; display: flex; align-items: center; gap: 10px; }
-    .add-author-btn { background: none; border: 1px dashed #9aa9c0; border-radius: 40px; padding: 10px 24px; font-size: 1rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-    .production-file-section { background: #f0f4fe; border-radius: 40px; padding: 30px; margin: 30px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-    .attach-file-btn { background: white; border: 1px solid #2b3b6b; color: #2b3b6b; padding: 12px 28px; border-radius: 40px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
-    .tracker-section { background: white; border-radius: 50px; padding: 50px; margin: 40px 0; }
-    .tracker-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-    .add-task-btn { padding: 14px 32px; background: #2b3b6b; color: white; border: none; border-radius: 40px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
-    .kanban-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .kanban-col { background: #f9fbfe; border-radius: 36px; padding: 24px; min-height: 400px; }
-    .kanban-col h4 { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; color: #2b3b6b; }
-    .task-list { min-height: 300px; }
-    .task-card { background: white; border-radius: 24px; padding: 20px; margin-bottom: 16px; border: 1px solid #eef2f9; cursor: grab; }
-    .task-card:active { cursor: grabbing; }
-    .task-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; }
-    .task-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 12px; }
-    .task-edit, .task-delete { background: none; border: none; cursor: pointer; color: #8b9bb5; }
-    .files-section { background: white; border-radius: 50px; padding: 50px; margin: 40px 0; }
-    .files-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-    .upload-btn { padding: 14px 32px; background: #2b3b6b; color: white; border: none; border-radius: 40px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
-    .files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-    .file-card { background: #f9fbfe; border-radius: 28px; padding: 24px 20px; text-align: center; border: 1px solid #eef2f9; cursor: pointer; transition: all 0.2s; }
-    .file-card:hover { background: #eef2f9; transform: translateY(-3px); }
-    .file-card i { width: 36px; height: 36px; color: #2b3b6b; margin-bottom: 16px; }
-    .publish-section { background: #eef2f9; border-radius: 60px; padding: 50px; margin: 50px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-    .publish-btn { background: #2b3b6b; color: white; border: none; border-radius: 40px; padding: 16px 40px; font-size: 1.1rem; cursor: pointer; }
-    .status-badge { display: inline-flex; align-items: center; gap: 8px; background: #eef2f9; padding: 8px 20px; border-radius: 40px; font-weight: 500; }
-    .status-badge.approved { background: #c8e6c9; color: #2e7d32; }
-    .status-badge.review { background: #fff3e0; color: #ef6c00; }
-    .status-badge.rejected { background: #ffebee; color: #c62828; }
-    .published-card { background: #f9fbfe; border-radius: 36px; padding: 30px; margin-bottom: 30px; border: 1px solid #eef2f9; }
-    .published-card h3 { font-size: 1.8rem; margin-bottom: 16px; }
-    .published-card .meta { display: flex; gap: 20px; color: #6e7c9e; margin: 16px 0; }
-    details { background: #f9fbfe; border-radius: 32px; padding: 16px 24px; margin-bottom: 16px; border: 1px solid #eef2f9; }
-    summary { font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 12px; }
-    .approbation-record { margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
-    .author-modal, .notification-modal, .task-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 18, 28, 0.7); backdrop-filter: blur(6px); align-items: center; justify-content: center; z-index: 1100; }
-    .author-modal.active, .notification-modal.active, .task-modal.active { display: flex; }
-    .author-modal-content, .notification-content { background: white; max-width: 450px; width: 90%; border-radius: 40px; padding: 40px; position: relative; }
-    .author-modal-content h3, .notification-content h3 { font-size: 1.8rem; margin-bottom: 24px; }
-    .author-modal-content input, .author-modal-content textarea { width: 100%; padding: 14px 20px; border: 1px solid #e2e8f0; border-radius: 30px; margin-bottom: 20px; }
-    .save-author-btn, .notification-close { width: 100%; padding: 14px; background: #2b3b6b; color: white; border: none; border-radius: 40px; cursor: pointer; }
-    .footer { padding: 60px 0; text-align: center; color: #6e7c9e; border-top: 1px solid rgba(0,0,0,0.03); }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f7fb;
+      color: #1b1f2b;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Шапка */
+    .header {
+      padding: 20px 0;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo a {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #1b1f2b;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #4a5578;
+      font-weight: 500;
+    }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #2b3b6b;
+      font-weight: 500;
+    }
+
+    /* Карточка входа */
+    .register-card {
+      background: white;
+      border-radius: 50px;
+      padding: 60px 50px;
+      max-width: 550px;
+      margin: 60px auto;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
+    }
+    .register-card h2 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .register-sub {
+      color: #4a5578;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+    .track-selector {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .track-btn {
+      flex: 1;
+      padding: 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      background: white;
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .track-btn.active {
+      background: #2b3b6b;
+      color: white;
+      border-color: #2b3b6b;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #3f4a6b;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 16px 24px;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #f9fcff;
+    }
+    .register-btn {
+      width: 100%;
+      padding: 18px;
+      background: #1b1f2b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    .register-btn:hover {
+      background: #2b3b6b;
+    }
+
+    /* Общие блоки кабинета */
+    .cabinet-section {
+      background: white;
+      border-radius: 50px;
+      padding: 50px 40px;
+      margin: 40px 0;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+
+    /* Моя команда и проект */
+    .team-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .form-field.full-width {
+      grid-column: span 2;
+    }
+    .form-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: #3f4a6b;
+    }
+    .form-field input, .form-field textarea {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 30px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #f9fcff;
+    }
+    .form-field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .authors-section {
+      margin: 30px 0;
+    }
+    .authors-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .author-tag {
+      background: #eef2f9;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .add-author-btn {
+      background: none;
+      border: 1px dashed #9aa9c0;
+      border-radius: 40px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .production-file-section {
+      background: #f0f4fe;
+      border-radius: 40px;
+      padding: 30px;
+      margin: 30px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .attach-file-btn {
+      background: white;
+      border: 1px solid #2b3b6b;
+      color: #2b3b6b;
+      padding: 12px 28px;
+      border-radius: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Трекер проектов */
+    .tracker-section {
+      background: white;
+      border-radius: 50px;
+      padding: 50px 40px;
+      margin: 40px 0;
+    }
+    .tracker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .add-task-btn {
+      padding: 14px 32px;
+      background: #2b3b6b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .kanban-col {
+      background: #f9fbfe;
+      border-radius: 36px;
+      padding: 24px;
+      min-height: 400px;
+    }
+    .kanban-col h4 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: #2b3b6b;
+    }
+    .task-list {
+      min-height: 300px;
+    }
+    .task-card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid #eef2f9;
+      cursor: grab;
+    }
+    .task-card:active {
+      cursor: grabbing;
+    }
+    .task-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .task-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .task-edit, .task-delete {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #8b9bb5;
+    }
+
+    /* Рабочие файлы */
+    .files-section {
+      background: white;
+      border-radius: 50px;
+      padding: 50px 40px;
+      margin: 40px 0;
+    }
+    .files-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .upload-btn {
+      padding: 14px 32px;
+      background: #2b3b6b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .files-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .file-card {
+      background: #f9fbfe;
+      border-radius: 28px;
+      padding: 24px 20px;
+      text-align: center;
+      border: 1px solid #eef2f9;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .file-card:hover {
+      background: #eef2f9;
+      transform: translateY(-3px);
+    }
+    .file-card i {
+      width: 36px;
+      height: 36px;
+      color: #2b3b6b;
+      margin-bottom: 16px;
+    }
+
+    /* Публикация */
+    .publish-section {
+      background: #eef2f9;
+      border-radius: 60px;
+      padding: 50px 40px;
+      margin: 50px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .publish-btn {
+      background: #2b3b6b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 16px 40px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #eef2f9;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 500;
+    }
+    .status-badge.approved {
+      background: #c8e6c9;
+      color: #2e7d32;
+    }
+    .status-badge.review {
+      background: #fff3e0;
+      color: #ef6c00;
+    }
+    .status-badge.rejected {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    /* Опубликованный комплект */
+    .published-card {
+      background: #f9fbfe;
+      border-radius: 36px;
+      padding: 30px;
+      margin-bottom: 30px;
+      border: 1px solid #eef2f9;
+    }
+    .published-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    .published-card .meta {
+      display: flex;
+      gap: 20px;
+      color: #6e7c9e;
+      margin: 16px 0;
+    }
+
+    /* Аккордеон для истории апробации */
+    details {
+      background: #f9fbfe;
+      border-radius: 32px;
+      padding: 16px 24px;
+      margin-bottom: 16px;
+      border: 1px solid #eef2f9;
+    }
+    summary {
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .approbation-record {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    /* Модальные окна */
+    .author-modal, .notification-modal, .task-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 18, 28, 0.7);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      z-index: 1100;
+    }
+    .author-modal.active, .notification-modal.active, .task-modal.active {
+      display: flex;
+    }
+    .author-modal-content, .notification-content {
+      background: white;
+      max-width: 450px;
+      width: 90%;
+      border-radius: 40px;
+      padding: 40px;
+      position: relative;
+    }
+    .author-modal-content h3, .notification-content h3 {
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+    }
+    .author-modal-content input, .author-modal-content textarea {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 30px;
+      margin-bottom: 20px;
+    }
+    .save-author-btn, .notification-close {
+      width: 100%;
+      padding: 14px;
+      background: #2b3b6b;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+    }
+
+    .footer {
+      padding: 60px 0;
+      text-align: center;
+      color: #6e7c9e;
+      border-top: 1px solid rgba(0,0,0,0.03);
+    }
   </style>
 </head>
 <body>
@@ -124,8 +527,12 @@
 
       <!-- Личный кабинет студента -->
       <div id="cabinetContent" style="display: none;">
-        <div class="cabinet-section"><h2>Здравствуйте, <span id="userNameDisplay">Капитан</span>!</h2><p>Команда: <span id="teamNameDisplay">Команда</span> · Формат: <span id="userTrackDisplay">А1</span></p></div>
+        <div class="cabinet-section">
+          <h2>Здравствуйте, <span id="userNameDisplay">Капитан</span>!</h2>
+          <p>Команда: <span id="teamNameDisplay">Команда</span> · Формат: <span id="userTrackDisplay">А1</span></p>
+        </div>
 
+        <!-- Редактируемые блоки (до публикации) -->
         <div id="editModeBlocks">
           <div class="cabinet-section">
             <h3 class="section-title">Моя команда и проект</h3>
@@ -136,7 +543,9 @@
             </div>
             <div class="authors-section">
               <label>Авторы</label>
-              <div class="authors-list" id="authorsList"><span class="author-tag" id="captainTag"><i data-feather="user"></i> Иванов Иван (капитан)</span></div>
+              <div class="authors-list" id="authorsList">
+                <span class="author-tag" id="captainTag"><i data-feather="user"></i> Иванов Иван (капитан)</span>
+              </div>
               <button class="add-author-btn" id="addAuthorBtn"><i data-feather="user-plus"></i> Добавить участника</button>
             </div>
             <div class="production-file-section">
@@ -147,58 +556,108 @@
           </div>
 
           <div class="tracker-section">
-            <div class="tracker-header"><h3 class="section-title">Трекер проектов</h3><button class="add-task-btn" id="addTaskBtn"><i data-feather="plus"></i> Добавить задачу</button></div>
+            <div class="tracker-header">
+              <h3 class="section-title" style="margin-bottom:0;">Трекер проектов</h3>
+              <button class="add-task-btn" id="addTaskBtn"><i data-feather="plus"></i> Добавить задачу</button>
+            </div>
             <div class="kanban-board">
-              <div class="kanban-col" data-status="planned"><h4><i data-feather="circle"></i> Запланировано</h4><div class="task-list" id="plannedList"></div></div>
-              <div class="kanban-col" data-status="inprogress"><h4><i data-feather="clock"></i> В работе</h4><div class="task-list" id="inprogressList"></div></div>
-              <div class="kanban-col" data-status="done"><h4><i data-feather="check-circle"></i> Готово</h4><div class="task-list" id="doneList"></div></div>
+              <div class="kanban-col" data-status="planned">
+                <h4><i data-feather="circle"></i> Запланировано</h4>
+                <div class="task-list" id="plannedList"></div>
+              </div>
+              <div class="kanban-col" data-status="inprogress">
+                <h4><i data-feather="clock"></i> В работе</h4>
+                <div class="task-list" id="inprogressList"></div>
+              </div>
+              <div class="kanban-col" data-status="done">
+                <h4><i data-feather="check-circle"></i> Готово</h4>
+                <div class="task-list" id="doneList"></div>
+              </div>
             </div>
           </div>
 
           <div class="files-section">
-            <div class="files-header"><h3 class="section-title">Рабочие файлы</h3><button class="upload-btn" id="uploadFileBtn"><i data-feather="upload"></i> Загрузить файл</button></div>
+            <div class="files-header">
+              <h3 class="section-title" style="margin-bottom:0;">Рабочие файлы</h3>
+              <button class="upload-btn" id="uploadFileBtn"><i data-feather="upload"></i> Загрузить файл</button>
+            </div>
             <div class="files-grid" id="filesGrid"></div>
           </div>
         </div>
 
+        <!-- Блок опубликованного проекта (после публикации) -->
         <div id="publishedModeBlocks" style="display: none;">
           <div class="cabinet-section">
-            <div style="display: flex; justify-content: space-between;"><h3 class="section-title">Мой опубликованный комплект</h3><span class="status-badge review" id="statusBadge">⏳ На рассмотрении</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 class="section-title" style="margin-bottom:0;">Мой опубликованный комплект</h3>
+              <span class="status-badge review" id="statusBadge"><i data-feather="clock"></i> На рассмотрении</span>
+            </div>
             <div class="published-card" id="publishedProjectCard"></div>
-            <div style="display: flex; gap: 20px;"><button class="upload-btn" id="approbationBtn" style="background:#7c3aed;"><i data-feather="file-text"></i> Апробация</button><button class="upload-btn" id="editProjectBtn" style="background:#2b3b6b;"><i data-feather="edit-2"></i> Редактировать</button></div>
+            <div style="display: flex; gap: 20px;">
+              <button class="upload-btn" id="approbationBtn" style="background:#7c3aed;"><i data-feather="file-text"></i> Апробация</button>
+              <button class="upload-btn" id="editProjectBtn" style="background:#2b3b6b;"><i data-feather="edit-2"></i> Редактировать</button>
+            </div>
           </div>
         </div>
 
-        <div class="cabinet-section"><h3 class="section-title">Заявки на апробацию вашего КОП</h3><div id="requestsList"></div></div>
+        <!-- Заявки на апробацию -->
+        <div class="cabinet-section">
+          <h3 class="section-title">Заявки на апробацию вашего КОП</h3>
+          <div id="requestsList"></div>
+        </div>
 
+        <!-- Блок апробации (форма + история) -->
         <div class="cabinet-section" id="approbationSection" style="display: none;">
           <h3 class="section-title">Апробация комплекта в школе</h3>
-          <p>Заполните форму после проведения занятия</p>
-          <div style="margin:20px 0;"><button class="upload-btn" id="generateAIQuestionsBtn" style="background:#7c3aed;"><i data-feather="cpu"></i> Сгенерировать вопросы</button><div id="aiQuestionsOutput" style="margin-top:16px; background:#f9fbfe; border-radius:24px; padding:16px; display:none;"></div></div>
-          <div id="approbationForm">
-            <div class="form-field"><label>Название школы / класс</label><input type="text" id="schoolName"></div>
-            <div class="form-field"><label>Дата апробации</label><input type="date" id="approbationDate"></div>
-            <div class="form-field"><label>Оцените вовлечённость (1–5)</label><input type="number" id="engagement" min="1" max="5"></div>
-            <div class="form-field"><label>Что было самым удачным?</label><textarea id="whatWorked" rows="2"></textarea></div>
-            <div class="form-field"><label>Что требует доработки?</label><textarea id="whatNeedsWork" rows="2"></textarea></div>
-            <div class="form-field"><label>Рекомендации автору</label><textarea id="recommendations" rows="2"></textarea></div>
-            <button class="publish-btn" id="saveApprobationBtn">Сохранить результаты</button>
+          <div id="approbationFormContainer">
+            <div style="margin-bottom:20px;">
+              <button class="upload-btn" id="generateAIQuestionsBtn" style="background:#7c3aed;"><i data-feather="cpu"></i> Сгенерировать вопросы</button>
+              <div id="aiQuestionsOutput" style="margin-top:16px; background:#f9fbfe; border-radius:24px; padding:16px; display:none;"></div>
+            </div>
+            <div id="approbationForm">
+              <div class="form-field"><label>Название школы / класс</label><input type="text" id="schoolName"></div>
+              <div class="form-field"><label>Дата апробации</label><input type="date" id="approbationDate"></div>
+              <div class="form-field"><label>Оцените вовлечённость (1–5)</label><input type="number" id="engagement" min="1" max="5"></div>
+              <div class="form-field"><label>Что было самым удачным?</label><textarea id="whatWorked" rows="2"></textarea></div>
+              <div class="form-field"><label>Что требует доработки?</label><textarea id="whatNeedsWork" rows="2"></textarea></div>
+              <div class="form-field"><label>Рекомендации автору</label><textarea id="recommendations" rows="2"></textarea></div>
+              <button class="publish-btn" id="saveApprobationBtn">Сохранить результаты</button>
+            </div>
           </div>
           <div id="approbationResult" style="margin-top:20px; display:none;"></div>
           <div id="approbationHistory"></div>
         </div>
 
-        <div class="publish-section" id="publishSection"><div><h3 style="font-size:1.8rem;">Опубликовать проект в каталог</h3><p>После отправки проект будет проверен куратором</p></div><button class="publish-btn" id="publishBtn">Опубликовать</button></div>
-        <div class="cabinet-section" style="background:#eef2f9; text-align:center;"><h3 style="font-size:1.8rem;">Каталог коробочных образовательных комплектов</h3><p>Посмотрите готовые работы других команд</p><a href="catalog.html" style="background:#2b3b6b; color:white; padding:16px 40px; border-radius:40px; text-decoration:none; display:inline-block;">Перейти в каталог</a></div>
+        <!-- Публикация проекта -->
+        <div class="publish-section" id="publishSection">
+          <div>
+            <h3 style="font-size:1.8rem;">Опубликовать проект в каталог</h3>
+            <p>После отправки проект будет проверен куратором</p>
+          </div>
+          <button class="publish-btn" id="publishBtn">Опубликовать</button>
+        </div>
+
+        <!-- Ссылка на каталог -->
+        <div class="cabinet-section" style="background:#eef2f9; text-align:center;">
+          <h3 style="font-size:1.8rem;">Каталог коробочных образовательных комплектов</h3>
+          <p style="margin:16px 0;">Посмотрите готовые работы других команд</p>
+          <a href="catalog.html" class="button" style="background:#2b3b6b; color:white; padding:16px 40px; border-radius:40px; text-decoration:none; display:inline-block;">Перейти в каталог</a>
+        </div>
       </div>
     </div>
   </main>
 
   <footer class="footer"><div class="container">Ткаченко Алиса Олеговна · магистерская работа</div></footer>
 
-  <div class="author-modal" id="authorModal"><div class="author-modal-content"><h3>Добавить участника</h3><input type="text" id="newAuthorName"><button class="save-author-btn" id="saveAuthorBtn">Добавить</button></div></div>
-  <div class="task-modal" id="taskModal"><div class="author-modal-content"><h3 id="taskModalTitle">Новая задача</h3><input type="text" id="taskNameInput" placeholder="Название задачи"><textarea id="taskDescInput" placeholder="Описание" rows="3"></textarea><button class="save-author-btn" id="saveTaskBtn">Сохранить</button></div></div>
-  <div class="notification-modal" id="notificationModal"><div class="notification-content"><i data-feather="check-circle"></i><h3>Отправлено!</h3><p>Проект отправлен куратору</p><button class="notification-close" id="notificationClose">Хорошо</button></div></div>
+  <div class="author-modal" id="authorModal">
+    <div class="author-modal-content"><h3>Добавить участника</h3><input type="text" id="newAuthorName"><button class="save-author-btn" id="saveAuthorBtn">Добавить</button></div>
+  </div>
+  <div class="task-modal" id="taskModal">
+    <div class="author-modal-content"><h3 id="taskModalTitle">Новая задача</h3><input type="text" id="taskNameInput" placeholder="Название задачи"><textarea id="taskDescInput" placeholder="Описание" rows="3"></textarea><button class="save-author-btn" id="saveTaskBtn">Сохранить</button></div>
+  </div>
+  <div class="notification-modal" id="notificationModal">
+    <div class="notification-content"><i data-feather="check-circle"></i><h3>Отправлено!</h3><p>Проект отправлен куратору</p><button class="notification-close" id="notificationClose">Хорошо</button></div>
+  </div>
 
   <script>
     feather.replace();
@@ -324,7 +783,7 @@
       if(fileName) { productionFileDisplay.innerHTML = `<div><i data-feather="paperclip"></i>${escapeHtml(fileName)}</div>`; feather.replace(); }
     };
 
-    // Публикация
+    // Публикация и переключение режимов
     function switchToPublishedMode() {
       editModeBlocks.style.display = 'none';
       publishSection.style.display = 'none';
@@ -334,9 +793,12 @@
       const projectBlock = document.getElementById('projectBlock').value || '';
       const authors = Array.from(document.querySelectorAll('.author-tag')).map(a => a.innerText.trim()).join(', ');
       const prodFile = productionFileDisplay.innerText || 'Не прикреплён';
-      document.getElementById('publishedProjectCard').innerHTML = `<h3>${escapeHtml(projectName)}</h3><div class="meta"><span>📅 ${escapeHtml(projectBlock)}</span><span>👥 ${escapeHtml(authors)}</span></div><p>${escapeHtml(projectDesc)}</p><div><strong>Итоговый файл:</strong> ${escapeHtml(prodFile)}</div>`;
+      document.getElementById('publishedProjectCard').innerHTML = `<h3>${escapeHtml(projectName)}</h3><div class="meta"><span>📅 ${escapeHtml(projectBlock)}</span><span>${escapeHtml(authors)}</span></div><p>${escapeHtml(projectDesc)}</p><div><strong>Итоговый файл:</strong> ${escapeHtml(prodFile)}</div>`;
       if(approbationSection) approbationSection.style.display = 'block';
       loadApprobationHistory();
+      // При показе секции апробации форма показывается, история под ней
+      const formContainer = document.getElementById('approbationFormContainer');
+      if(formContainer) formContainer.style.display = 'block';
     }
     publishBtn.onclick = () => {
       notificationModal.classList.add('active');
@@ -352,7 +814,12 @@
       publishedModeBlocks.style.display = 'none';
       if(approbationSection) approbationSection.style.display = 'none';
     };
-    approbationBtn.onclick = () => { approbationSection.scrollIntoView({ behavior: 'smooth' }); };
+    approbationBtn.onclick = () => {
+      approbationSection.scrollIntoView({ behavior: 'smooth' });
+      // Если форма была скрыта, показываем её снова
+      const formContainer = document.getElementById('approbationFormContainer');
+      if(formContainer) formContainer.style.display = 'block';
+    };
 
     // История апробации
     function loadApprobationHistory() {
@@ -360,7 +827,10 @@
       const history = JSON.parse(localStorage.getItem(`approbationHistory_${projectId}`) || '[]');
       const container = document.getElementById('approbationHistory');
       if(!container) return;
-      if(history.length === 0) { container.innerHTML = '<p>Нет сохранённых записей.</p>'; return; }
+      if(history.length === 0) {
+        container.innerHTML = '<p>Нет сохранённых записей апробации.</p>';
+        return;
+      }
       container.innerHTML = history.map(rec => `
         <details>
           <summary><i data-feather="file-text"></i> ${escapeHtml(rec.school)} — ${rec.date}</summary>
@@ -375,59 +845,57 @@
       feather.replace();
     }
 
-    // ========== НАДЁЖНАЯ ПРИВЯЗКА КНОПКИ СОХРАНЕНИЯ ==========
-    function bindSaveButton() {
-      const btn = document.getElementById('saveApprobationBtn');
-      if (btn && !btn.hasAttribute('data-listener-attached')) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log('Кнопка сохранения нажата!');
-          const projectId = localStorage.getItem('currentProjectId') || Date.now().toString();
-          const school = document.getElementById('schoolName')?.value.trim();
-          if (!school) {
-            alert('Укажите название школы');
-            return;
-          }
-          const record = {
-            id: Date.now(),
-            school: school,
-            date: document.getElementById('approbationDate')?.value || '',
-            engagement: document.getElementById('engagement')?.value || '',
-            whatWorked: document.getElementById('whatWorked')?.value || '',
-            whatNeedsWork: document.getElementById('whatNeedsWork')?.value || '',
-            recommendations: document.getElementById('recommendations')?.value || '',
-          };
-          console.log('Запись:', record);
-          let history = JSON.parse(localStorage.getItem(`approbationHistory_${projectId}`) || '[]');
-          history.push(record);
-          localStorage.setItem(`approbationHistory_${projectId}`, JSON.stringify(history));
-          document.getElementById('approbationForm')?.reset();
-          const resultDiv = document.getElementById('approbationResult');
-          if (resultDiv) {
-            resultDiv.innerHTML = '<div style="background:#e8f5e9; padding:16px; border-radius:24px;">✅ Спасибо! Результаты сохранены.</div>';
-            resultDiv.style.display = 'block';
-            setTimeout(() => { resultDiv.style.display = 'none'; }, 3000);
-          }
-          loadApprobationHistory();
-        });
-        btn.setAttribute('data-listener-attached', 'true');
-        console.log('Обработчик кнопки сохранения привязан');
-      } else if (!btn) {
-        console.log('Кнопка saveApprobationBtn не найдена, повтор через 0.5 сек');
-        setTimeout(bindSaveButton, 500);
+    // ========== ОБРАБОТЧИК СОХРАНЕНИЯ АПРОБАЦИИ ==========
+    document.body.addEventListener('click', function(e) {
+      const btn = e.target.closest('#saveApprobationBtn');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const projectId = localStorage.getItem('currentProjectId') || Date.now().toString();
+      const school = document.getElementById('schoolName')?.value.trim();
+      if (!school) {
+        alert('Укажите название школы');
+        return;
       }
-    }
-    // Запускаем поиск кнопки (она может появиться после публикации)
-    bindSaveButton();
-    // Также при каждом появлении блока апробации можно перепроверять, но bindSaveButton уже будет работать
+      const record = {
+        id: Date.now(),
+        school: school,
+        date: document.getElementById('approbationDate')?.value || '',
+        engagement: document.getElementById('engagement')?.value || '',
+        whatWorked: document.getElementById('whatWorked')?.value || '',
+        whatNeedsWork: document.getElementById('whatNeedsWork')?.value || '',
+        recommendations: document.getElementById('recommendations')?.value || '',
+      };
+      let history = JSON.parse(localStorage.getItem(`approbationHistory_${projectId}`) || '[]');
+      history.push(record);
+      localStorage.setItem(`approbationHistory_${projectId}`, JSON.stringify(history));
+      // Очищаем форму
+      document.getElementById('approbationForm')?.reset();
+      // Скрываем форму, показываем сообщение
+      const formContainer = document.getElementById('approbationFormContainer');
+      if (formContainer) formContainer.style.display = 'none';
+      const resultDiv = document.getElementById('approbationResult');
+      if (resultDiv) {
+        resultDiv.innerHTML = '<div style="background:#e8f5e9; padding:16px; border-radius:24px;">✅ Спасибо! Результаты сохранены.</div>';
+        resultDiv.style.display = 'block';
+        setTimeout(() => { resultDiv.style.display = 'none'; }, 3000);
+      }
+      loadApprobationHistory();
+    });
 
-    // ИИ-генерация
+    // ИИ-генерация вопросов
     const genBtn = document.getElementById('generateAIQuestionsBtn');
     if(genBtn) {
       genBtn.onclick = () => {
         let subject = prompt('Укажите предмет (математика, биология, физика, информатика, экономика, педагогика):', 'математика')?.toLowerCase() || 'математика';
-        const qMap = { математика:["Удалось ли организовать обсуждение решений?","Насколько задания связаны с реальной жизнью?","Какие трудности возникли?"], биология:["Насколько школьники были увлечены наблюдением?","Удобно ли проводить эксперимент?","Что добавить для лучшего понимания?"], физика:["Насколько наглядно представлены явления?","Были ли трудности при опыте?","Оценка безопасности?"], информатика:["Понятны ли инструкции?","Какие алгоритмические задачи решили?","Что упростить?"], экономика:["Насколько игра отражает реальные процессы?","Было ли интересно?","Какие дополнения?"], педагогика:["Насколько игровая форма помогла?","Удалось ли удержать внимание?","Что улучшить в методике?"] };
+        const qMap = {
+          математика: ["Удалось ли организовать обсуждение решений?", "Насколько задания связаны с реальной жизнью?", "Какие трудности возникли?"],
+          биология: ["Насколько школьники были увлечены наблюдением?", "Удобно ли проводить эксперимент?", "Что добавить для лучшего понимания?"],
+          физика: ["Насколько наглядно представлены явления?", "Были ли трудности при опыте?", "Оценка безопасности?"],
+          информатика: ["Понятны ли инструкции?", "Какие алгоритмические задачи решили?", "Что упростить?"],
+          экономика: ["Насколько игра отражает реальные процессы?", "Было ли интересно?", "Какие дополнения?"],
+          педагогика: ["Насколько игровая форма помогла?", "Удалось ли удержать внимание?", "Что улучшить в методике?"]
+        };
         const questions = qMap[subject] || qMap.математика;
         const outDiv = document.getElementById('aiQuestionsOutput');
         outDiv.innerHTML = `<strong>Рекомендуемые вопросы:</strong><ul>${questions.map(q=>`<li>${q}</li>`).join('')}</ul><button id="copyBtn" style="background:#4a5578; margin-top:10px;">Скопировать</button>`;
@@ -445,7 +913,10 @@
       const myRequests = requests.filter(r => r.projectId == projectId);
       const container = document.getElementById('requestsList');
       if(!container) return;
-      if(myRequests.length === 0) { container.innerHTML = '<p>Пока нет заявок.</p>'; return; }
+      if(myRequests.length === 0) {
+        container.innerHTML = '<p>Пока нет заявок.</p>';
+        return;
+      }
       container.innerHTML = myRequests.map(r => `<div class="task-card"><strong>${escapeHtml(r.school)}</strong><br>${escapeHtml(r.person)} (${escapeHtml(r.email)})<br><button onclick="window.location.href='mailto:${r.email}'">Связаться</button></div>`).join('');
     }
 
@@ -455,7 +926,11 @@
       if (studentRadio.checked) {
         const captain = document.getElementById('captainName').value.trim();
         const team = document.getElementById('teamName').value.trim();
-        if (!captain || !team) { loginErrorDiv.textContent = 'Заполните поля'; loginErrorDiv.style.display = 'block'; return; }
+        if (!captain || !team) {
+          loginErrorDiv.textContent = 'Заполните поля';
+          loginErrorDiv.style.display = 'block';
+          return;
+        }
         const activeTrack = document.querySelector('.track-btn.active');
         const trackText = activeTrack ? activeTrack.innerText : 'А1 · Семестр';
         const selectedTrackVal = trackText.includes('А1') ? 'А1' : 'А2';
