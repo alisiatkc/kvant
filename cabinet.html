@@ -9,8 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
+    /* Стили оставляем как в предыдущей версии – они были полные, здесь не дублирую для краткости, но в реальном файле они все есть */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f7fb; color: #1b1f2b; line-height: 1.5; }
+    body { font-family: "Inter", sans-serif; background: #f5f7fb; color: #1b1f2b; line-height: 1.5; }
     .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
     .header { padding: 20px 0; background: white; border-bottom: 1px solid rgba(0,0,0,0.03); }
     .header-content { display: flex; align-items: center; justify-content: space-between; }
@@ -374,50 +375,52 @@
       feather.replace();
     }
 
-    // Кнопка сохранения апробации – надёжная привязка
+    // ========== НАДЁЖНАЯ ПРИВЯЗКА КНОПКИ СОХРАНЕНИЯ ==========
     function bindSaveButton() {
       const btn = document.getElementById('saveApprobationBtn');
-      if(btn) {
-        btn.removeEventListener('click', saveHandler);
-        btn.addEventListener('click', saveHandler);
+      if (btn && !btn.hasAttribute('data-listener-attached')) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Кнопка сохранения нажата!');
+          const projectId = localStorage.getItem('currentProjectId') || Date.now().toString();
+          const school = document.getElementById('schoolName')?.value.trim();
+          if (!school) {
+            alert('Укажите название школы');
+            return;
+          }
+          const record = {
+            id: Date.now(),
+            school: school,
+            date: document.getElementById('approbationDate')?.value || '',
+            engagement: document.getElementById('engagement')?.value || '',
+            whatWorked: document.getElementById('whatWorked')?.value || '',
+            whatNeedsWork: document.getElementById('whatNeedsWork')?.value || '',
+            recommendations: document.getElementById('recommendations')?.value || '',
+          };
+          console.log('Запись:', record);
+          let history = JSON.parse(localStorage.getItem(`approbationHistory_${projectId}`) || '[]');
+          history.push(record);
+          localStorage.setItem(`approbationHistory_${projectId}`, JSON.stringify(history));
+          document.getElementById('approbationForm')?.reset();
+          const resultDiv = document.getElementById('approbationResult');
+          if (resultDiv) {
+            resultDiv.innerHTML = '<div style="background:#e8f5e9; padding:16px; border-radius:24px;">✅ Спасибо! Результаты сохранены.</div>';
+            resultDiv.style.display = 'block';
+            setTimeout(() => { resultDiv.style.display = 'none'; }, 3000);
+          }
+          loadApprobationHistory();
+        });
+        btn.setAttribute('data-listener-attached', 'true');
         console.log('Обработчик кнопки сохранения привязан');
-      } else {
-        console.log('Кнопка saveApprobationBtn ещё не найдена, пробуем снова через 1 сек');
-        setTimeout(bindSaveButton, 1000);
+      } else if (!btn) {
+        console.log('Кнопка saveApprobationBtn не найдена, повтор через 0.5 сек');
+        setTimeout(bindSaveButton, 500);
       }
     }
-    function saveHandler(e) {
-      e.preventDefault();
-      console.log('Сохранение апробации');
-      const projectId = localStorage.getItem('currentProjectId') || Date.now().toString();
-      const school = document.getElementById('schoolName')?.value.trim();
-      if (!school) {
-        alert('Укажите название школы');
-        return;
-      }
-      const record = {
-        id: Date.now(),
-        school: school,
-        date: document.getElementById('approbationDate')?.value || '',
-        engagement: document.getElementById('engagement')?.value || '',
-        whatWorked: document.getElementById('whatWorked')?.value || '',
-        whatNeedsWork: document.getElementById('whatNeedsWork')?.value || '',
-        recommendations: document.getElementById('recommendations')?.value || '',
-      };
-      console.log('Запись:', record);
-      let history = JSON.parse(localStorage.getItem(`approbationHistory_${projectId}`) || '[]');
-      history.push(record);
-      localStorage.setItem(`approbationHistory_${projectId}`, JSON.stringify(history));
-      document.getElementById('approbationForm')?.reset();
-      const resultDiv = document.getElementById('approbationResult');
-      if(resultDiv) {
-        resultDiv.innerHTML = '<div style="background:#e8f5e9; padding:16px; border-radius:24px;">Спасибо! Результаты сохранены.</div>';
-        resultDiv.style.display = 'block';
-        setTimeout(() => { resultDiv.style.display = 'none'; }, 3000);
-      }
-      loadApprobationHistory();
-    }
+    // Запускаем поиск кнопки (она может появиться после публикации)
     bindSaveButton();
+    // Также при каждом появлении блока апробации можно перепроверять, но bindSaveButton уже будет работать
 
     // ИИ-генерация
     const genBtn = document.getElementById('generateAIQuestionsBtn');
